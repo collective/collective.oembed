@@ -1,0 +1,4 @@
+<layers>
+    <layer name="collective.oembed"
+           interface="collective.oembed.interfaces.OEmbedLayer" />
+</layers>
