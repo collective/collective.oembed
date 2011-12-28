@@ -1,0 +1,6 @@
+<div>
+    <a tal:attributes="href string:${view/data/url}" target="_blank">
+        <img tal:attributes="src string:${view/data/url}; alt string:${view/data/title}"/>
+    </a>
+</div>
+<div tal:condition="view/data/html|nothing" tal:content="view/data/html"></div>

@@ -1,0 +1,2 @@
+<a tal:attributes="href string:${view/data/url}" target="_blank" tal:content="view/data/title"></a>
+<div tal:condition="view/data/html|nothing" tal:replace="structure view/data/html"></div>

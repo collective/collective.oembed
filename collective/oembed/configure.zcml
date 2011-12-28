@@ -16,6 +16,9 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
+  <utility factory=".consumer.Consumer" />
+
+<!--  
   <browser:viewlet
     name="collective.oembed.viewlet.jqueryoembed"
     for="*"
@@ -24,6 +27,7 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
+    -->
   <browser:viewlet
     name="collective.oembed.viewlet.discovery"
     for="*"
@@ -38,6 +42,7 @@
       menu="plone_displayviews"
       title="OEmbed view"
       for="Products.ATContentTypes.interfaces.IATLink"
+      class=".link_view.LinkView"
       template="link_view.pt"
       permission="zope2.View"
       />
