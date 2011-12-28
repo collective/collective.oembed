@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="collective.googledocsviewer">
+<body>
+<div metal:fill-slot="content-core">
+
+  <metal:block define-macro="content-core">
+  <p>
+      <span i18n:translate="link_address">The link address is:</span>
+      <a href="#" tal:attributes="href context/remote_url"
+                  tal:content="context/remote_url"
+                  class="oembed">remote url</a>
+  </p>
+  </metal:block>
+
+</div>
+</body>
+</html>

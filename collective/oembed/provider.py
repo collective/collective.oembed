@@ -31,7 +31,7 @@ class OEmbedProvider(BrowserView):
             return e
 
     def update(self):
-        import pdb;pdb.set_trace()
+#        import pdb;pdb.set_trace()
         self.format = self.request.get('format',None)
         if self.format is None:
             self.format = 'json'

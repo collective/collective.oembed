@@ -12,3 +12,6 @@ URL Scheme: http://mysite.com/*
 API endpoint: http://mysite.com/@@oembed
 Supports discovery via <link> tags
 
+oembed client
+=============
+

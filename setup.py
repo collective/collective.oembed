@@ -25,7 +25,8 @@ setup(name='collective.oembed',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'python-oembed',
+          'collective.js.oembed',
+          'plone.app.registry',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

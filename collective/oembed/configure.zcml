@@ -16,6 +16,25 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
+  <browser:viewlet
+    name="collective.oembed.viewlet.jqueryoembed"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+    class=".viewlet.JQueryOEmbedViewlet"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
+  <include package="plone.app.contentmenu"/>
+  <browser:page
+      name="link_oembed_view"
+      menu="plone_displayviews"
+      title="OEmbed view"
+      for="Products.ATContentTypes.interfaces.IATLink"
+      template="link_view.pt"
+      permission="zope2.View"
+      />
+
+<!--
   <browser:page
     name="oembed"
     for="*"
@@ -23,4 +42,12 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
+  <browser:viewlet
+    name="oembed"
+    for="*"
+    class=".provider.OEmbedProvider"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
+-->
 </configure>
