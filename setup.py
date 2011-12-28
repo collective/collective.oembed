@@ -25,13 +25,14 @@ setup(name='collective.oembed',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'python-oembed',
           'collective.js.oembed',
+#          'collective.js.oembedall',
           'plone.app.registry',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
       # -*- Entry points: -*-
-
       [z3c.autoinclude.plugin]
       target = plone
       """,

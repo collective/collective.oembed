@@ -3,6 +3,6 @@
   <version>1001</version>
   <dependencies>
     <dependency>profile-plone.app.registry:default</dependency>
-    <dependency>profile-collective.js.oembed:default</dependency>
+    <dependency>profile-collective.js.oembedall:default</dependency>
   </dependencies>
 </metadata>

@@ -24,6 +24,14 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
+  <browser:viewlet
+    name="collective.oembed.viewlet.discovery"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+    class=".viewlet.Discovery"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
   <include package="plone.app.contentmenu"/>
   <browser:page
       name="link_oembed_view"
@@ -34,7 +42,6 @@
       permission="zope2.View"
       />
 
-<!--
   <browser:page
     name="oembed"
     for="*"
@@ -42,6 +49,7 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
+<!-- 
   <browser:viewlet
     name="oembed"
     for="*"

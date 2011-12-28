@@ -13,7 +13,7 @@ class IOEmbedClientSettings(interface.Interface):
     embedMethod = schema.Choice(title=_(u'embedMethod'),
                                 description=_(u'embedMethod_description'),
                                 vocabulary=vocabulary.embedMethods,
-                                default=u'append')
+                                default=u'auto')
 
 #    we will not using these options
 #    maxWidth = schema.Int(title=_(u'maxWidth'),
@@ -21,10 +21,7 @@ class IOEmbedClientSettings(interface.Interface):
 #    
 #    maxHeight = schema.Int(title=_(u'maxHeight'),
 #                           required=False)
-    
-    greedy = schema.Bool(title=_(u'greedy'),
-                         default=False)
-    
+
     defaultOEmbedProvider = schema.ASCIILine(title=_(u'defaultOEmbedProvider'),
                                              default="embed.ly")
 

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object name="Link">
+    <property name="view_methods" purge="False">
+        <element value="link_oembed_view" />
+    </property>
+</object>

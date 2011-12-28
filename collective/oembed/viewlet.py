@@ -1,9 +1,11 @@
 import json
 import StringIO
+import urllib
 from zope import component
 from zope import schema
 from plone.app.layout.viewlets import common
 
+from plone.memoize.instance import memoize
 from collective.oembed import interfaces
 from plone.registry.interfaces import IRegistry
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -51,3 +53,27 @@ class JQueryOEmbedViewlet(common.ViewletBase):
         value = sio.getvalue()
 
         return u'%s};'%(value[0:-1])
+
+class Discovery(common.ViewletBase):
+    """Add oembed discovery service"""
+
+    index = ViewPageTemplateFile('viewlet-discovery.pt')
+
+    @memoize
+    def query(self):
+        query = {'url':self.context.absolute_url()}
+        return query
+
+    def oembed_url_json(self):
+        query = self.query()
+        query['format'] = 'json'
+        return u'%s?%s'%(self.site_url, urllib.urlencode(query))
+    
+    def oembed_url_xml(self):
+        query = self.query()
+        query['format'] = 'xml'
+        return u'%s?%s'%(self.site_url, urllib.urlencode(query))
+    
+    @memoize
+    def title(self):
+        return u'%s oEmbed Profile'%self.context.Title()

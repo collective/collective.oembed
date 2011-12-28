@@ -1,0 +1,4 @@
+<link rel="alternate" type="application/json+oembed"
+    tal:attributes="href string:${view/oembed_url_json}; title view/title"/>
+<link rel="alternate" type="text/xml+oembed"
+    tal:attributes="href string:${view/oembed_url_xml}; title view/title"/>
