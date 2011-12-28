@@ -12,6 +12,7 @@ import oembed
 from plone.registry.interfaces import IRegistry
 
 from collective.oembed import interfaces
+from collective.oembed import endpoints
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -20,24 +21,6 @@ logger = logging.getLogger('collective.oembed')
 def _render_details_cachekey(method, self, url, maxwidth, maxheight, format):
     return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
 
-class EmbedlyEndPoint(oembed.OEmbedEndpoint):
-    """override this one to add api key"""
-
-    def __init__(self, embedly_re):
-        url = 'http://api.embed.ly/1/oembed'
-        urlSchemes = [embedly_re]
-        super(EmbedlyEndPoint, self).__init__(url, urlSchemes=urlSchemes)
-        self.apikey = None
-        self.embedly_re = embedly_re
-
-    def request(self, url, **opt):
-        query = opt
-        query['key'] = self.apikey
-        return super(EmbedlyEndPoint, self).request(url, **query)
-
-    def match(self, url):
-        return bool(re.match(self.embedly_re, url))
-
 
 class Consumer(object):
     """Consumer utility"""
@@ -45,6 +28,8 @@ class Consumer(object):
 
     def __init__(self):
         self.consumer = None
+        self.embedly_apikey = None
+        self.site_domain = None
 
 #    @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
@@ -55,6 +40,7 @@ class Consumer(object):
         if maxheight is not None:
             request['maxheight'] = maxheight
         request['format'] = format
+
         if self.settings.embedly_apikey:
             request['key']=self.settings.embedly_apikey
 
@@ -65,20 +51,21 @@ class Consumer(object):
             logger.info(e)
 
     def initialize_consumer(self):
-        self.consumer = oembed.OEmbedConsumer()
-#        embedly_re = re.compile(self.settings.embedly_re)
-        endpoint = EmbedlyEndPoint(self.settings.embedly_re)
-        endpoint.apikey = self.settings.embedly_apikey
-        self.consumer.addEndpoint(endpoint)
-        providers = self.providers
+        consumer = oembed.OEmbedConsumer()
+        if self.embedly_apikey is not None:
+            endpoint = endpoints.EmbedlyEndPoint(embedly_apikey)
+            consumer.addEndpoint(endpoint)
 
+        endpoint = endpoints.WordpressEndPoint()
+        consumer.addEndpoint(endpoint)
+
+        providers = endpoints.REGEX_PROVIDERS
+    
         for provider in providers:
-            endpoint = endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'], provider[u'regex'])
-            self.consumer.addEndpoint(endpoint)
+            endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'], provider[u'regex'])
+            consumer.addEndpoint(endpoint)
 
-    @property
-    def providers(self):
-        return interfaces.DEFAULT_NATIVE_PROVIDERS
+        self.consumer = consumer
 
     @property
     def settings(self):
@@ -110,6 +97,7 @@ class ConsumerView(BrowserView):
         self.data = consumer.get_data(url,
                                  maxwidth=self.maxwidth,
                                  maxheight=self.maxheight)
+
         if self.data is None:
             logger.info('no data for %s'%url)
             return u''
