@@ -1,12 +1,13 @@
 Introduction
 ============
 
-This addon integrate oembed_ into Plone.
+This addon integrate oembed_ into Plone. You can find a demo at
+http://youtu.be/kHikGIWrvCs
 
 ombed provider
 ==============
 
-Your site will become oembed provider using @@oembed view as an endpoint.
+Your site will become oembed provider using @@oembed view as an endpoint::
 
     URL Scheme: http://mysite.com/*
     API endpoint: http://mysite.com/@@oembed
@@ -166,7 +167,7 @@ Authors
 
   - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
 
-..Contributors
+.. Contributors
 
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
