@@ -1,4 +1,4 @@
-<div class="oembed oembed-photo">
+<div class="oembed-wrapper oembed-photo">
     <p><a tal:attributes="href string:${view/data/url}" target="_blank">
         <img tal:attributes="src string:${view/data/url}; alt string:${view/data/title}"/>
     </a></p>

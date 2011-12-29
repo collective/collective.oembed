@@ -70,6 +70,8 @@ class Consumer(object):
 
         self.consumer = consumer
 
+    def embed(self, url, maxwidth=None, maxheight=None, format='json'):
+        return u""
 
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
@@ -79,41 +81,63 @@ class ConsumerView(BrowserView):
                  u'link':  ViewPageTemplateFile('oembed_link.pt'),
                  u'rich':  ViewPageTemplateFile('oembed_rich.pt')}
 
-    maxwidth = None
-    maxheight = None
-
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.data = None
         self._utility = None
-        self.data = {}
+        self._url = None
+        self._format = "json"
+        self._maxwidth = None
+        self._maxheight = None
 
-    def url(self):
-        return self.context.getRemoteUrl()
-
-    def embed(self):
-        consumer = self.consumer()
-        consumer.embedly_apikey = self.embedly_apikey()
-        url = self.url()
-        self.data = consumer.get_data(url,
-                                 maxwidth=self.maxwidth,
-                                 maxheight=self.maxheight)
-
-        if self.data is None:
-            logger.info('no data for %s'%url)
-            return u''
-
-        if u'type' not in self.data:
-            logger.info('no type in data for %s'%url)
-
-        template = self.embed_templates.get(self.data[u'type'])
-
-        return template(self)
-
-    def consumer(self):
+    def update(self):
+        """initialize all data"""
         if self._utility is None:
             self._utility = component.getUtility(interfaces.IConsumer)
-        return self._utility
+            self._utility.embedly_apikey = self.embedly_apikey()
+
+        if self._url is None:
+            self._url = self.context.getRemoteUrl()
+
+    def update_data(self):
+        """load data extracted from the context"""
+        self.update()
+        if self.data is None:
+            self.data = self._utility.get_data(self._url,
+                                               maxwidth=self._maxwidth,
+                                               maxheight=self._maxheight,
+                                               format=self._format)
+
+    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
+        self.update()
+        data = self._utility.get_data(url,
+                                      maxwidth=maxwidth,
+                                      maxheight=maxheight,
+                                      format=format)
+        return data
+
+    def embed(self, url, maxwidth=None, maxheight=None, format='json'):
+
+        data = self.get_data(url, maxwidth, maxheight, format)
+        return self.display_data(data)
+
+    def embed_auto(self):
+        """This method extract params from the context"""
+        self.update()
+        self.update_data()
+        return self.display_data(self.data)
+
+    def display_data(self, data):
+        if data is None:
+            return u""
+
+        if u'type' not in data:
+            logger.info('no type in data for %s'%url)
+
+        template = self.embed_templates.get(data[u'type'])
+
+        return template(self)
 
     def embedly_apikey(self):
         """Return the api key from collective.embedly if found or from
@@ -132,7 +156,7 @@ class ConsumerView(BrowserView):
                 pass
 
         try:
-            proxy = registry.forInterface(interfaces.IConsumerSettings)
+            proxy = registry.forInterface(interfaces.IOEmbedSettings)
             return proxy.embedly_apikey
         except KeyError, e:
             pass

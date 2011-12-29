@@ -1,6 +1,8 @@
+<tal:block tal:condition="view/display_condition">
 <script type="text/javascript" tal:content="view/settings_javascript"></script>
 <script type="text/javascript">
         $(document).ready(function() {
             $(".oembed").oembed(null,jqueryOmebedSettings);
         });
 </script>
+</tal:block>

@@ -1,6 +1,5 @@
 <registry>
 
-    <records interface="collective.oembed.interfaces.IOEmbedClientSettings" />
-    <records interface="collective.oembed.interfaces.IConsumerSettings" />
+    <records interface="collective.oembed.interfaces.IOEmbedSettings" />
 
 </registry>

@@ -17,26 +17,15 @@ class JQueryOEmbedViewlet(common.ViewletBase):
     jsvarname = u'jqueryOmebedSettings'
 
     def settings(self):
-        registry = component.getUtility(IRegistry)
-        proxy = registry.forInterface(interfaces.IOEmbedClientSettings)
-        #transform into json
-        return proxy
-    
-    def settings_dict(self):
-        res = {}
-        proxy = self.settings()
-        fields = schema.getFields(proxy.__schema__)
-
-        for field in fields:
-            value = getattr(proxy, field)
-            if value is not None:
-                res[field] = value
-
-        return res
-
-    def settings_json(self):
-        sdict = self.settings_dict()
-        return json.dumps(sdict)
+        """Return settings"""
+        registry = component.queryUtility(IRegistry)
+        if registry is None:
+            return
+        try:
+            proxy = registry.forInterface(interfaces.IOEmbedSettings)
+            return proxy
+        except KeyError, e:
+            pass
 
     def settings_javascript(self):
         #this is not json, we need to serialize results in unicode by hand
@@ -53,6 +42,15 @@ class JQueryOEmbedViewlet(common.ViewletBase):
         value = sio.getvalue()
 
         return u'%s};'%(value[0:-1])
+
+    def display_condition(self):
+        settings = self.settings
+        if settings is None:
+            return False
+        try:
+            return bool(settings.activate_jqueryoembed_integration)
+        except AttributeError,e:
+            return False
 
 class Discovery(common.ViewletBase):
     """Add oembed discovery service"""

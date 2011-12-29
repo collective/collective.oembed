@@ -25,8 +25,6 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://api.smugmug.com/services/oembed/'},
  {u'regex':['http://www.slideshare.net/*/*'],
   u'endpoint':'http://www.slideshare.net/api/oembed/2'},
-# {u'regex':['regex:.*.wordpress\.com/.*'], #need specific query param for=
-#  u'endpoint':'http://public-api.wordpress.com/oembed/1.0/'},
 # {u'regex':[],
 #  u'endpoint':''},
 ]

@@ -14,7 +14,7 @@
       <a href="#" tal:attributes="href context/remote_url"
                   tal:content="context/remote_url"
                   class="oembed">remote url</a>
-      <tal:oembed tal:replace="structure view/embed"></tal:oembed>
+      <tal:oembed tal:replace="structure view/embed_auto"></tal:oembed>
   </p>
   </metal:block>
 

@@ -12,30 +12,27 @@ class OEmbedLayer(interface.Interface):
 class IConsumer(interface.Interface):
     """consumer utility"""
     
+    def get_data(url, maxwidth=None, maxheight=None, format='json'):
+        """Return the data provided by the endpoint"""
+    
     def embed(url, maxwidth=None, maxheight=None, format='json'):
-        """Return the code to embed"""
+        """Return the html code to display the content provided by url."""
 
-class IConsumerSettings(interface.Interface):
+class IOEmbedSettings(interface.Interface):
     """Client server side is named consumer"""
     
     embedly_apikey  = schema.ASCIILine(title=_(u'embedlykey'),
                                   required=False)
     
+    activate_jqueryoembed_integration = schema.Bool(title=_(u"Activate jquery.oembed integration"),
+                                                    description=_(u"If you have installed a jquery.oembed plugin, you can activate integration"),
+                                                    default=False)
 
-class IOEmbedClientSettings(interface.Interface):
-    """Configuration of the jquery.oembed plugin. We are using it in implicit mode"""
-    
+    #configuration for jquery.oembed javascript
     embedMethod = schema.Choice(title=_(u'embedMethod'),
                                 description=_(u'embedMethod_description'),
                                 vocabulary=vocabulary.embedMethods,
                                 default=u'auto')
-
-#    we will not using these options
-#    maxWidth = schema.Int(title=_(u'maxWidth'),
-#                          required=False)
-#    
-#    maxHeight = schema.Int(title=_(u'maxHeight'),
-#                           required=False)
 
     defaultOEmbedProvider = schema.ASCIILine(title=_(u'defaultOEmbedProvider'),
                                              default="embed.ly")
@@ -44,7 +41,7 @@ class IOEmbedClientSettings(interface.Interface):
                                    value_type=schema.ASCIILine(title=_(u'provider')),
                                    default=[],
                                    required=False)
-    
+
     disallowedProviders = schema.List(title=_(u'disallowedProviders'),
                                    value_type=schema.ASCIILine(title=_(u'provider')),
                                    default=[],
@@ -53,7 +50,4 @@ class IOEmbedClientSettings(interface.Interface):
     customProviders = schema.List(title=_(u'customProviders'),
                                   value_type=schema.ASCIILine(title=_(u'provider')),
                                   default=[],
-                                   required=False)
-
-    embedlykey = schema.ASCIILine(title=_(u'embedlykey'),
                                   required=False)
