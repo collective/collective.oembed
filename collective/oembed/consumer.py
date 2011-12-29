@@ -27,6 +27,30 @@ logger = logging.getLogger('collective.oembed')
 def _render_details_cachekey(method, self, url, maxwidth, maxheight, format):
     return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
 
+TEMPLATES = {u"link":u"""
+    <div class="oembed-wrapper oembed-link">
+      <a href="%(url)s" target="_blank">%(title)s"></a>
+      <div>%(html)s</div>
+    </div> 
+    """,
+                 u"photo":u"""
+    <div class="oembed-wrapper oembed-photo">
+      <p><a href="%(url)s" target="_blank">%(title)s">
+        <img src="%(url)s" alt="%(title)s"/>
+      </a></p>
+      <div>%(html)s</div>
+    </div> 
+    """,
+                 u"rich":u"""
+    <div class="oembed-wrapper oembed-rich">
+      %(html)s
+    </div> 
+    """,
+                 u"video":u"""
+    <div class="oembed-wrapper oembed-video">
+      %(html)s
+    </div> 
+    """}
 
 class Consumer(object):
     """Consumer utility"""
@@ -35,7 +59,6 @@ class Consumer(object):
     def __init__(self):
         self.consumer = None
         self.embedly_apikey = None
-        self.site_domain = None
 
 #    @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
@@ -54,6 +77,9 @@ class Consumer(object):
             logger.info(e)
 
     def initialize_consumer(self):
+        if self.consumer is not None:
+            return self.consumer
+
         consumer = oembed.OEmbedConsumer()
         if self.embedly_apikey is not None:
             endpoint = endpoints.EmbedlyEndPoint(self.embedly_apikey)
@@ -71,7 +97,11 @@ class Consumer(object):
         self.consumer = consumer
 
     def embed(self, url, maxwidth=None, maxheight=None, format='json'):
-        return u""
+        data = self.get_data(url, maxwidth=maxwidth, maxheight=maxheight,
+                             format=format)
+        if data is None or u"type" not in data:
+            return u""
+        return TEMPLATES[data[u"type"]]%data
 
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
