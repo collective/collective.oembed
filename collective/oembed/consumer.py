@@ -16,6 +16,12 @@ from collective.oembed import endpoints
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+try:
+    from collective.embedly.interfaces import IEmbedlySettings
+    HAS_COLLECTIVE_EMBEDLY = True
+except ImportError,e:
+    HAS_COLLECTIVE_EMBEDLY = False
+
 logger = logging.getLogger('collective.oembed')
 
 def _render_details_cachekey(method, self, url, maxwidth, maxheight, format):
@@ -41,9 +47,6 @@ class Consumer(object):
             request['maxheight'] = maxheight
         request['format'] = format
 
-        if self.settings.embedly_apikey:
-            request['key']=self.settings.embedly_apikey
-
         try:
             response = self.consumer.embed(url,**request)
             return response.getData()
@@ -53,7 +56,7 @@ class Consumer(object):
     def initialize_consumer(self):
         consumer = oembed.OEmbedConsumer()
         if self.embedly_apikey is not None:
-            endpoint = endpoints.EmbedlyEndPoint(embedly_apikey)
+            endpoint = endpoints.EmbedlyEndPoint(self.embedly_apikey)
             consumer.addEndpoint(endpoint)
 
         endpoint = endpoints.WordpressEndPoint()
@@ -67,9 +70,6 @@ class Consumer(object):
 
         self.consumer = consumer
 
-    @property
-    def settings(self):
-        return component.getUtility(IRegistry).forInterface(interfaces.IConsumerSettings)
 
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
@@ -93,6 +93,7 @@ class ConsumerView(BrowserView):
 
     def embed(self):
         consumer = self.consumer()
+        consumer.embedly_apikey = self.embedly_apikey()
         url = self.url()
         self.data = consumer.get_data(url,
                                  maxwidth=self.maxwidth,
@@ -113,3 +114,25 @@ class ConsumerView(BrowserView):
         if self._utility is None:
             self._utility = component.getUtility(interfaces.IConsumer)
         return self._utility
+
+    def embedly_apikey(self):
+        """Return the api key from collective.embedly if found or from
+        our own settings"""
+        proxy = None
+        registry = component.queryUtility(IRegistry)
+
+        if registry is None:
+            return
+
+        if HAS_COLLECTIVE_EMBEDLY:
+            try:
+                proxy = registry.forInterface(IEmbedlySettings)
+                return proxy.api_key
+            except KeyError, e:
+                pass
+
+        try:
+            proxy = registry.forInterface(interfaces.IConsumerSettings)
+            return proxy.embedly_apikey
+        except KeyError, e:
+            pass
