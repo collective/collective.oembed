@@ -74,4 +74,4 @@ class Discovery(common.ViewletBase):
     
     @memoize
     def title(self):
-        return u'%s oEmbed Profile'%self.context.Title()
+        return u'%s oEmbed Profile'%self.context.Title().decode('utf-8')
