@@ -1,1 +1,1 @@
-<div tal:condition="view/data/html|nothing" tal:replace="structure view/data/html"></div>
+<div tal:condition="view/data/html|nothing" class="oembed oembed-video" tal:content="structure view/data/html"></div>

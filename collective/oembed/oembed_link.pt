@@ -1,2 +1,4 @@
-<a   tal:condition="view/data/url|nothing" tal:attributes="href string:${view/data/url}" target="_blank" tal:content="view/data/title"></a>
-<div tal:condition="view/data/html|nothing" tal:replace="structure view/data/html"></div>
+<div class="oembed oembed-link">
+  <a   tal:condition="view/data/url|nothing" tal:attributes="href string:${view/data/url}" target="_blank" tal:content="view/data/title"></a>
+  <div tal:condition="view/data/html|nothing" tal:replace="structure view/data/html"></div>
+</div> 
