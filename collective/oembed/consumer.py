@@ -24,7 +24,8 @@ except ImportError,e:
 
 logger = logging.getLogger('collective.oembed')
 
-def _render_details_cachekey(method, self, url, maxwidth, maxheight, format):
+def _render_details_cachekey(method, self, url, maxwidth=None, maxheight=None,
+                             format='json'):
     return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
 
 TEMPLATES = {u"link":u"""
@@ -60,8 +61,12 @@ class Consumer(object):
         self.consumer = None
         self.embedly_apikey = None
 
-#    @cache(_render_details_cachekey)
+    @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
+        return self.get_data_uncached(url, maxwidth, maxheight, format)
+
+    def get_data_uncached(self, url, maxwidth=None, maxheight=None,
+                          format='json'):
         self.initialize_consumer()
         request = {}
         if maxwidth is not None:
@@ -91,7 +96,8 @@ class Consumer(object):
         providers = endpoints.REGEX_PROVIDERS
     
         for provider in providers:
-            endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'], provider[u'regex'])
+            endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
+                                             provider[u'regex'])
             consumer.addEndpoint(endpoint)
 
         self.consumer = consumer

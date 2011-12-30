@@ -16,6 +16,7 @@ class Test(base.UnitTestCase):
         #test existing content
         url = 'http://www.youtube.com/watch?v=kHikGIWrvCs'
         data = self.consumer.get_data(url, maxwidth=300)
+        self.failUnless(data is not None)
         self.failUnless(data[u'type']==u'video')
         self.failUnless(u'collective.oembed' in data[u'title'])
         self.failUnless(data[u'author_url']==u'http://www.youtube.com/user/toutpt')
