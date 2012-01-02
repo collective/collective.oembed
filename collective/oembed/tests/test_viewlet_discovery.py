@@ -4,17 +4,37 @@ class Test(base.UnitTestCase):
     
     def setUp(self):
         super(Test, self).setUp()
-        from collective.oembed import consumer
+        from collective.oembed import viewlet
+        self.viewlet = viewlet.Discovery(self.context, 
+                                         self.request, None)
+        self.viewlet.site_url = 'http://nohost'
+    
+    def test_oembed_url_json(self):
+        url = self.viewlet.oembed_url_json()
+        self.failUnless(url == u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid&format=json',url)
 
-    def testTitle(self):
-        self.assertEqual("a","b")
+    def test_oembed_url_xml(self):
+        url = self.viewlet.oembed_url_xml()
+        self.failUnless(url == u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid&format=xml',url)
 
+    def test_title(self):
+        title = self.viewlet.title()
+        self.failUnless(title.endswith('oEmbed Profile'))
+    
+    def test_query(self):
+        query = self.viewlet.query()
+        self.failUnless('url' in query)
+        self.failUnless(query['url'] == self.context.absolute_url())
 
 class TestIntegration(base.TestCase):
-    
-    def testProperties(self):
-        from collective.oembed import consumer
-        self.failUnless(300 == 400)
+
+    def setUp(self):
+        super(TestIntegration, self).setUp()
+        from collective.oembed import viewlet
+        self.viewlet = viewlet.Discovery(self.portal, 
+                                         self.portal.REQUEST, None)
+    def test_rendering(self):
+        pass
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class

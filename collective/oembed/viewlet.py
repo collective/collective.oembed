@@ -56,22 +56,28 @@ class Discovery(common.ViewletBase):
     """Add oembed discovery service"""
 
     index = ViewPageTemplateFile('viewlet-discovery.pt')
+    
+    def __init__(self, context, request, view, manager=None):
+        super(Discovery, self).__init__(context, request, view, manager=None)
+        self._query = None
+        self._title = None
 
-    @memoize
     def query(self):
-        query = {'url':self.context.absolute_url()}
-        return query
+        if self._query is None:
+            self._query = {'url':self.context.absolute_url()}
+        return self._query
 
     def oembed_url_json(self):
         query = self.query()
         query['format'] = 'json'
-        return u'%s?%s'%(self.site_url, urllib.urlencode(query))
+        return u'%s/@@oembed?%s'%(self.site_url, urllib.urlencode(query))
     
     def oembed_url_xml(self):
         query = self.query()
         query['format'] = 'xml'
-        return u'%s?%s'%(self.site_url, urllib.urlencode(query))
+        return u'%s/@@oembed?%s'%(self.site_url, urllib.urlencode(query))
     
-    @memoize
     def title(self):
-        return u'%s oEmbed Profile'%self.context.Title().decode('utf-8')
+        if self._title is None:
+            self._title = u'%s oEmbed Profile'%self.context.Title().decode('utf-8')
+        return self._title
