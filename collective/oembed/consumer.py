@@ -82,15 +82,14 @@ class Consumer(object):
             logger.info(e)
 
     def initialize_consumer(self):
-        if self.consumer is not None:
-            return self.consumer
+        if self.consumer is None:
 
-        consumer = oembed.OEmbedConsumer()
-        _enpoints = endpoints.load_all_endpoints(embedly_apikey=self.embedly_apikey)
-        for endpoint in _enpoints:
-            self.consumer.addEndpoint(endpoint)
-
-        self.consumer = consumer
+            consumer = oembed.OEmbedConsumer()
+            _enpoints = endpoints.load_all_endpoints(embedly_apikey=self.embedly_apikey)
+            for endpoint in _enpoints:
+                consumer.addEndpoint(endpoint)
+    
+            self.consumer = consumer
 
     def embed(self, url, maxwidth=None, maxheight=None, format='json'):
         data = self.get_data(url, maxwidth=maxwidth, maxheight=maxheight,

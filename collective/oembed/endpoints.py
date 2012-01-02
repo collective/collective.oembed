@@ -61,7 +61,7 @@ def load_all_endpoints(embedly_apikey=None):
     endpoints = []
     if embedly_apikey is not None:
         endpoint = EmbedlyEndPoint(embedly_apikey)
-        consumer.addEndpoint(endpoint)
+        endpoints.append(endpoint)
 
     endpoint = WordpressEndPoint()
     endpoints.append(endpoint)

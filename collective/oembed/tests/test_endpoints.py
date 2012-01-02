@@ -12,8 +12,12 @@ class Test(base.UnitTestCase):
     def test_load_all_endpoints(self):
         from collective.oembed import endpoints
         all_endpoints = endpoints.load_all_endpoints()
-        self.failUnless(len(all_endpoints)>0)
-    
+        len_endpoints = len(all_endpoints)
+        self.failUnless(len_endpoints>0)
+        
+        all_endpoints = endpoints.load_all_endpoints(embedly_apikey="fakeapikey")
+        self.failUnless(len(all_endpoints)==len_endpoints + 1)
+
     def test_WordpressEndPoint(self):
         from collective.oembed import endpoints
         wordpress = endpoints.WordpressEndPoint()
