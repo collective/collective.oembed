@@ -32,6 +32,7 @@ class TestCase(unittest.TestCase):
         self.portal.invokeFactory('Folder', 'test-folder')
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
         self.folder = self.portal['test-folder']
+        self.folder.setTitle('Test folder')
 
 
 class FunctionalTestCase(unittest.TestCase):
@@ -48,6 +49,7 @@ class FunctionalTestCase(unittest.TestCase):
         self.portal.invokeFactory('Folder', 'test-folder')
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
         self.folder = self.portal['test-folder']
+        self.folder.setTitle('Test folder')
 
 def build_test_suite(test_classes):
     suite = unittest.TestSuite()

@@ -68,6 +68,16 @@ class TestIntegration(base.TestCase):
     def test_call(self):
         render = self.view()
         self.failUnless(render is not None)
+        import json
+        data = json.loads(render)
+        self.failUnless(u'type' in data)
+        self.failUnless(data[u'type'] == u'link')
+        self.failUnless(data[u'title'] == u'Test folder')
+    
+    def test_call_xml(self):
+        self.portal.REQUEST['format']='xml'
+        render = self.view()
+        self.failUnless(render is not None)
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class
