@@ -30,7 +30,7 @@ REGEX_PROVIDERS = [
  {u'regex':['http://www.5min.com/video/*'],
   u'endpoint':'http://api.5min.com/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
  {u'regex':['https://twitter.com/*/status*/*'],
-  u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
+  u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'}, #https://dev.twitter.com/docs/embedded-tweets
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
