@@ -61,6 +61,11 @@ class TestIntegration(base.TestCase):
         url = 'http://www.youtube.com/watch?v=kHikGIWrvCs'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
+        url = 'http://www.youtube.com/playlist?list=PL84E044CCF097C8CB'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
         #TODO add wrong url and try do not matchin url
 
     def test_endpoint_flickr(self):

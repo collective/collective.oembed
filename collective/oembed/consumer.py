@@ -126,6 +126,9 @@ class ConsumerView(BrowserView):
         self._format = "json"
         self._maxwidth = None
         self._maxheight = None
+        self.embeded = u""
+
+
 
     def update(self):
         """initialize all data"""

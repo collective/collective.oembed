@@ -4,15 +4,16 @@ from plone.app import testing
 from collective.oembed.tests import layer
 from collective.oembed.tests import utils
 
+
+
 class UnitTestCase(unittest.TestCase):
     
     def setUp(self):
-        from ZPublisher.tests.testPublish import Request
         from zope.annotation.interfaces import IAttributeAnnotatable
         from collective.oembed.interfaces import OEmbedLayer
         super(UnitTestCase, self).setUp()
         self.context = utils.FakeContext()
-        self.request = Request()
+        self.request = utils.Request()
         interface.alsoProvides(self.request,
                                (IAttributeAnnotatable,OEmbedLayer))
 

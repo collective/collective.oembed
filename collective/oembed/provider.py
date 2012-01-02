@@ -17,8 +17,11 @@ class OEmbedProvider(BrowserView):
         self.format = None
         self.url = None
         self.maxwidth = None
-        self.maxwidth = None
+        self.maxheight = None
         self.embed = {}
+        
+        self._site = None
+        self._target = None
 
     
     def __call__(self):
@@ -32,41 +35,63 @@ class OEmbedProvider(BrowserView):
 
     def update(self):
 #        import pdb;pdb.set_trace()
-        self.format = self.request.get('format',None)
         if self.format is None:
+            self.format = self.request.get('format',None)
+
+        if self.format is None or not self.format:
             self.format = 'json'
+        if self.format == 'json':
             self.request.response.setHeader('Content-Type','application/json')
+
         if self.format not in ('json','xml'):
             raise ValueError('format parameter must be in json, xml')
-        self.url = self.request.get('url',None)
+
+        if self.url is None:
+            self.url = self.request.get('url',None)
         if self.url is None:
             raise KeyError('you must provide url parameter')
-        self.maxwidth = self.request.get('maxwidth',None)
-        self.maxheight = self.request.get('maxheight',None)
-        path = self.getPathFromURL()
+
+        if self.maxwidth is None:
+            self.maxwidth = self.request.get('maxwidth',None)
+        if self.maxheight is None:
+            self.maxheight = self.request.get('maxheight',None)
+
+        path = self.get_path()
+        site = self.get_site()
+        if site is None or path is None:
+            return
+
+        ob = self.get_target()
+        if ob is None:
+            return
+
+        self.build_info(ob, site)
+
+    def build_info(self, context, site):
+        ob = context
+        site_title = site.Title()
+
         e = self.embed
-        site = self.portal()
-        ob = site.restrictedTraverse(path[1:]) #remove heading /
-        e['version'] = '1.0'
+        e[u'version'] = '1.0'
         title = ob.Title()
         if type(title) != unicode:
             title.decode('utf-8')
-        e['title'] = title
-        e['author_name'] = ob.Creator()
-        e['author_url'] = site.absolute_url()+'/author/' + ob.Creator()
-        site_title = site.Title()
+        e[u'title'] = title
+        e[u'author_name'] = ob.Creator()
+        e[u'author_url'] = site.absolute_url()+'/author/' + ob.Creator()
         if type(site_title) != unicode:
             site_title = site_title.decode('utf-8')
-        e['provider_name'] = site_title
-        e['provider_url'] = site.absolute_url()
+        e[u'provider_name'] = site_title
+
+        e[u'provider_url'] = site.absolute_url()
         if ob.portal_type == 'Image':
-            e['type'] = 'photo'
-            e['url'] = ob.absolute_url()
+            e[u'type'] = 'photo'
+            e[u'url'] = ob.absolute_url()
             image = ob.getField('image').get(ob)
-            e['width'] = image.width
-            e['height'] = image.height
+            e[u'width'] = image.width
+            e[u'height'] = image.height
         else:
-            e['type'] = 'link'
+            e[u'type'] = 'link'
 
     def render(self):
         res = self.embed
@@ -75,11 +100,28 @@ class OEmbedProvider(BrowserView):
 
         return self.index_xml()
 
-    def getPathFromURL(self):
+    def get_path(self):
         parsed = urlparse(self.url)
         path = parsed.path
         return path
     
-    def portal(self):
-        return getSite()
+    def get_site(self):
+        if self._site is None:
+            self._site = getSite()
+        return self._site
 
+    def get_target(self):
+        site = self.get_site()
+        path = self.get_path()
+
+        if site is None:
+            return
+
+        if self._target is None:
+            try:
+                self._target = site.restrictedTraverse(path[1:])#remove heading /
+            except KeyError,e:
+                logger.error(e)
+                return
+
+        return self._target

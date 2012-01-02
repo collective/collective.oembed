@@ -14,6 +14,7 @@ class FakeContext(object):
         self.aq_inner.aq_explicit = self
         self._modified = "modified date"
         self.remoteUrl = '' #fake Link
+        self.portal_type = 'Document'
 
     def getId(self):
         return self.id
@@ -23,6 +24,9 @@ class FakeContext(object):
 
     def Creators(self):
         return self.creators
+
+    def Creator(self):
+        return self.creators[0]
 
     def Description(self):
         return self.description
@@ -52,6 +56,7 @@ class FakeContext(object):
 
     def modified(self): #for ram cache key
         return "a modification date"
+
 
 class FakeBrain(object):
     def __init__(self):
@@ -91,3 +96,21 @@ class FakeProperty(object):
 
 def fake_get_property(self):
     return FakeProperty()
+
+from ZPublisher.tests.testPublish import Request as BaseRequest
+def setHeader(header,value):
+    pass
+
+class Request(BaseRequest):
+    """Request with set item support"""
+    
+    def __init__(self):
+        BaseRequest.__init__(self)
+        self.content = {}
+        setattr(self.response, 'setHeader', setHeader) #patch for tests
+
+    def __setitem__(self, name, value):
+        self.content[name] = value
+    
+    def get(self, a, b=''):
+        return self.content.get(a, b)
