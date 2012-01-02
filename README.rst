@@ -111,7 +111,6 @@ Other Plone addons
 
 * collective.portlet.oembed_
 * collective.js.oembed_
-* collective.js.oembedall_
 * collective.embedly_
 
 Credits
@@ -140,5 +139,4 @@ Authors
 .. _jquery.oembed: http://code.google.com/p/jquery-oembed/
 .. _collective.portlet.oembed: http://pypi.python.org/pypi/collective.portlet.oembed
 .. _collective.js.oembed: http://pypi.python.org/pypi/collective.js.oembed
-.. _collective.js.oembedall: http://pypi.python.org/pypi/collective.js.oembedall
 .. _collective.embedly: http://pypi.python.org/pypi/collective.embedly

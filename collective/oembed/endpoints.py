@@ -43,15 +43,6 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://clikthrough.com/services/oembed'}, #
  {u'regex':['http://dotsub.com/view/*'],
   u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
-# {u'regex':[''],
-#  u'endpoint':''},
-# {u'regex':[''],
-#  u'endpoint':''},
-# {u'regex':[''],
-#  u'endpoint':''},
-# {u'regex':[''],
-#  u'endpoint':''},
- 
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
