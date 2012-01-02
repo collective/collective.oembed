@@ -150,6 +150,16 @@ class TestIntegration(base.TestCase):
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="video",data[u"type"])
 
+    def test_twitter(self):
+        url = 'https://twitter.com/#!/toutpt/statuses/153185403766185985'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="rich")
+
+        url = 'https://twitter.com/toutpt/status/153185403766185985'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="rich")
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class
