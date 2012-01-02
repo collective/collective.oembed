@@ -25,8 +25,10 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://api.smugmug.com/services/oembed/'},
  {u'regex':['http://www.slideshare.net/*/*'],
   u'endpoint':'http://www.slideshare.net/api/oembed/2'},
-# {u'regex':[],
-#  u'endpoint':''},
+ {u'regex':['http://www.23hq.com/*/photo/*'],
+  u'endpoint':'http://www.23hq.com/23/oembed'},
+ {u'regex':['http://www.5min.com/video/*'],
+  u'endpoint':'http://api.5min.com/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):

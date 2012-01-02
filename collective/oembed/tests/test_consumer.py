@@ -67,7 +67,6 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]==u"video")
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_flickr(self):
         url = 'http://www.flickr.com/photos/14516334@N00/345009210/'
@@ -76,43 +75,36 @@ class TestIntegration(base.TestCase):
         url_set = 'http://www.flickr.com/photos/dcplcommons/show'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_viddler(self):
         url = 'http://www.viddler.com/explore/37signals/videos/40/'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_qik(self):
         url = 'http://qik.com/video/46087949'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_revision3(self):
         url = 'http://revision3.com/askjay/profitsharing'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_hulu(self):
         url = 'http://www.hulu.com/watch/309602/family-guy-grumpy-old-man'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_slideshare(self):
         url = 'http://www.slideshare.net/irsan.element/merancang-hidup-by-irsan'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_vimeo(self):
         url = 'http://vimeo.com/20664159'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_collegehumour(self):
         url_video = 'http://www.collegehumor.com/video/6664700/save-greendale-with-the-cast-of-community'
@@ -125,21 +117,18 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="rich")
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_ifixit(self):
         url = 'http://www.ifixit.com/Teardown/iPhone-4-Teardown/3130/1'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="rich")
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_smugmug(self):
         url = 'http://www.smugmug.com/popular/all?125787395_hQSj9#125787395_hQSj9'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="photo")
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_wordpress(self):
         url = 'http://toutpt.wordpress.com/2011/02/10/collective-portlet-itemview/'
@@ -147,8 +136,19 @@ class TestIntegration(base.TestCase):
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="link",data[u"type"])
 
-        #TODO add wrong url and try do not matchin url
 
+    def test_endpoint_23hq(self):
+        url = 'http://www.23hq.com/gergana/photo/1376029?album_id=1376028'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="photo",data[u"type"])
+        #album doesn't work atm: http://www.23hq.com/photogroup/tech/conversation/7548539
+
+    def test_5min(self):
+        url = 'http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="video",data[u"type"])
 
 
 def test_suite():
