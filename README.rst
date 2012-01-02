@@ -73,9 +73,11 @@ embed.ly is activated only if you have added an api_key or configured
 collective.embedly. The addon provide native support for the following services:
 
 External providers:
+
 * Embedly (http://embed.ly)
 
 Video providers:
+
 * 5min (http://www.5min.com/)
 * Youtube (http://www.youtube.com/)
 * Viddler (http://www.viddler.com/)
@@ -90,6 +92,7 @@ Video providers:
 * Dotsub (http://dotsub.com/)
 
 Photo providers:
+
 * 23hq (http://www.23hq.com/)
 * Flickr (http://www.flickr.com/)
 * SmugMug (http://www.smugmug.com/)
@@ -97,6 +100,7 @@ Photo providers:
 * Yfrog (http://yfrog.com/)
 
 Rich providers:
+
 * iFixit (http://www.iFixit.com)
 * Poll Everywhere (http://www.polleverywhere.com/)
 * SlideShare (http://www.slideshare.net/)
