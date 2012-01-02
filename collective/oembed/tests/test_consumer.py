@@ -85,26 +85,32 @@ class TestIntegration(base.TestCase):
         url = 'http://qik.com/video/46087949'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
 
     def test_endpoint_revision3(self):
         url = 'http://revision3.com/askjay/profitsharing'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
 
     def test_endpoint_hulu(self):
         url = 'http://www.hulu.com/watch/309602/family-guy-grumpy-old-man'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
 
     def test_endpoint_slideshare(self):
         url = 'http://www.slideshare.net/irsan.element/merancang-hidup-by-irsan'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"rich")
+
 
     def test_endpoint_vimeo(self):
         url = 'http://vimeo.com/20664159'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
+        self.failUnless(data[u"type"]==u"video")
 
     def test_endpoint_collegehumour(self):
         url_video = 'http://www.collegehumor.com/video/6664700/save-greendale-with-the-cast-of-community'
@@ -144,13 +150,13 @@ class TestIntegration(base.TestCase):
         self.failUnless(data[u"type"]=="photo",data[u"type"])
         #album doesn't work atm: http://www.23hq.com/photogroup/tech/conversation/7548539
 
-    def test_5min(self):
+    def test_endpoint_5min(self):
         url = 'http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="video",data[u"type"])
 
-    def test_twitter(self):
+    def test_endpoint_twitter(self):
         url = 'https://twitter.com/#!/toutpt/statuses/153185403766185985'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
@@ -160,6 +166,42 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="rich")
+
+    def test_endpoint_photobucket(self):
+        url = 'http://img.photobucket.com/albums/v211/JAV123/Michael%20Holland%20Candle%20Burning/_MG_5661.jpg'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="photo")
+
+    def test_endpoint_kinomap(self):
+        url = 'http://www.kinomap.com/#!kms-smfb9r'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="video")
+
+    def test_endpoint_yfrog(self):
+        url = 'http://yfrog.com/0wgvcpj'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="photo")
+
+    def test_endpoint_dailymotion(self):
+        url = 'http://www.dailymotion.com/video/xf02xp_uffie-difficult_music'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="video")
+
+    def test_endpoint_clikthrough(self):
+        url = 'http://www.clikthrough.com/theater/video/55'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="video")
+
+    def test_endpoint_dotsub(self):
+        url = 'http://dotsub.com/view/15f0467f-d351-4224-acf5-df3f2ba9d5a0'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u"type"]=="video")
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class

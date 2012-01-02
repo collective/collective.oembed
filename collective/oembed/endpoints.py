@@ -31,6 +31,27 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://api.5min.com/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
  {u'regex':['https://twitter.com/*/status*/*'],
   u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'}, #https://dev.twitter.com/docs/embedded-tweets
+ {u'regex':['regex:.*photobucket\\.com/(albums|groups)/.+$'],
+  u'endpoint':'http://photobucket.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+ {u'regex':['http://*.kinomap.com/*'],
+  u'endpoint':'http://www.kinomap.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+ {u'regex':['http://*yfrog.com/*'],
+  u'endpoint':'http://www.yfrog.com/api/oembed'}, #http://yfrog.com/page/api#a8
+ {u'regex':['http://www.dailymotion.com/video/*'],
+  u'endpoint':'http://www.dailymotion.com/services/oembed'}, #http://www.dailymotion.com/doc/api/oembed.html
+ {u'regex':['http://*.clikthrough.com/theater/video/*'],
+  u'endpoint':'http://clikthrough.com/services/oembed'}, #
+ {u'regex':['http://dotsub.com/view/*'],
+  u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
+# {u'regex':[''],
+#  u'endpoint':''},
+# {u'regex':[''],
+#  u'endpoint':''},
+# {u'regex':[''],
+#  u'endpoint':''},
+# {u'regex':[''],
+#  u'endpoint':''},
+ 
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
