@@ -57,3 +57,20 @@ class WordpressEndPoint(oembed.OEmbedEndpoint):
         query['for'] = 'plone'
         return super(WordpressEndPoint, self).request(url, **query)
 
+def load_all_endpoints(embedly_apikey=None):
+    endpoints = []
+    if embedly_apikey is not None:
+        endpoint = EmbedlyEndPoint(embedly_apikey)
+        consumer.addEndpoint(endpoint)
+
+    endpoint = WordpressEndPoint()
+    endpoints.append(endpoint)
+
+    providers = REGEX_PROVIDERS
+
+    for provider in providers:
+        endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
+                                         provider[u'regex'])
+        endpoints.append(endpoint)
+    
+    return endpoints

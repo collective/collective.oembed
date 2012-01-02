@@ -86,19 +86,9 @@ class Consumer(object):
             return self.consumer
 
         consumer = oembed.OEmbedConsumer()
-        if self.embedly_apikey is not None:
-            endpoint = endpoints.EmbedlyEndPoint(self.embedly_apikey)
-            consumer.addEndpoint(endpoint)
-
-        endpoint = endpoints.WordpressEndPoint()
-        consumer.addEndpoint(endpoint)
-
-        providers = endpoints.REGEX_PROVIDERS
-    
-        for provider in providers:
-            endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
-                                             provider[u'regex'])
-            consumer.addEndpoint(endpoint)
+        _enpoints = endpoints.load_all_endpoints(embedly_apikey=self.embedly_apikey)
+        for endpoint in _enpoints:
+            self.consumer.addEndpoint(endpoint)
 
         self.consumer = consumer
 

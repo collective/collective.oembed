@@ -71,18 +71,19 @@ class OEmbedProvider(BrowserView):
         ob = context
         site_title = site.Title()
 
-        e = self.embed
-        e[u'version'] = '1.0'
         title = ob.Title()
         if type(title) != unicode:
             title.decode('utf-8')
+        if type(site_title) != unicode:
+            site_title = site_title.decode('utf-8')
+
+
+        e = self.embed
+        e[u'version'] = '1.0'
         e[u'title'] = title
         e[u'author_name'] = ob.Creator()
         e[u'author_url'] = site.absolute_url()+'/author/' + ob.Creator()
-        if type(site_title) != unicode:
-            site_title = site_title.decode('utf-8')
         e[u'provider_name'] = site_title
-
         e[u'provider_url'] = site.absolute_url()
         if ob.portal_type == 'Image':
             e[u'type'] = 'photo'
@@ -113,6 +114,9 @@ class OEmbedProvider(BrowserView):
     def get_target(self):
         site = self.get_site()
         path = self.get_path()
+        portal_path = site.portal_url.getPortalPath()
+        if path.startswith(portal_path):
+            path = path[len(portal_path):]
 
         if site is None:
             return

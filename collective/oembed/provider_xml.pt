@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<oembed>
+<oembed xmlns:tal="http://xml.zope.org/namespaces/tal">
     <version tal:content="view/embed/version">1.0</version>
     <type tal:content="view/embed/type">link</type>
     <author_name tal:content="view/embed/author_name">Cal Henderson</author_name>
     <author_url tal:content="view/embed/author_url">http://iamcal.com/</author_url>
     <provider_name tal:content="view/embed/provider_name">iamcal.com</provider_name>
     <provider_url tal:content="view/embed/provider_url">http://iamcal.com/</provider_url>
-  <tal:photo tal:condition="python:view.embed['type']=='photo">
+  <tal:photo tal:condition="python:view.embed['type']=='photo'">
     <url tal:content="view/embed/url"></url>
     <width tal:content="view/embed/width"></width>
     <height tal:content="view/embed/height"></height>
