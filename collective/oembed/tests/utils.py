@@ -114,3 +114,7 @@ class Request(BaseRequest):
     
     def get(self, a, b=''):
         return self.content.get(a, b)
+
+class FakeProxy(object):
+    def __init__(self):
+        self.activate_jqueryoembed_integration = False

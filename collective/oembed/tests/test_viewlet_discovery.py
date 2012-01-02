@@ -33,8 +33,15 @@ class TestIntegration(base.TestCase):
         from collective.oembed import viewlet
         self.viewlet = viewlet.Discovery(self.portal, 
                                          self.portal.REQUEST, None)
+        self.viewlet.site_url = 'http://nohost'
+
     def test_rendering(self):
-        pass
+        import re
+        text = self.viewlet.render()
+        json_re = '<link rel="alternate" type="application/json\+oembed" href=".*" title=".*" />'
+        xml_re = '<link rel="alternate" type="text/xml\+oembed" href=".*" title=".*" />'
+        self.failUnless(re.search(json_re, text) is not None)
+        self.failUnless(re.search(xml_re, text) is not None)
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class

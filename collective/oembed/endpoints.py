@@ -1,7 +1,7 @@
 import oembed
 
 REGEX_PROVIDERS = [
- {u'regex': ['regex:.*youtube\.com/watch.*'],
+ {u'regex': ['regex:.*youtube\.com/watch.*','regex:.*youtube\.com/playlist.*'],
   u'endpoint':'http://www.youtube.com/oembed'},
  {u'regex':['http://*.flickr.com/*'],
   u'endpoint':'http://www.flickr.com/services/oembed'},
@@ -9,7 +9,7 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://lab.viddler.com/services/oembed/'},
  {u'regex':['http://qik.com/video/*','http://qik.com/*'],
   u'endpoint':'http://qik.com/api/oembed.{format}'},
- {u'regex':['http://*.revision3.com/*'],
+ {u'regex':['http://*revision3.com/*'],
   u'endpoint':'http://revision3.com/api/oembed/'},
  {u'regex':['http://www.hulu.com/watch/*'],
   u'endpoint':'http://www.hulu.com/api/oembed.{format}'},
@@ -19,7 +19,7 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.collegehumor.com/oembed.{format}'},
  {u'regex':['http://www.polleverywhere.com/polls/*','http://www.polleverywhere.com/multiple_choice_polls/*','http://www.polleverywhere.com/free_text_polls/*'],
   u'endpoint':'http://www.polleverywhere.com/services/oembed/'},
- {u'regex':['http://www.ifixit.com/Guide/View/*'],
+ {u'regex':['http://www.ifixit.com/*'],
   u'endpoint':'http://www.ifixit.com/Embed'},
  {u'regex':['http://*.smugmug.com/*'],
   u'endpoint':'http://api.smugmug.com/services/oembed/'},

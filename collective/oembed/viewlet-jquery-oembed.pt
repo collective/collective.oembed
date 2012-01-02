@@ -1,4 +1,4 @@
-<tal:block tal:condition="view/display_condition">
+<tal:block tal:condition="view/check_display_condition">
 <script type="text/javascript" tal:content="view/settings_javascript"></script>
 <script type="text/javascript">
         $(document).ready(function() {

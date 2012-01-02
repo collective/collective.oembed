@@ -16,22 +16,36 @@ class JQueryOEmbedViewlet(common.ViewletBase):
     index = ViewPageTemplateFile('viewlet-jquery-oembed.pt')
     jsvarname = u'jqueryOmebedSettings'
 
+    def __init__(self, context, request, view, manager=None):
+        super(JQueryOEmbedViewlet, self).__init__(context, request, view, manager=None)
+        self._settings = None
+        self._fields = None
+
+    def get_fields(self):
+        if self._fields is None:
+            proxy = self.settings()
+            self._fields = schema.getFields(proxy.__schema__)
+        return self._fields
+
     def settings(self):
         """Return settings"""
-        registry = component.queryUtility(IRegistry)
-        if registry is None:
-            return
-        try:
-            proxy = registry.forInterface(interfaces.IOEmbedSettings)
-            return proxy
-        except KeyError, e:
-            pass
+
+        if self._settings is None:
+            registry = component.queryUtility(IRegistry)
+            if registry is None:
+                return
+            try:
+                self._settings = registry.forInterface(interfaces.IOEmbedSettings)
+            except KeyError, e:
+                pass
+
+        return self._settings
 
     def settings_javascript(self):
-        #this is not json, we need to serialize results in unicode by hand
+        #this is not json, we need to serialize results in unicode manually
         proxy = self.settings()
         encoder = json.JSONEncoder()
-        fields = schema.getFields(proxy.__schema__)
+        fields = self.get_fields()
         sio = StringIO.StringIO()
         sio.write(u"var %s = {"%self.jsvarname)
 
@@ -43,8 +57,8 @@ class JQueryOEmbedViewlet(common.ViewletBase):
 
         return u'%s};'%(value[0:-1])
 
-    def display_condition(self):
-        settings = self.settings
+    def check_display_condition(self):
+        settings = self.settings()
         if settings is None:
             return False
         try:

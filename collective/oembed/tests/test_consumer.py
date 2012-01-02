@@ -62,7 +62,8 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]==u"video")
-        url = 'http://www.youtube.com/playlist?list=PL84E044CCF097C8CB'
+
+        url = 'http://www.youtube.com/playlist?list=PLF2CEDC7FD9EADDC5'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]==u"video")
@@ -115,18 +116,9 @@ class TestIntegration(base.TestCase):
 
     def test_endpoint_collegehumour(self):
         url_video = 'http://www.collegehumor.com/video/6664700/save-greendale-with-the-cast-of-community'
-        url_photo = 'http://www.dorkly.com/picture/29452/google-maps-lord-of-the-rings-easter-egg'
-        url_article = 'http://www.collegehumor.com/article/6666242/15-phrases-youll-hear-during-finals-week-and-what-they-really-mean'
         data = self.utility.get_data(url_video)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]==u"video")
-        data = self.utility.get_data(url_photo)
-        self.failUnless(data is not None)
-        self.failUnless(data[u"type"]==u"photo")
-        data = self.utility.get_data(url_article)
-        self.failUnless(data is not None)
-        self.failUnless(data[u"type"]==u"rich")
-        #TODO add wrong url and try do not matchin url
 
     def test_endpoint_polleverywhere(self):
         url = 'http://www.polleverywhere.com/multiple_choice_polls/LTIwNzM1NTczNTE'
