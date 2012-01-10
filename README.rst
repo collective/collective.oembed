@@ -2,7 +2,7 @@ Introduction
 ============
 
 This addon integrate oembed_ into Plone. You can find a demo at
-http://youtube/kHikGIWrvCs
+http://youtu.be/kHikGIWrvCs
 
 ombed provider
 ==============
