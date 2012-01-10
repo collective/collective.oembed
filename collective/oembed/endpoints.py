@@ -25,7 +25,7 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.slideshare.net/api/oembed/2'},
  {u'regex':['http://www.23hq.com/*/photo/*'],
   u'endpoint':'http://www.23hq.com/23/oembed'},
- {u'regex':['http://www.5min.com/video/*'],
+ {u'regex':['http://www.5min.com/Video/*'],
   u'endpoint':'http://api.5min.com/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
  {u'regex':['https://twitter.com/*/status*/*'],
   u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'}, #https://dev.twitter.com/docs/embedded-tweets

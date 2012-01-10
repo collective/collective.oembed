@@ -4,7 +4,7 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
-- nothing changed yet
+- Fix regex for 5min endpoint.
 
 1.0a (2012-01-02)
 -----------------
