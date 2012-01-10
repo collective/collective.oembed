@@ -43,11 +43,11 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://clikthrough.com/services/oembed'},
  {u'regex':['http://dotsub.com/view/*'],
   u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
- #{u'regex':['http://*blip.tv/*'],                  # blit.tv sends an invalid header back
+ #{u'regex':['http://*blip.tv/*'],              # blit.tv sends an invalid mime-type back
  # u'endpoint':'http://blip.tv/oembed/'},
  {u'regex':['http://official.fm/tracks/*', 'http://official.fm/playlists/*'],
   u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
- {u'regex':['http://vhx.tv/*'], #NOT TESTED YET
+ {u'regex':['http://vhx.tv/*'], #HALF TESTED YET
   u'endpoint':'http://vhx.tv/services/oembed.{format}'},
 ]
 
