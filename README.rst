@@ -2,7 +2,7 @@ Introduction
 ============
 
 This addon integrate oembed_ into Plone. You can find a demo at
-http://youtu.be/kHikGIWrvCs
+http://youtube/kHikGIWrvCs
 
 ombed provider
 ==============
@@ -105,6 +105,7 @@ Rich providers:
 * Poll Everywhere (http://www.polleverywhere.com/)
 * SlideShare (http://www.slideshare.net/)
 * WordPress (http://wordpress.com/)
+* Official.FM (official.fm)
 
 Other Plone addons
 ==================

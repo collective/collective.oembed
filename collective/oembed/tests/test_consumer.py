@@ -203,6 +203,30 @@ class TestIntegration(base.TestCase):
         self.failUnless(data is not None)
         self.failUnless(data[u"type"]=="video")
 
+#    def test_endpoint_bliptv(self):
+#        url = 'http://blip.tv/midnightphil/van-halen-part-1-5121643'
+#        data = self.utility.get_data(url)
+#        self.failUnless(data is not None)
+#        self.failUnless(data[u"type"]=="video")
+        
+    def test_endpoint_officialfm_track(self):
+        url = 'http://official.fm/tracks/315576'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='rich')
+        
+    def test_endpoint_officialfm_playlist(self):
+        url = 'http://official.fm/playlists/83435'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='rich')
+        
+    def test_endpoint_vhxtv(self):#playlist
+        url = 'vhx.tv/#!/trailers'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='video')
+
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class
     above

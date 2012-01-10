@@ -40,9 +40,15 @@ REGEX_PROVIDERS = [
  {u'regex':['http://www.dailymotion.com/video/*'],
   u'endpoint':'http://www.dailymotion.com/services/oembed'}, #http://www.dailymotion.com/doc/api/oembed.html
  {u'regex':['http://*.clikthrough.com/theater/video/*'],
-  u'endpoint':'http://clikthrough.com/services/oembed'}, #
+  u'endpoint':'http://clikthrough.com/services/oembed'},
  {u'regex':['http://dotsub.com/view/*'],
   u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
+ #{u'regex':['http://*blip.tv/*'],#a retester
+ # u'endpoint':'http://blip.tv/oembed/'},
+ {u'regex':['http://official.fm/tracks/*', 'http://official.fm/playlists/*'],
+  u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
+ #{u'regex':['http://vhx.tv/*'], #NOT TESTED YET
+ # u'endpoint':'http://vhx.tv/services/oembed.{format}'},
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
