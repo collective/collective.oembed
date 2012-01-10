@@ -80,6 +80,11 @@ class Consumer(object):
             return response.getData()
         except oembed.OEmbedNoEndpoint, e:
             logger.info(e)
+        except oembed.OEmbedError, e:
+            #ofter a mimetype error
+            logger.info(e)
+        except urllib2.HTTPError, e:
+            logger.info(e)
 
     def initialize_consumer(self):
         if self.consumer is None:

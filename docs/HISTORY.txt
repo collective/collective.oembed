@@ -5,6 +5,7 @@ Changelog
 -------------------
 
 - Fix regex for 5min endpoint.
+- Handle more error: HTTPError, OEmbedError
 
 1.0a (2012-01-02)
 -----------------
