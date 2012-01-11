@@ -131,8 +131,9 @@ Authors
 
   - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
 
-.. Contributors
+Contributors
 
+  - Raphael Gaziano aka raphigaziano <r.gaziano@gmail.com>
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
