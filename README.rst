@@ -80,7 +80,6 @@ Video providers:
 
 * 5min (http://www.5min.com/)
 * Youtube (http://www.youtube.com/)
-* Viddler (http://www.viddler.com/)
 * Qik (http://qik.com/)
 * Revision3 (http://revision3.com/)
 * Hulu (http://www.hulu.com/)
@@ -99,7 +98,6 @@ Photo providers:
 * Flickr (http://www.flickr.com/)
 * SmugMug (http://www.smugmug.com/)
 * Photobucket (http://photobucket.com)
-* Yfrog (http://yfrog.com/)
 * Instagr (http://instagr.am/p/BUG/)
 
 Rich providers:

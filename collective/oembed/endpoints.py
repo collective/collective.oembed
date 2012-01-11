@@ -5,8 +5,6 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.youtube.com/oembed'},
  {u'regex':['http://*.flickr.com/*'],
   u'endpoint':'http://www.flickr.com/services/oembed'},
- {u'regex':['http://*.viddler.com/*'],
-  u'endpoint':'http://lab.viddler.com/services/oembed/'},
  {u'regex':['http://qik.com/video/*','http://qik.com/*'],
   u'endpoint':'http://qik.com/api/oembed.{format}'},
  {u'regex':['http://*revision3.com/*'],
@@ -35,8 +33,6 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://photobucket.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
  {u'regex':['http://*.kinomap.com/*'],
   u'endpoint':'http://www.kinomap.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
- {u'regex':['http://*yfrog.com/*'],
-  u'endpoint':'http://www.yfrog.com/api/oembed'}, #http://yfrog.com/page/api#a8
  {u'regex':['http://www.dailymotion.com/video/*'],
   u'endpoint':'http://www.dailymotion.com/services/oembed'}, #http://www.dailymotion.com/doc/api/oembed.html
  {u'regex':['http://*.clikthrough.com/theater/video/*'],
@@ -49,20 +45,35 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
  {u'regex':['http://vhx.tv/*'], #http://dev.vhx.tv/oembed.html
   u'endpoint':'http://vhx.tv/services/oembed.{format}'},
- {u'regex':['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/', '/vz.net\/l/.*/', '/vz.net\/Gadgets/Info/.*/', '/vz.net\/Gadgets/Install/.*/',
-'/meinvz.net\/[a-zA-Z0-9\-\_]*$/', '/studivz.net\/[a-zA-Z0-9\-\_]*$/', '/schuelervz.net\/[a-zA-Z0-9\-\_]*$/'],
-  u'endpoint':'http://www.studivz.net/Link/OEmbed/'}, #http://developer.studivz.net/wiki/index.php/Embedding#List_of_white-listed_services
-  # studivz doesnt work yet
- {u'regex':['http://*.deviantart.com/art/*', 'http://fav.me/*', 'http://*.deviantart.com/*#/d*'],
-  u'endpoint':'http://backend.deviantart.com/oembed'}, #http://www.deviantart.com/developers/oembed  test pass but doesnt work, see com in test
- {u'regex':['http://*.scribd.com/*'], #TEST FAILS
-  u'endpoint':'http://www.scribd.com/services/oembed'},
  {u'regex':['http://*.nfb.ca/film/*'],
   u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
- {u'regex':['http://*funnyordie.com/videos/*'],
-  u'endpoint':'http://www.funnyordie.com/oembed'}, #TEST FAILS
- {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'],
+ {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'], #http://instagr.am/developer/embedding/
   u'endpoint':'http://api.instagram.com/oembed'},
+#
+# Those features don't work currently, but are being worked upon:
+#
+#
+# {u'regex':['http://*.viddler.com/*'],
+#  u'endpoint':'http://lab.viddler.com/services/oembed/'},
+#
+# {u'regex':['http://*yfrog.com/*'],
+#  u'endpoint':'http://www.yfrog.com/api/oembed'}, #http://yfrog.com/page/api#a8
+#
+# {u'regex':['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/', '/vz.net\/l/.*/', '/vz.net\/Gadgets/Info/.*/', '/vz.net\/Gadgets/Install/.*/',
+#'/meinvz.net\/[a-zA-Z0-9\-\_]*$/', '/studivz.net\/[a-zA-Z0-9\-\_]*$/', '/schuelervz.net\/[a-zA-Z0-9\-\_]*$/'],
+#  u'endpoint':'http://www.studivz.net/Link/OEmbed/'}, #http://developer.studivz.net/wiki/index.php/Embedding#List_of_white-listed_services
+#
+# {u'regex':['http://*.deviantart.com/art/*', 'http://fav.me/*', 'http://*.deviantart.com/*#/d*'],
+#  u'endpoint':'http://backend.deviantart.com/oembed'}, #http://www.deviantart.com/developers/oembed
+#
+# {u'regex':['http://*.scribd.com/*'],
+#  u'endpoint':'http://www.scribd.com/services/oembed'},
+#
+# {u'regex':['http://*funnyordie.com/videos/*'],
+#  u'endpoint':'http://www.funnyordie.com/oembed'}, 
+#
+# {u'regex':['http://my.opera.com/*'],
+#  u'endpoint':'http://my.opera.com/service/oembed'}, #http://my.opera.com/devblog/blog/2008/12/02/embedding-my-opera-content-oembed
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
