@@ -260,7 +260,27 @@ class TestIntegration(base.TestCase):
         url = 'http://vrbtny.deviantart.com/art/Cleared-for-Take-off-Dance-278766749'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
-        self.failUnless(data[u'type']=='file')      
+        self.failUnless(data[u'type']=='file')
+        
+    def test_endpoint_scribd(self):
+        # missing params width & height
+        url = 'http://www.scribd.com/doc/17896323/Indian-Automobile-industryPESTl'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='rich')
+        
+    def test_endpoint_nfb(self):
+        url = 'http://www.nfb.ca/film/blackfly/'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='video')
+        
+    def test_endpoint_funnyordie(self):
+        url='http://http://www.funnyordie.com/videos/bca75b10ee/i-like-you-better-on-facebook-music-video?playlist=featured_videos'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='video')
+        
         
 
 def test_suite():

@@ -43,8 +43,8 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://clikthrough.com/services/oembed'},
  {u'regex':['http://dotsub.com/view/*'],
   u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
- #{u'regex':['http://*blip.tv/*'],              # blit.tv sends an invalid mime-type back
- # u'endpoint':'http://blip.tv/oembed/'},
+ {u'regex':['http://*blip.tv/*'],              # blit.tv sends an invalid mime-type back
+  u'endpoint':'http://blip.tv/oembed/'},
  {u'regex':['http://official.fm/tracks/*', 'http://official.fm/playlists/*'],
   u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
  {u'regex':['http://vhx.tv/*'], #http://dev.vhx.tv/oembed.html
@@ -54,7 +54,13 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.studivz.net/Link/OEmbed/'}, #http://developer.studivz.net/wiki/index.php/Embedding#List_of_white-listed_services
   # studivz doesnt work yet
  {u'regex':['http://*.deviantart.com/art/*', 'http://fav.me/*', 'http://*.deviantart.com/*#/d*'],
-  u'endpoint':'http://backend.deviantart.com/oembed'} #http://www.deviantart.com/developers/oembed  test pass but doenst work, see com in test
+  u'endpoint':'http://backend.deviantart.com/oembed'}, #http://www.deviantart.com/developers/oembed  test pass but doesnt work, see com in test
+ {u'regex':['http://*.scribd.com/*'], #TEST FAILS
+  u'endpoint':'http://www.scribd.com/services/oembed'},
+ {u'regex':['http://*.nfb.ca/film/*'],
+  u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
+ {u'regex':['http://*funnyordie.com/videos/*'],
+  u'endpoint':'http://www.funnyordie.com/oembed'}, #TEST FAILS
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
