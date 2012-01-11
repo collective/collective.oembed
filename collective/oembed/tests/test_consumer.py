@@ -224,13 +224,13 @@ class TestIntegration(base.TestCase):
         self.failUnless(data[u'type']=='rich')
         
     def test_endpoint_vhxtv(self):
-        # single video      OK
+        # single video
         url = 'http://vhx.tv/trailers/408688'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='video')
-        # playlist          NOTOK
-        url = 'http://vhx.tv/#!/jamiew/internet-memes-101'
+        # playlist
+        url = 'http://vhx.tv/jamiew/internet-memes-101/29637'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='video')
