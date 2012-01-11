@@ -276,10 +276,18 @@ class TestIntegration(base.TestCase):
         self.failUnless(data[u'type']=='video')
         
     def test_endpoint_funnyordie(self):
-        url='http://http://www.funnyordie.com/videos/bca75b10ee/i-like-you-better-on-facebook-music-video?playlist=featured_videos'
+        # returned json is gibberish
+        url = 'http://http://www.funnyordie.com/videos/bca75b10ee/i-like-you-better-on-facebook-music-video?playlist=featured_videos'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='video')
+        
+    def test_endpoint_instagram(self):
+        url = 'http://instagr.am/p/BUG/'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='photo')
+        #add test for second regex
         
         
 

@@ -61,6 +61,8 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
  {u'regex':['http://*funnyordie.com/videos/*'],
   u'endpoint':'http://www.funnyordie.com/oembed'}, #TEST FAILS
+ {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'],
+  u'endpoint':'http://api.instagram.com/oembed'},
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):

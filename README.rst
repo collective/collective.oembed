@@ -91,6 +91,7 @@ Video providers:
 * Clikthrough (http://clikthrough.com)
 * Dotsub (http://dotsub.com/)
 * Vhx.tv (http://vhx.tv) NOTE: only works with the dedicated URL for sharing
+* Nfb.ca (http://http://www.nfb.ca/)
 
 Photo providers:
 
@@ -99,6 +100,7 @@ Photo providers:
 * SmugMug (http://www.smugmug.com/)
 * Photobucket (http://photobucket.com)
 * Yfrog (http://yfrog.com/)
+* Instagr (http://instagr.am/p/BUG/)
 
 Rich providers:
 
