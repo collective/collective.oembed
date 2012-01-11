@@ -90,7 +90,7 @@ Video providers:
 * Dailymotion (http://www.dailymotion.com/)
 * Clikthrough (http://clikthrough.com)
 * Dotsub (http://dotsub.com/)
-* Vhx.tv (http://vhx.tv)
+* Vhx.tv (http://vhx.tv) NOTE: only works with the dedicated URL for sharing
 
 Photo providers:
 

@@ -49,6 +49,12 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
  {u'regex':['http://vhx.tv/*'], #http://dev.vhx.tv/oembed.html
   u'endpoint':'http://vhx.tv/services/oembed.{format}'},
+ {u'regex':['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/', '/vz.net\/l/.*/', '/vz.net\/Gadgets/Info/.*/', '/vz.net\/Gadgets/Install/.*/',
+'/meinvz.net\/[a-zA-Z0-9\-\_]*$/', '/studivz.net\/[a-zA-Z0-9\-\_]*$/', '/schuelervz.net\/[a-zA-Z0-9\-\_]*$/'],
+  u'endpoint':'http://www.studivz.net/Link/OEmbed/'}, #http://developer.studivz.net/wiki/index.php/Embedding#List_of_white-listed_services
+  # studivz doesnt work yet
+ {u'regex':['http://*.deviantart.com/art/*', 'http://fav.me/*', 'http://*.deviantart.com/*#/d*'],
+  u'endpoint':'http://backend.deviantart.com/oembed'} #http://www.deviantart.com/developers/oembed  test pass but doenst work, see com in test
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):

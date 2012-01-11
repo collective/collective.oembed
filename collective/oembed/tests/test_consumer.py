@@ -235,6 +235,33 @@ class TestIntegration(base.TestCase):
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='video')
         
+    def test_endpoint_studivz(self):
+        # FAILING: can't find a normal url (must be logged in to see profiles)
+        #import pdb; pdb.set_trace()
+        url = 'http%3A%2F%2Fwww.studivz.net%2Fstromberg&format=json'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='rich')
+        
+    def test_endpoint_deviantart(self):
+        # Test pass, but the data returned specifies a "file" type instead of 
+        # "photo".
+        # Bug report sent to the deviant art dev team : developers@deviantart.com
+        url = 'http://www.deviantart.com/#/d4lyxst'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='file')
+        
+        url = 'http://fav.me/d4lyxst'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='file')
+        
+        url = 'http://vrbtny.deviantart.com/art/Cleared-for-Take-off-Dance-278766749'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='file')      
+        
 
 def test_suite():
     """This sets up a test suite that actually runs the tests in the class
