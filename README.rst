@@ -80,7 +80,6 @@ Video providers:
 
 * 5min (http://www.5min.com/)
 * Youtube (http://www.youtube.com/)
-* Viddler (http://www.viddler.com/)
 * Qik (http://qik.com/)
 * Revision3 (http://revision3.com/)
 * Hulu (http://www.hulu.com/)
@@ -90,6 +89,8 @@ Video providers:
 * Dailymotion (http://www.dailymotion.com/)
 * Clikthrough (http://clikthrough.com)
 * Dotsub (http://dotsub.com/)
+* Vhx.tv (http://vhx.tv) NOTE: only works with the dedicated URL for sharing
+* Nfb.ca (http://http://www.nfb.ca/)
 
 Photo providers:
 
@@ -97,7 +98,7 @@ Photo providers:
 * Flickr (http://www.flickr.com/)
 * SmugMug (http://www.smugmug.com/)
 * Photobucket (http://photobucket.com)
-* Yfrog (http://yfrog.com/)
+* Instagr (http://instagr.am/p/BUG/)
 
 Rich providers:
 
@@ -105,6 +106,7 @@ Rich providers:
 * Poll Everywhere (http://www.polleverywhere.com/)
 * SlideShare (http://www.slideshare.net/)
 * WordPress (http://wordpress.com/)
+* Official.FM (http://official.fm)
 
 Other Plone addons
 ==================
