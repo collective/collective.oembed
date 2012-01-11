@@ -106,7 +106,7 @@ Rich providers:
 * Poll Everywhere (http://www.polleverywhere.com/)
 * SlideShare (http://www.slideshare.net/)
 * WordPress (http://wordpress.com/)
-* Official.FM (official.fm)
+* Official.FM (http://official.fm)
 
 Other Plone addons
 ==================
