@@ -1,46 +1,25 @@
 from zope import interface
 
-from collective.oembed.url_to_oembed import base
+from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
 class PicasaWebURLEndPoint(base.UrlToOembed):
     """Picasaweb transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
 
-    EMBED_HTML="""<embed type="application/x-shockwave-flash" src="http://picasaweb.google.com/s/c/bin/slideshow.swf"
+    embed_html_template="""<embed type="application/x-shockwave-flash" src="http://picasaweb.google.com/s/c/bin/slideshow.swf"
        pluginspage="http://www.macromedia.com/go/getflashplayer"
        width="%(width)s" height="%(height)s" flashvars="%(flashvars)s">
      </embed>"""
-     
-    PICASA_URL_SCHEMES = ["http*://picasaweb.google.com*/*/*#*",
-                          "http*://picasaweb.google.com*/lh/photo/*",
-                          "http*://picasaweb.google.com*/*/*"]
-     
-    def __init__(self):
-        """A Picasa web dedicated class acting like a
-        oEmbed endpoint.
-        """
-        super(PicasaWebURLEndPoint, self).__init__(self.PICASA_URL_SCHEMES)
-        
-    def request(self, url, **opts):
+
+    url_schemes = ["http*://picasaweb.google.com*/*/*#*",
+                   "http*://picasaweb.google.com*/lh/photo/*",
+                   "http*://picasaweb.google.com*/*/*"]
+
+    def request(self, url):
         """Extract the needed parameters from the given url and options,
         and return the embed code.
         """
-    
-        params = self.get_params_from_url(url)
-        
-        w, h = self.get_width_and_height(**opts)
-        params["width"] = w
-        params["height"] = h
-        
-        return self.EMBED_HTML % (params)
-    
-    def get_params_from_url(self, url):
-        """Extracts only the relevant information from the url,
-        and return it as a dict to be updated with additional params.
-        """
-        
-        
         proto, host, path, query_params, fragment = self.break_url(url)
         # User ID and album name are in the path segment of the url
         userId = path.split("/")[-2]
@@ -56,8 +35,4 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
             self._urlEncoder({'feed':feedUrl})
         
         return {"flashvars":flashVars}
-        
-        
-    #def get(self, url):
-        
-        
+

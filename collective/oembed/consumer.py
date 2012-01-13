@@ -6,7 +6,6 @@ import logging
 
 from zope import component
 from zope import interface
-from plone.memoize.ram import cache
 
 import oembed
 from plone.registry.interfaces import IRegistry
@@ -23,10 +22,6 @@ except ImportError,e:
     HAS_COLLECTIVE_EMBEDLY = False
 
 logger = logging.getLogger('collective.oembed')
-
-def _render_details_cachekey(method, self, url, maxwidth=None, maxheight=None,
-                             format='json'):
-    return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
 
 TEMPLATES = {u"link":u"""
     <div class="oembed-wrapper oembed-link">
@@ -61,11 +56,7 @@ class Consumer(object):
         self.consumer = None
         self.embedly_apikey = None
 
-    @cache(_render_details_cachekey)
-    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
-        return self.get_data_uncached(url, maxwidth, maxheight, format)
-
-    def get_data_uncached(self, url, maxwidth=None, maxheight=None,
+    def get_data(self, url, maxwidth=None, maxheight=None,
                           format='json'):
         self.initialize_consumer()
         request = {}

@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.oembed">
+
+  <browser:page
+    name="api2embed_view"
+    for="*"
+    class=".api2embed_view.API2EmbedView"
+    permission="zope2.View"
+    template="api2embed_view.pt"
+    />
+
+</configure>

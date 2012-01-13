@@ -5,21 +5,6 @@ import oembed
 
 DEFAULT_SIZE = 400
 
-class URLResponse:
-    """Fake OEmbedResponse object, containing the required
-    json dictionnary.
-    """
-    
-    def __init__(self, data):
-        self._data = data
-    
-    def getData():
-        return self._data
-        
-    def __getitem__(self, name):
-        return self._data.get(name)
-        
-        
 class UrlToOembed(oembed.OEmbedEndpoint):
     """URLEndpoint is able to build embed html snippet just from the URL.
     It is not able to get Title and description data.
@@ -27,13 +12,14 @@ class UrlToOembed(oembed.OEmbedEndpoint):
     Child classes must define their own embeding template, as well as the 
     request method to return the actual embeding code.
     """
-    EMBED_HTML="""%(width)s%(height)s%(flashvar)s"""
-    
-    def __init__(self, urlSchemes=None):
+    embed_html_template="""%(width)s%(height)s%(flashvar)s"""
+    url_schemes = None
+
+    def __init__(self):
 
         #Since classes derived from this one will deal with services
         #not supporting oEmbed, they won't need the provider's endpoint url
-        super(UrlToOembed, self).__init__('', urlSchemes=urlSchemes)
+        super(UrlToOembed, self).__init__('', urlSchemes=self.url_schemes)
         
         #Stores urllib.urlencode() in a member var to avoid reimporting it
         #in child classes
@@ -80,24 +66,22 @@ class UrlToOembed(oembed.OEmbedEndpoint):
                 maxheight = maxwidth
     
         return maxwidth, maxheight
-        
-      
-    def request(self, url, **opt):
+
+    def request(self, url):
         """Child classes must implement this method.
         
-        Build the embeding code from the given url according to the child
-        class' template. 
-        
-        Returns an URLResponse object behaving like a OEmbedResponse object.
+        Extract information from url needed by the template
         """
         raise NotImplementedError
-        
-    def get_embed(self, url, **opts):
-        """Return the embed code built by self.request
-        """
-        return self.request(url, **opts)
-        
 
-class UrlToOembedUtility(object):
-    def __init__(self):
-        self.endpoints = []
+    def get_embed(self, url, maxwidth=None, maxheight=None):
+        """Build the embeding code from the given url according to the child
+        class' template and return it
+        """
+        info = self.request(url)
+        w, h = self.get_width_and_height(maxwidth=maxwidth,
+                                         maxheight=maxheight)
+
+        info['width'] = w
+        info['height'] = h
+        return self.embed_html_template%info
