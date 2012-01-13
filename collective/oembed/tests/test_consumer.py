@@ -228,6 +228,13 @@ class TestIntegration(base.TestCase):
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='photo')
         #add test for second regex
+        
+    def test_endpoint_wordpresstv(self):
+        url = 'http://wordpress.tv/2011/10/16/drupal-wp/'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='video')
+    
 
 #   FAILING TESTS:
 #
@@ -297,7 +304,14 @@ class TestIntegration(base.TestCase):
 #        url = 'http://www.viddler.com/explore/37signals/videos/40/'
 #        data = self.utility.get_data(url)
 #        self.failUnless(data is not None)
-        
+#
+#    def test_endpoint_tvmajorleague(self):
+#        # FAIL: retruned json data has no content-type.
+#        url = 'http://tv.majorleaguegaming.com/videos/80392-weekly-warfare-episode-4-the-golden-debate'
+#        data = self.utility.get_data(url)
+#        self.failUnless(data is not None)
+#        self.failUnless(data[u'type']=='video')
+#        
         
 
 def test_suite():

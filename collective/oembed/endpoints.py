@@ -49,6 +49,8 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
  {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'], #http://instagr.am/developer/embedding/
   u'endpoint':'http://api.instagram.com/oembed'},
+ {u'regex':['http://wordpress.tv/*'],
+  u'endpoint':'http://wordpress.tv/oembed/'},
 #
 # Those features don't work currently, but are being worked upon:
 #
@@ -74,6 +76,8 @@ REGEX_PROVIDERS = [
 #
 # {u'regex':['http://my.opera.com/*'],
 #  u'endpoint':'http://my.opera.com/service/oembed'}, #http://my.opera.com/devblog/blog/2008/12/02/embedding-my-opera-content-oembed
+# {u'regex':['http://tv.majorleaguegaming.com/video/*', 'http://mlg.tv/video/*'],
+#  u'endpoint':'http://tv.majorleaguegaming.com/oembed'},
 ]
 
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
