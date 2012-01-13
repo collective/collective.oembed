@@ -267,7 +267,8 @@ class TestIntegration(base.TestCase):
 #        self.failUnless(data[u'type']=='file')
 #        
 #    def test_endpoint_scribd(self):
-#        # missing params width & height
+#        # missing params width & height.
+#        # Posted about it @ http://groups.google.com/group/scribd-platform-developers/browse_thread/thread/8e2a4ecb05568e79#
 #        url = 'http://www.scribd.com/doc/17896323/Indian-Automobile-industryPESTl'
 #        data = self.utility.get_data(url)
 #        self.failUnless(data is not None)
