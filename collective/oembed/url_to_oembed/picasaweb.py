@@ -6,7 +6,9 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
        width="%(width)s" height="%(height)s" flashvars="%(flashvars)s">
      </embed>"""
      
-    PICASA_URL_SCHEMES = ""
+    PICASA_URL_SCHEMES = ["http://picasaweb.google.com*/*/*#*",
+                          "http://picasaweb.google.com*/lh/photo/*",
+                          "http://picasaweb.google.com*/*/*"]
      
     def __init__(self):
         """A Picasa web dedicated class acting like a
