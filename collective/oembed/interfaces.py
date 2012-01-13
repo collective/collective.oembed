@@ -75,8 +75,9 @@ class IURL2Embed(interface.Interface):
         """Return the embed html code build from embed_html_template using
         get_params_from_url"""
 
-    def get_params_from_url(url):
+    def request(url):
         """Return a dict contains all needed params in embed_html_template
+        except width and height, which are added by get_embed
         """
 
 class IAPI2Embed(interface.Interface):

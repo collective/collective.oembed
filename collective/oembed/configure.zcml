@@ -10,6 +10,7 @@
 
   <include package="plone.app.contentmenu"/>
   <include package=".url_to_oembed"/>
+  <include package=".api2embed"/>
   <genericsetup:registerProfile
       name="default"
       title="collective.oembed"
@@ -50,7 +51,7 @@
       />
 
   <browser:page
-      name="link_oembed"
+      name="oembed_view"
       for="Products.ATContentTypes.interfaces.IATLink"
       class=".consumer.ConsumerView"
       permission="zope2.View"
