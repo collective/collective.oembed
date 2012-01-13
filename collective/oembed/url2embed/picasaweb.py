@@ -1,6 +1,6 @@
 from zope import interface
 
-from collective.oembed.url_to_oembed import base
+from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
 class PicasaWebURLEndPoint(base.UrlToOembed):

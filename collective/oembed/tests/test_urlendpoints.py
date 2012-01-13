@@ -5,37 +5,35 @@ class Test(base.UnitTestCase):
     
     def setUp(self):
         super(Test, self).setUp()
-        from collective.oembed import url_to_oembed
-        self.module = url_to_oembed
-        
-    
+        from collective.oembed import url2embed
+        self.module = url2embed
+
     def test_picasaweb(self):
         endpoint = self.module.picasaweb.PicasaWebURLEndPoint()
         data = endpoint.get_embed('https://picasaweb.google.com/114389802187476114971/SE7EN?authkey=YkEcVtNL9g8&feat=featured#')
         self.failUnless(data is not None)
-        
+
     def test_width_and_height(self):
         endpoint = self.module.base.UrlToOembed()
-        
+
         w, h = endpoint.get_width_and_height()
         self.failUnless(w==h)
         self.failUnless(w==self.module.base.DEFAULT_SIZE)
-        
+
         w, h = endpoint.get_width_and_height(maxwidth=800)
         self.failUnless(w==h)
         self.failUnless(w==800)
-        
+
         w, h = endpoint.get_width_and_height(maxheight=800)
         self.failUnless(w==h)
         self.failUnless(w==800)
-        
+
         w, h = endpoint.get_width_and_height(maxwidth=800, maxheight=400)
         self.failUnless(w==800 and h==400)
-        
 
 
 class IntegrationTest(base.TestCase):
-    
+
     def test_picasaweb(self):
         pass
 

@@ -9,7 +9,7 @@
   <five:registerPackage package="." initialize=".initialize" />
 
   <include package="plone.app.contentmenu"/>
-  <include package=".url_to_oembed"/>
+  <include package=".url2embed"/>
   <include package=".api2embed"/>
   <genericsetup:registerProfile
       name="default"
