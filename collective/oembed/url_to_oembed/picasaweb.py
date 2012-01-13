@@ -15,14 +15,23 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
         super(PicasaWebURLEndPoint, self).__init__(self.PICASA_URL_SCHEMES)
         
     def request(self, url, **opts):
-        #TODO get w & h from params
+        """Extract the needed parameters from the given url and options,
+        and return the embed code.
+        """
     
         params = self.get_params_from_url(url)
         
+        w, h = self.get_width_and_height(**opts)
+        params["width"] = w
+        params["height"] = h
+        
         return self.EMBED_HTML % (params)
     
-    
     def get_params_from_url(self, url):
+        """Extracts only the relevant information from the url,
+        and return it as a dict to be updated with additional params.
+        """
+        
         
         proto, host, path, query_params, fragment = self.break_url(url)
         # User ID and album name are in the path segment of the url
@@ -37,10 +46,8 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
         
         flashVars = 'host=picasaweb.google.com&amp;feat=flashalbum&amp;RGB=0x000000&amp;' + \
             self._urlEncoder({'feed':feedUrl})
-
-        return {"width":400,
-                "height":400,
-                "flashvars":flashVars}
+        
+        return {"flashvars":flashVars}
         
         
     #def get(self, url):

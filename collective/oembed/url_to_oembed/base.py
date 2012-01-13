@@ -3,6 +3,8 @@ from urllib import quote, urlencode
 
 import oembed
 
+DEFAULT_SIZE = 400
+
 class URLResponse:
     """Fake OEmbedResponse object, containing the required
     json dictionnary.
@@ -33,9 +35,14 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         #not supporting oEmbed, they won't need the provider's endpoint url
         super(UrlToOembed, self).__init__('', urlSchemes=urlSchemes)
         
+        #Stores urllib.urlencode() in a member var to avoid reimporting it
+        #in child classes
         self._urlEncoder = urlencode
         
     def break_url(self, url):
+        """Beaks down the given url and returns each of its
+        fragment to be processed by the caller
+        """
     
         proto, host, path, query, fragment = urlsplit(url)
         path = quote(path)
@@ -56,6 +63,24 @@ class UrlToOembed(oembed.OEmbedEndpoint):
                 query_elems[key] = value
                 
         return proto, host, path, query_elems, fragment
+        
+    def get_width_and_height(self, width=None, height=None):
+        """Sets the width & height params to a default value if they werent 
+        given.
+        If only one param is given, then set the other one to same size.
+        """
+        
+        if width is None:
+            if height is not None:
+                width = height
+            else:
+                width = DEFAULT_SIZE
+                height = DEFAULT_SIZE
+        elif height is None:
+                height = width
+    
+        return width, height
+        
       
     def request(self, url, **opt):
         """Child classes must implement this method.
@@ -67,9 +92,9 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         """
         raise NotImplementedError
         
-    def get_embed(self, url, **opt):
-        """Return json dict containing the embeding code and other parameters
+    def get_embed(self, url, **opts):
+        """Return the embed code built by self.request
         """
-        return self.request(url)
+        return self.request(url, **opts)
         
 
