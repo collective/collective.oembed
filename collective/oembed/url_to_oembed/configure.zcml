@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.oembed">
+
+  <utility factory=".picasaweb.PicasaWebURLEndPoint" name="picasaweb"/>
+
+  <browser:page
+    name="url2embed_view"
+    for="*"
+    class=".url2embed_view.URL2EmbedView"
+    permission="zope2.View"
+    template="url2embed_view.pt"
+    />
+
+</configure>

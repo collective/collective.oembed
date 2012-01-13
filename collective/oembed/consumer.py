@@ -144,11 +144,11 @@ class ConsumerView(BrowserView):
 
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
         self.update()
-        data = self._utility.get_data(url,
+        self.data = self._utility.get_data(url,
                                       maxwidth=maxwidth,
                                       maxheight=maxheight,
                                       format=format)
-        return data
+        return self.data
 
     def get_embed(self, url, maxwidth=None, maxheight=None, format='json'):
 

@@ -64,22 +64,22 @@ class UrlToOembed(oembed.OEmbedEndpoint):
                 
         return proto, host, path, query_elems, fragment
         
-    def get_width_and_height(self, width=None, height=None):
+    def get_width_and_height(self, maxwidth=None, maxheight=None):
         """Sets the width & height params to a default value if they werent 
         given.
         If only one param is given, then set the other one to same size.
         """
         
-        if width is None:
-            if height is not None:
-                width = height
+        if maxwidth is None:
+            if maxheight is not None:
+                maxwidth = maxheight
             else:
-                width = DEFAULT_SIZE
-                height = DEFAULT_SIZE
-        elif height is None:
-                height = width
+                maxwidth = DEFAULT_SIZE
+                maxheight = DEFAULT_SIZE
+        elif maxheight is None:
+                maxheight = maxwidth
     
-        return width, height
+        return maxwidth, maxheight
         
       
     def request(self, url, **opt):
@@ -98,3 +98,6 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         return self.request(url, **opts)
         
 
+class UrlToOembedUtility(object):
+    def __init__(self):
+        self.endpoints = []

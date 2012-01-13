@@ -1,14 +1,20 @@
+from zope import interface
+
 from collective.oembed.url_to_oembed import base
+from collective.oembed import interfaces
 
 class PicasaWebURLEndPoint(base.UrlToOembed):
+    """Picasaweb transform url to embed code"""
+    interface.implements(interfaces.IURL2Embed)
+
     EMBED_HTML="""<embed type="application/x-shockwave-flash" src="http://picasaweb.google.com/s/c/bin/slideshow.swf"
        pluginspage="http://www.macromedia.com/go/getflashplayer"
        width="%(width)s" height="%(height)s" flashvars="%(flashvars)s">
      </embed>"""
      
-    PICASA_URL_SCHEMES = ["http://picasaweb.google.com*/*/*#*",
-                          "http://picasaweb.google.com*/lh/photo/*",
-                          "http://picasaweb.google.com*/*/*"]
+    PICASA_URL_SCHEMES = ["http*://picasaweb.google.com*/*/*#*",
+                          "http*://picasaweb.google.com*/lh/photo/*",
+                          "http*://picasaweb.google.com*/*/*"]
      
     def __init__(self):
         """A Picasa web dedicated class acting like a

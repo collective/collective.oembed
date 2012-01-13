@@ -64,7 +64,9 @@ class IURL2Embed(interface.Interface):
     """
 
     embed_html_template = schema.ASCII(title=_(u"embed_html_template"))
-    
+
+    url_schemes = schema.List(title=_(u"url schemes"))
+
     def break_url(url):
         """utility which return proto, host, path, query, fragments
         """

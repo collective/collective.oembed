@@ -6,7 +6,10 @@ Changelog
 
 - Fix regex for 5min endpoint.
 - Handle more error: HTTPError, OEmbedError
-- Add support for instagr.am, Vhx.tv, Official.FM, Nfb.ca
+- Add url2embed support
+- Add oembed support for instagr.am, Vhx.tv, Official.FM, Nfb.ca
+  [raphigaziano]
+- Add url2embed support for picasaweb
   [raphigaziano]
 
 1.0a (2012-01-02)

@@ -21,15 +21,15 @@ class Test(base.UnitTestCase):
         self.failUnless(w==h)
         self.failUnless(w==self.module.base.DEFAULT_SIZE)
         
-        w, h = endpoint.get_width_and_height(width=800)
+        w, h = endpoint.get_width_and_height(maxwidth=800)
         self.failUnless(w==h)
         self.failUnless(w==800)
         
-        w, h = endpoint.get_width_and_height(height=800)
+        w, h = endpoint.get_width_and_height(maxheight=800)
         self.failUnless(w==h)
         self.failUnless(w==800)
         
-        w, h = endpoint.get_width_and_height(width=800, height=400)
+        w, h = endpoint.get_width_and_height(maxwidth=800, maxheight=400)
         self.failUnless(w==800 and h==400)
         
 

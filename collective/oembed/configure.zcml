@@ -8,6 +8,8 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <include package="plone.app.contentmenu"/>
+  <include package=".url_to_oembed"/>
   <genericsetup:registerProfile
       name="default"
       title="collective.oembed"
@@ -37,14 +39,20 @@
     layer=".interfaces.OEmbedLayer"
     />
 
-  <include package="plone.app.contentmenu"/>
   <browser:page
       name="link_oembed_view"
       menu="plone_displayviews"
       title="OEmbed view"
       for="Products.ATContentTypes.interfaces.IATLink"
-      class=".consumer.ConsumerView"
+      class=".link_view.LinkView"
       template="link_view.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="link_oembed"
+      for="Products.ATContentTypes.interfaces.IATLink"
+      class=".consumer.ConsumerView"
       permission="zope2.View"
       />
 
