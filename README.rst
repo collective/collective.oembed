@@ -8,7 +8,7 @@ oEmbed official documentation:
 http://http://oembed.com/
 
 oembed provider
-==============
+===============
 
 Your site will become an oembed provider using @@oembed view as an endpoint::
 
@@ -64,38 +64,44 @@ should be achieved by integrators.
 
 The link view stores 3 different lists of components: 
 
-    oembed:
-    
-        Contains registered views of type oembed_view , able to get the html 
-        embed template from the targetted provider's oembed api (see below for a
-        list of currently supported providers).
-    
-    api2embed:
-    
-        *NOT IMPLEMENTED YET*
-    
-        If you have an API key for the targeted website, you should be able to
-        use it through those views.
-        Once this feature is implemented, you should be able to choose whether 
-        you want to activate it or not.
-    
-    url2embed:
-    
-        Contains registered views of type url2embed_view, which get the embed 
-        template directly from the target's url.
-        Used as a fallback for websites who do not support the oEmbed format.
-    
-        NOTE:
-            While the returned data will be sufficient to embed the target 
-            widget in your view, you won't be able to access the metadata which
-            could have been associated with it in a straight oEmbed format.
-    
-    All three lists are checked in the same order as they're presented here,
-    and the first valid component found is used to get the embed code.
-    If no match at all is found, then nothing will be displayed. 
+* oembed
+* api2embed
+* url2embed
 
-    Check endpoint.csv to see which of those views are currently supported for 
-    each service.
+oembed
+------
+
+Contains registered views of type oembed_view , able to get the html 
+embed template from the targetted provider's oembed api (see below for a
+list of currently supported providers).
+
+api2embed
+---------
+
+If you have an API key for the targeted website, you should be able to
+use it through those views.
+Once this feature is implemented, you should be able to choose whether 
+you want to activate it or not.
+
+url2embed
+---------
+
+Contains registered views of type url2embed_view, which get the embed 
+template directly from the target's url.
+Used as a fallback for websites who do not support the oEmbed format.
+
+NOTE::
+
+    While the returned data will be sufficient to embed the target 
+    widget in your view, you won't be able to access the metadata which
+    could have been associated with it in a straight oEmbed format.
+
+All three lists are checked in the same order as they're presented here,
+and the first valid component found is used to get the embed code.
+If no match at all is found, then nothing will be displayed. 
+
+Check endpoint.csv to see which of those views are currently supported for 
+each service.
 
 Embed.ly
 ========
@@ -129,6 +135,7 @@ Video providers:
 * Dotsub (http://dotsub.com/)
 * Vhx.tv (http://vhx.tv) NOTE: only works with the dedicated URL for sharing
 * Nfb.ca (http://http://www.nfb.ca/)
+* Wordpress TV (http://wordpress.tv/)
 
 Photo providers:
 
@@ -137,7 +144,7 @@ Photo providers:
 * SmugMug (http://www.smugmug.com/)
 * Photobucket (http://photobucket.com)
 * Instagr (http://instagr.am/)
-* Picasa (http://http://picasa.google.fr/)
+* Picasa (https://picasa.google.com/)
 
 Rich providers:
 
