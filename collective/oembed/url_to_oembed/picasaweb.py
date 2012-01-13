@@ -4,7 +4,7 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
     EMBED_HTML="""<embed type="application/x-shockwave-flash" src="http://picasaweb.google.com/s/c/bin/slideshow.swf"
        pluginspage="http://www.macromedia.com/go/getflashplayer"
        width="%(width)s" height="%(height)s" flashvars="%(flashvars)s">
-     </embed>""".replace('\n','')
+     </embed>"""
      
     PICASA_URL_SCHEMES = ""
      

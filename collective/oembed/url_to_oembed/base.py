@@ -67,7 +67,7 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         """
         raise NotImplementedError
         
-    def get(self, url, **opt):
+    def get_embed(self, url, **opt):
         """Return json dict containing the embeding code and other parameters
         """
         return self.request(url)
