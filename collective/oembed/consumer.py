@@ -93,10 +93,10 @@ class Consumer(object):
             _enpoints = endpoints.load_all_endpoints(embedly_apikey=self.embedly_apikey)
             for endpoint in _enpoints:
                 consumer.addEndpoint(endpoint)
-    
+
             self.consumer = consumer
 
-    def embed(self, url, maxwidth=None, maxheight=None, format='json'):
+    def get_embed(self, url, maxwidth=None, maxheight=None, format='json'):
         data = self.get_data(url, maxwidth=maxwidth, maxheight=maxheight,
                              format=format)
         if data is None or u"type" not in data:
@@ -128,7 +128,7 @@ class ConsumerView(BrowserView):
         """initialize all data"""
         if self._utility is None:
             self._utility = component.getUtility(interfaces.IConsumer)
-            self._utility.embedly_apikey = self.embedly_apikey()
+            self._utility.embedly_apikey = self.get_embedly_apikey()
 
         if self._url is None:
             self._url = self.context.getRemoteUrl()
@@ -150,12 +150,12 @@ class ConsumerView(BrowserView):
                                       format=format)
         return data
 
-    def embed(self, url, maxwidth=None, maxheight=None, format='json'):
+    def get_embed(self, url, maxwidth=None, maxheight=None, format='json'):
 
         data = self.get_data(url, maxwidth, maxheight, format)
         return self.display_data(data)
 
-    def embed_auto(self):
+    def get_embed_auto(self):
         """This method extract params from the context"""
         self.update()
         self.update_data()
@@ -172,7 +172,7 @@ class ConsumerView(BrowserView):
 
         return template(self)
 
-    def embedly_apikey(self):
+    def get_embedly_apikey(self):
         """Return the api key from collective.embedly if found or from
         our own settings"""
         proxy = None

@@ -15,7 +15,7 @@ class IConsumer(interface.Interface):
     def get_data(url, maxwidth=None, maxheight=None, format='json'):
         """Return the data provided by the endpoint"""
     
-    def embed(url, maxwidth=None, maxheight=None, format='json'):
+    def get_embed(url, maxwidth=None, maxheight=None, format='json'):
         """Return the html code to display the content provided by url."""
 
 class IOEmbedSettings(interface.Interface):
@@ -51,3 +51,42 @@ class IOEmbedSettings(interface.Interface):
                                   value_type=schema.ASCIILine(title=_(u'provider')),
                                   default=[],
                                   required=False)
+
+class IURL2Embed(interface.Interface):
+    """To extend oembed experience we add a new kind of service: get the
+    embed code directly from the URL. For example we can do that
+    with picasaweb service. 
+    
+    Pros:
+      * no need to request external service
+    Cons:
+      * we can't get external information like title, description, ...
+    """
+
+    embed_html_template = schema.ASCII(title=_(u"embed_html_template"))
+    
+    def break_url(url):
+        """utility which return proto, host, path, query, fragments
+        """
+
+    def get_embed(url, maxwidth=None, maxheight=None):
+        """Return the embed html code build from embed_html_template using
+        get_params_from_url"""
+
+    def get_params_from_url(url):
+        """Return a dict contains all needed params in embed_html_template
+        """
+
+class IAPI2Embed(interface.Interface):
+    """To extend oembed experience we add a new kind of service: get the 
+    embed code using the API provided by the service. Implemented service
+    are supposed to not providing oembed service.
+    """
+
+    def get_embed(url, maxwidth=None, maxheight=None):
+        """Return the embed html code build from embed_html_template using
+        get_params_from_url"""
+
+    def get_data(url, maxwidth=None, maxheight=None):
+        """Return a dict containing all information as a call on an embed
+        service should have provided"""

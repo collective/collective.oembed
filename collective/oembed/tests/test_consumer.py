@@ -25,7 +25,7 @@ class Test(base.UnitTestCase):
 
     def test_embed(self):
         url = 'http://www.youtube.com/watch?v=kHikGIWrvCs'
-        embed = self.consumer.embed(url, maxwidth=310)
+        embed = self.consumer.get_embed(url, maxwidth=310)
         self.failUnless(len(embed)>200) #quite some html code
         self.failUnless(type(embed)==unicode)
         self.failUnless(u"oembed-video" in embed)
