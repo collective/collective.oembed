@@ -5,11 +5,16 @@ class Test(base.UnitTestCase):
     
     def setUp(self):
         super(Test, self).setUp()
-        from collective.oembed import urlendpoints
-        self.module = urlendpoints
+        from collective.oembed import url_to_oembed
+        self.module = url_to_oembed
+        
     
     def test_picasaweb(self):
-        pass
+        endpoint = self.module.picasaweb.PicasaWebURLEndPoint()
+        data = endpoint.get('https://picasaweb.google.com/114389802187476114971/SE7EN?authkey=YkEcVtNL9g8&feat=featured#')
+        self.failUnless(data is not None)
+        
+
 
 class IntegrationTest(base.TestCase):
     
