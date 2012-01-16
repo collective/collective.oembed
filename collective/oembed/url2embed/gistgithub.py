@@ -4,7 +4,7 @@ from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
 class GistGithubURLEndPoint(base.UrlToOembed):
-    """Picasaweb transform url to embed code"""
+    """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
 
     embed_html_template="""<style type="text/css">#content .gist pre{color: #000;}</style><script src="%(url)s.js"></script>"""

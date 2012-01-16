@@ -18,6 +18,18 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed('https://gist.github.com/1410787')
         self.failUnless(data is not None)
 
+    def test_googlecalendar(self):
+        endpoint = self.module.googlecalendar.GoogleCalendarURLEndPoint()
+
+        data = endpoint.get_embed('https://www.google.com/calendar/feeds/fr.christian%23holiday%40group.v.calendar.google.com/public/basic')
+        self.failUnless(data is not None)
+
+        data = endpoint.get_embed('https://www.google.com/calendar/ical/fr.christian%23holiday%40group.v.calendar.google.com/public/basic.ics')
+        self.failUnless(data is not None)
+
+        data = endpoint.get_embed('https://www.google.com/calendar/embed?src=fr.christian%23holiday%40group.v.calendar.google.com&ctz=Europe/Paris')
+        self.failUnless(data is not None)
+
     def test_width_and_height(self):
         endpoint = self.module.base.UrlToOembed()
 

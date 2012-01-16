@@ -153,6 +153,8 @@ Rich providers:
 * SlideShare (http://www.slideshare.net/)
 * WordPress (http://wordpress.com/)
 * Official.FM (http://official.fm)
+* Gist Github (https://gist.github.com)
+* Google Calendar (https://www.google.com/calendar)
 
 Other Plone addons
 ==================
