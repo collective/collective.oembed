@@ -30,6 +30,34 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed('https://www.google.com/calendar/embed?src=fr.christian%23holiday%40group.v.calendar.google.com&ctz=Europe/Paris')
         self.failUnless(data is not None)
 
+    def test_googledocs(self):
+        endpoint = self.module.googledocs.GoogleDocsURLEndPoint()
+
+        #present
+        url = 'https://docs.google.com/present/edit?id=0AcpVnMLn9OnaZGZxbWtqaG5fNDFtdmZtNWNo&hl=fr'
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
+        #document
+        url = 'https://docs.google.com/document/pub?id=1iuuTnIELWEVcJp1aUb_OXqXH2qHuT4AcGOiri7b10-g'
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
+        #spreadheet
+        url = 'https://docs.google.com/spreadsheet/pub?key=0AspVnMLn9OnadEFCQ2tMTHhkcHNkVDUyOWpZeE9ZMVE&output=html'
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
+        #form
+        url = 'https://docs.google.com/spreadsheet/viewform?formkey=dG9LWnM1ZWEtZEFORWNMaVBDVHQyeHc6MQ'
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
+        #draw
+        url = 'https://docs.google.com/drawings/pub?id=1nSnVgWPZdQJKQxIHkEofXqomf0n0xJSU9VhmxdjQsd8&w=960&h=720'
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
     def test_width_and_height(self):
         endpoint = self.module.base.UrlToOembed()
 

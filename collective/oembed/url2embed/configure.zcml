@@ -6,6 +6,7 @@
   <utility factory=".picasaweb.PicasaWebURLEndPoint" name="picasaweb"/>
   <utility factory=".gistgithub.GistGithubURLEndPoint" name="gistgithub"/>
   <utility factory=".googlecalendar.GoogleCalendarURLEndPoint" name="googlecalendar"/>
+  <utility factory=".googledocs.GoogleDocsURLEndPoint" name="googledocs"/>
 
   <browser:page
     name="url2embed_view"
