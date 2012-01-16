@@ -155,6 +155,8 @@ Rich providers:
 * Official.FM (http://official.fm)
 * Gist Github (https://gist.github.com)
 * Google Calendar (https://www.google.com/calendar)
+* Google Docs (https://docs.google.com/)
+* Scribd (http://www.scribd.com)
 
 Other Plone addons
 ==================
