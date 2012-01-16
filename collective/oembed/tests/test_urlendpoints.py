@@ -13,6 +13,11 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed('https://picasaweb.google.com/114389802187476114971/SE7EN?authkey=YkEcVtNL9g8&feat=featured#')
         self.failUnless(data is not None)
 
+    def test_gistgithub(self):
+        endpoint = self.module.gistgithub.GistGithubURLEndPoint()
+        data = endpoint.get_embed('https://gist.github.com/1410787')
+        self.failUnless(data is not None)
+
     def test_width_and_height(self):
         endpoint = self.module.base.UrlToOembed()
 

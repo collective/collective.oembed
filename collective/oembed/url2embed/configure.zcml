@@ -4,6 +4,7 @@
     i18n_domain="collective.oembed">
 
   <utility factory=".picasaweb.PicasaWebURLEndPoint" name="picasaweb"/>
+  <utility factory=".gistgithub.GistGithubURLEndPoint" name="gistgithub"/>
 
   <browser:page
     name="url2embed_view"
