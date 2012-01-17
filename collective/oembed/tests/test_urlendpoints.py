@@ -57,6 +57,14 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed(url)
         self.failUnless(data is not None)
 
+    def test_googlemaps(self):
+        from collective.oembed.url2embed import googlemaps
+        endpoint = googlemaps.GoogleMapsURLEndPoint()
+
+        url = "http://maps.google.com/maps/ms?msid=212360783411321154030.00049a10cea932e12f6a3&msa=0"
+        data = endpoint.get_embed(url)
+        self.failUnless(data is not None)
+
     def test_scribd(self):
         from collective.oembed.url2embed import scribd
         endpoint = scribd.ScribdURLEndPoint()
@@ -66,12 +74,12 @@ class Test(base.UnitTestCase):
         self.failUnless(data is not None)
 
     def test_width_and_height(self):
-        from collective.oembed.url2embed import base
-        endpoint = base.UrlToOembed()
+        from collective.oembed.url2embed import base as ubase
+        endpoint = ubase.UrlToOembed()
 
         w, h = endpoint.get_width_and_height()
         self.failUnless(w==h)
-        self.failUnless(w==base.DEFAULT_SIZE)
+        self.failUnless(w==ubase.DEFAULT_SIZE)
 
         w, h = endpoint.get_width_and_height(maxwidth=800)
         self.failUnless(w==h)
