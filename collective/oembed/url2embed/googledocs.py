@@ -37,28 +37,29 @@ class GoogleDocsURLEndPoint(base.UrlToOembed):
         """Extract the needed parameters from the given url and options,
         and return the embed code.
         """
-        proto, host, path, query_params, fragment = self.break_url(url)
-        id = ''
-        splited=url.split('/')
+        proto, host, path, query_params = self.break_url(url)[0:4]
+        gid = ''
+        
         if path.startswith('/spreadsheet/viewform'):
-            id = query_params.get('formkey')
-            gurl = FORM_ULR%urllib2.unquote(id)
+            gid = query_params.get('formkey')
+            gurl = FORM_ULR%urllib2.unquote(gid)
             self._type = 'form'
         elif path.startswith('/drawings/pub'):
-            gurl = '%s://%s%s?id=%s'%(proto,host, path,query_params['id'])
+            gid = query_params['id']
+            gurl = '%s://%s%s?id=%s'%(proto,host, path,gid)
             self._type = 'img'
         #https://docs.google.com/present/edit?id=0AcpVnMLn9OnaZGZxbWtqaG5fNDFtdmZtNWNo&hl=en_US
         elif path.startswith('/present/edit'):
-            id = query_params['id']
-            gurl = PRESENT_URL%id
+            gid = query_params['id']
+            gurl = PRESENT_URL%gid
             self._type = 'present'
         elif path.startswith('/document/pub'):
-            id = query_params['id']
-            gurl  = DOCUMENT_URL%id
+            gid = query_params['id']
+            gurl  = DOCUMENT_URL%gid
             self._type = 'document'
         elif path.startswith('/spreadsheet/pub'):
-            id = query_params['key']
-            gurl  = SPREADSHEET_URL%id
+            gid = query_params['key']
+            gurl  = SPREADSHEET_URL%gid
             self._type = 'spreadsheet'
 
         return {'url':gurl}

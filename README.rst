@@ -156,7 +156,13 @@ Rich providers:
 * Gist Github (https://gist.github.com)
 * Google Calendar (https://www.google.com/calendar)
 * Google Docs (https://docs.google.com/)
+* Google Maps (http://maps.google.com)
 * Scribd (http://www.scribd.com)
+
+How to get use (get the working url I want)
+===========================================
+
+All most every website has many kind of URL
 
 Other Plone addons
 ==================

@@ -1,5 +1,3 @@
-#http://maps.google.com/maps/ms?msid=212360783411321154030.00049a10cea932e12f6a3&msa=0
-#<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps/ms?msa=0&amp;msid=212360783411321154030.00049a10cea932e12f6a3&amp;hl=en&amp;ie=UTF8&amp;t=v&amp;vpsrc=1&amp;ll=49.12945,8.721379&amp;spn=3.441779,8.739338&amp;output=embed"></iframe><br /><small>View <a href="http://maps.google.com/maps/ms?msa=0&amp;msid=212360783411321154030.00049a10cea932e12f6a3&amp;hl=en&amp;ie=UTF8&amp;t=v&amp;vpsrc=1&amp;ll=49.12945,8.721379&amp;spn=3.441779,8.739338&amp;source=embed" style="color:#0000FF;text-align:left">vacances</a> in a larger map</small>
 from zope import interface
 
 from collective.oembed.url2embed import base
@@ -20,7 +18,7 @@ class GoogleMapsURLEndPoint(base.UrlToOembed):
         """Extract the needed parameters from the given url and options,
         and return the embed code.
         """
-        proto, host, path, query_params, fragment = self.break_url(url)
+        query_params = self.break_url(url)[3]
 
         msid = query_params['msid']
         msa = query_params['msa']
