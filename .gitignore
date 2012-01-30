@@ -19,4 +19,8 @@ dist
 *.pyc
 *.pyo
 *.tmp*
-
+.project
+.pydevproject
+.settings
+var
+src
