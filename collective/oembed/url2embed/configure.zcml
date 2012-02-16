@@ -18,4 +18,11 @@
     template="url2embed_view.pt"
     />
 
+  <browser:page
+    name="collective.oembed.url2embed"
+    for="*"
+    class=".url2embed_view.URL2EmbedView"
+    permission="zope2.View"
+    />
+
 </configure>
