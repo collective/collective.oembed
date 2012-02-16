@@ -1,14 +1,17 @@
-import re
 import urllib
 import urllib2
 import json
 import logging
+import oembed
+
+from urllib2 import urlopen, URLError
+from urlparse import urlsplit
 
 from zope import component
 from zope import interface
 
-import oembed
 from plone.registry.interfaces import IRegistry
+from plone.memoize.ram import cache
 
 from collective.oembed import interfaces
 from collective.oembed import endpoints
@@ -56,8 +59,7 @@ class Consumer(object):
         self.consumer = None
         self.embedly_apikey = None
 
-    def get_data(self, url, maxwidth=None, maxheight=None,
-                          format='json'):
+    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
         self.initialize_consumer()
         request = {}
         if maxwidth is not None:
@@ -121,8 +123,7 @@ class ConsumerView(BrowserView):
             self._utility = component.getUtility(interfaces.IConsumer)
             self._utility.embedly_apikey = self.get_embedly_apikey()
 
-        if self._url is None:
-            self._url = self.context.getRemoteUrl()
+
 
     def update_data(self):
         """load data extracted from the context"""
@@ -148,6 +149,8 @@ class ConsumerView(BrowserView):
 
     def get_embed_auto(self):
         """This method extract params from the context"""
+        if self._url is None:
+            self._url = self.context.getRemoteUrl()
         self.update()
         self.update_data()
         return self.display_data(self.data)
@@ -157,7 +160,7 @@ class ConsumerView(BrowserView):
             return u""
 
         if u'type' not in data:
-            logger.info('no type in data for %s'%url)
+            logger.info('no type in data for %s'%self._url)
 
         template = self.embed_templates.get(data[u'type'])
 
@@ -184,3 +187,73 @@ class ConsumerView(BrowserView):
             return proxy.embedly_apikey
         except KeyError, e:
             pass
+
+def _render_details_cachekey(method, self, url, maxwidth=None, maxheight=None,
+                             format='json'):
+    return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
+
+
+class ConsumerAggregatedView(BrowserView):
+    """This class is a super consumer. It use oembed and url2embed"""
+    
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        self.oembed = None
+        self.api2embed = None
+        self.url2embed = None
+
+    def update(self):
+        if self.oembed is None:
+            self.oembed = component.queryMultiAdapter((self.context,self.request),
+                                                name="collective.oembed.consumer")
+
+        if self.url2embed is None:
+            self.url2embed = component.queryMultiAdapter((self.context,
+                                                        self.request),
+                                                   name="collective.oembed.url2embed")
+
+#    @cache(_render_details_cachekey)
+    def get_embed(self, url, maxwidth=None, maxheight=None):
+        return self.get_embed_uncached(url,
+                                maxwidth=maxwidth,
+                                maxheight=maxheight)
+
+    def get_embed_uncached(self, url, maxwidth=None, maxheight=None):
+
+        self.update()
+        url = unshort_url(url)
+        embed = None
+
+        if self.oembed is not None:
+            embed = self.oembed.get_embed(url,
+                                          maxwidth=maxwidth,
+                                          maxheight=maxheight)
+
+        if not embed and self.url2embed is not None:
+            embed = self.url2embed.get_embed(url,
+                                             maxwidth=maxwidth,
+                                             maxheight=maxheight)
+
+        return embed
+
+def unshort_url(url):
+    host = urlsplit(url)[1]
+
+    if host in SHORT_URL_DOMAINS:
+        try:
+            response = urlopen(url, )
+            return response.url
+        except URLError:
+            pass
+
+    return url
+
+SHORT_URL_DOMAINS = [
+  'tinyurl.com',
+  'goo.gl',
+  'bit.ly',
+  't.co',
+  'youtu.be',
+  'vbly.us',
+]

@@ -4,7 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet
+- Add collective.oembed.url2embed browser view component
+- Add collective.oembed.superconsumer browser view component
+
 
 1.0 (2012-01-13)
 ----------------

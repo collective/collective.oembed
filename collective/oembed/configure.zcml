@@ -66,6 +66,13 @@
       />
 
   <browser:page
+      name="collective.oembed.superconsumer"
+      for="*"
+      class=".consumer.ConsumerAggregatedView"
+      permission="zope2.View"
+      />
+
+  <browser:page
     name="oembed"
     for="*"
     class=".provider.OEmbedProvider"
