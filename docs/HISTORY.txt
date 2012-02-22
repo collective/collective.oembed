@@ -1,12 +1,13 @@
 Changelog
 =========
 
-1.1 (unreleased)
+1.1 (2012-02-22)
 ----------------
 
 - Add collective.oembed.url2embed browser view component
 - Add collective.oembed.superconsumer browser view component
-
+- Add GoogleMaps, gist.github.com, google calendar, google docs, scribd support
+- Support shorted url with tinyurl.com, goo.gl, bit.ly, t.co, youtu.be, vbly.us
 
 1.0 (2012-01-13)
 ----------------
