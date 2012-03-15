@@ -9,6 +9,7 @@
   <five:registerPackage package="." initialize=".initialize" />
 
   <include package="plone.app.contentmenu"/>
+  <include package="plone.app.registry"/>
   <include package=".url2embed"/>
   <include package=".api2embed"/>
 

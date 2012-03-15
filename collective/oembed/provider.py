@@ -1,6 +1,11 @@
 import json
 from urlparse import urlparse
-from zope.component.hooks import getSite
+try:
+    from zope.component.hooks import getSite
+except ImportError:
+    #BBB
+    from zope.site.hooks import getSite
+
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
