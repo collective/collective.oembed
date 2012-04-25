@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3 (unreleased)
-----------------
+1.2.1 (2012-04-25)
+------------------
 
 - Fix offline mode (when working without internet)
 
