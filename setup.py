@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import os
 
 version = '1.3.dev0'
 
@@ -7,7 +6,7 @@ setup(name='collective.oembed',
       version=version,
       description="embed content from oEmbed-providers as well as make your plonesite being oembed provider",
       long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open("CHANGES.txt").read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
@@ -16,7 +15,7 @@ setup(name='collective.oembed',
         "Framework :: Plone :: 4.1",
         "Programming Language :: Python",
         ],
-      keywords='',
+      keywords='plone collective oembed',
       author='JeanMichel FRANCOIS aka toutpt',
       author_email='toutpt@gmail.com',
       url='https://github.com/collective/collective.oembed',
