@@ -74,7 +74,7 @@ class Consumer(object):
         except oembed.OEmbedNoEndpoint, e:
             logger.info(e)
         except oembed.OEmbedError, e:
-            #ofter a mimetype error
+            #often a mimetype error
             logger.info(e)
         except urllib2.HTTPError, e:
             logger.info(e)
