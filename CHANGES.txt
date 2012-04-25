@@ -4,8 +4,7 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Fix offline mode (when working without internet)
 
 1.2 (2012-03-15)
 ----------------

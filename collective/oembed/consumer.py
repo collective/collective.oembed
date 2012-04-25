@@ -78,6 +78,9 @@ class Consumer(object):
             logger.info(e)
         except urllib2.HTTPError, e:
             logger.info(e)
+        except URLError,e:
+            #support offline mode
+            logger.info('offline mode')
 
     def initialize_consumer(self):
         if self.consumer is None:
