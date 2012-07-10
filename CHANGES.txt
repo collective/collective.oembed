@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3 (unreleased)
-----------------
+1.2.2 (2012-07-10)
+------------------
 
 - Make GoogleMaps working with both: maps and mymaps
 - PEP8
