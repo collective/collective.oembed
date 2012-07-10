@@ -7,4 +7,3 @@ embedMethods = SimpleVocabulary(
      SimpleTerm(value=u'replace', title=_(u'replace')),
      SimpleTerm(value=u'auto', title=_(u'auto'))]
     )
-

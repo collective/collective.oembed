@@ -14,10 +14,14 @@ IFRAME = """<iframe src="%(url)s" class="oembed-googledocs"
        width="%(width)s" height="%(height)s" frameborder="0" scrolling="no">
       </iframe>"""
 
-PRESENT = """<iframe frameborder=0 marginwidth=0 marginheight=0 border=0 style="border:0;margin:0;width:%(width)spx;height:%(height)spx;" src="%(url)s" scrolling="no" allowtransparency="true"></iframe>"""
-DOCUMENT = """<iframe src="%(url)s" width="%(width)s" height="%(height)s" frameborder="0" scrolling="no"></iframe>"""
+PRESENT = """<iframe frameborder=0 marginwidth=0 marginheight=0 border=0
+style="border:0;margin:0;width:%(width)spx;height:%(height)spx;"
+src="%(url)s" scrolling="no" allowtransparency="true"></iframe>"""
+DOCUMENT = """<iframe src="%(url)s" width="%(width)s" height="%(height)s"
+frameborder="0" scrolling="no"></iframe>"""
 
 IMG = """<img src="%(url)s&amp;w=%(width)s&amp;h=%(height)s">"""
+
 
 class GoogleDocsURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
@@ -27,7 +31,7 @@ class GoogleDocsURLEndPoint(base.UrlToOembed):
                    "https://docs.google.com/spreadsheet/viewform?*",
                    "https://docs.google.com/present/edit?*",
                    "https://docs.google.com/document/pub?*",
-                   "https://docs.google.com/spreadsheet/pub?*",]
+                   "https://docs.google.com/spreadsheet/pub?*"]
 
     def __init__(self):
         super(GoogleDocsURLEndPoint, self).__init__()
@@ -39,30 +43,29 @@ class GoogleDocsURLEndPoint(base.UrlToOembed):
         """
         proto, host, path, query_params = self.break_url(url)[0:4]
         gid = ''
-        
+
         if path.startswith('/spreadsheet/viewform'):
             gid = query_params.get('formkey')
-            gurl = FORM_ULR%urllib2.unquote(gid)
+            gurl = FORM_ULR % urllib2.unquote(gid)
             self._type = 'form'
         elif path.startswith('/drawings/pub'):
             gid = query_params['id']
-            gurl = '%s://%s%s?id=%s'%(proto,host, path,gid)
+            gurl = '%s://%s%s?id=%s' % (proto, host, path, gid)
             self._type = 'img'
-        #https://docs.google.com/present/edit?id=0AcpVnMLn9OnaZGZxbWtqaG5fNDFtdmZtNWNo&hl=en_US
         elif path.startswith('/present/edit'):
             gid = query_params['id']
-            gurl = PRESENT_URL%gid
+            gurl = PRESENT_URL % gid
             self._type = 'present'
         elif path.startswith('/document/pub'):
             gid = query_params['id']
-            gurl  = DOCUMENT_URL%gid
+            gurl = DOCUMENT_URL % gid
             self._type = 'document'
         elif path.startswith('/spreadsheet/pub'):
             gid = query_params['key']
-            gurl  = SPREADSHEET_URL%gid
+            gurl = SPREADSHEET_URL % gid
             self._type = 'spreadsheet'
 
-        return {'url':gurl}
+        return {'url': gurl}
 
     @property
     def embed_html_template(self):

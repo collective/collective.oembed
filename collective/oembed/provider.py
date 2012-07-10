@@ -6,16 +6,17 @@ except ImportError:
     #BBB
     from zope.site.hooks import getSite
 
-
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five import BrowserView
+import logging
+logger = logging.getLogger('collective.oembed')
+
 
 class OEmbedProvider(BrowserView):
     """OEmbed Provider"""
-    
+
     index_xml = ViewPageTemplateFile('provider_xml.pt')
-    
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -24,11 +25,10 @@ class OEmbedProvider(BrowserView):
         self.maxwidth = None
         self.maxheight = None
         self.embed = {}
-        
+
         self._site = None
         self._target = None
 
-    
     def __call__(self):
         try:
             self.update()
@@ -41,25 +41,25 @@ class OEmbedProvider(BrowserView):
     def update(self):
 #        import pdb;pdb.set_trace()
         if self.format is None:
-            self.format = self.request.get('format',None)
+            self.format = self.request.get('format', None)
 
         if self.format is None or not self.format:
             self.format = 'json'
         if self.format == 'json':
-            self.request.response.setHeader('Content-Type','application/json')
+            self.request.response.setHeader('Content-Type', 'application/json')
 
-        if self.format not in ('json','xml'):
+        if self.format not in ('json', 'xml'):
             raise ValueError('format parameter must be in json, xml')
 
         if self.url is None:
-            self.url = self.request.get('url',None)
+            self.url = self.request.get('url', None)
         if self.url is None:
             raise KeyError('you must provide url parameter')
 
         if self.maxwidth is None:
-            self.maxwidth = self.request.get('maxwidth',None)
+            self.maxwidth = self.request.get('maxwidth', None)
         if self.maxheight is None:
-            self.maxheight = self.request.get('maxheight',None)
+            self.maxheight = self.request.get('maxheight', None)
 
         path = self.get_path()
         site = self.get_site()
@@ -82,12 +82,11 @@ class OEmbedProvider(BrowserView):
         if type(site_title) != unicode:
             site_title = site_title.decode('utf-8')
 
-
         e = self.embed
         e[u'version'] = '1.0'
         e[u'title'] = title
         e[u'author_name'] = ob.Creator()
-        e[u'author_url'] = site.absolute_url()+'/author/' + ob.Creator()
+        e[u'author_url'] = site.absolute_url() + '/author/' + ob.Creator()
         e[u'provider_name'] = site_title
         e[u'provider_url'] = site.absolute_url()
         if ob.portal_type == 'Image':
@@ -110,7 +109,7 @@ class OEmbedProvider(BrowserView):
         parsed = urlparse(self.url)
         path = parsed.path
         return path
-    
+
     def get_site(self):
         if self._site is None:
             self._site = getSite()
@@ -128,8 +127,9 @@ class OEmbedProvider(BrowserView):
 
         if self._target is None:
             try:
-                self._target = site.restrictedTraverse(path[1:])#remove heading /
-            except KeyError,e:
+                # remove heading /
+                self._target = site.restrictedTraverse(path[1:])
+            except KeyError, e:
                 logger.error(e)
                 return
 

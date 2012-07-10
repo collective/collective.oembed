@@ -2,8 +2,10 @@ import json
 from zope import interface
 from zope import schema
 
+from collective.oembed import i18n
 from collective.oembed.i18n import messageFactory as _
 from collective.oembed import vocabulary
+
 
 class OEmbedLayer(interface.Interface):
     """browser layer for this addon"""
@@ -11,21 +13,22 @@ class OEmbedLayer(interface.Interface):
 
 class IConsumer(interface.Interface):
     """consumer utility"""
-    
+
     def get_data(url, maxwidth=None, maxheight=None, format='json'):
         """Return the data provided by the endpoint"""
-    
+
     def get_embed(url, maxwidth=None, maxheight=None, format='json'):
         """Return the html code to display the content provided by url."""
 
+
 class IOEmbedSettings(interface.Interface):
     """Client server side is named consumer"""
-    
-    embedly_apikey  = schema.ASCIILine(title=_(u'embedlykey'),
+
+    embedly_apikey = schema.ASCIILine(title=_(u'embedlykey'),
                                   required=False)
-    
-    activate_jqueryoembed_integration = schema.Bool(title=_(u"Activate jquery.oembed integration"),
-                                                    description=_(u"If you have installed a jquery.oembed plugin, you can activate integration"),
+
+    activate_jqueryoembed_integration = schema.Bool(title=i18n.jqueryoembed_integration,
+                                description=i18n.jqueryoembed_integration_desc,
                                                     default=False)
 
     #configuration for jquery.oembed javascript
@@ -38,25 +41,26 @@ class IOEmbedSettings(interface.Interface):
                                              default="embed.ly")
 
     allowedProviders = schema.List(title=_(u'allowedProviders'),
-                                   value_type=schema.ASCIILine(title=_(u'provider')),
-                                   default=[],
-                                   required=False)
+                           value_type=schema.ASCIILine(title=_(u'provider')),
+                           default=[],
+                           required=False)
 
     disallowedProviders = schema.List(title=_(u'disallowedProviders'),
-                                   value_type=schema.ASCIILine(title=_(u'provider')),
-                                   default=[],
-                                   required=False)
+                           value_type=schema.ASCIILine(title=_(u'provider')),
+                           default=[],
+                           required=False)
 
     customProviders = schema.List(title=_(u'customProviders'),
-                                  value_type=schema.ASCIILine(title=_(u'provider')),
-                                  default=[],
-                                  required=False)
+                          value_type=schema.ASCIILine(title=_(u'provider')),
+                          default=[],
+                          required=False)
+
 
 class IURL2Embed(interface.Interface):
     """To extend oembed experience we add a new kind of service: get the
     embed code directly from the URL. For example we can do that
-    with picasaweb service. 
-    
+    with picasaweb service.
+
     Pros:
       * no need to request external service
     Cons:
@@ -79,6 +83,7 @@ class IURL2Embed(interface.Interface):
         """Return a dict contains all needed params in embed_html_template
         except width and height, which are added by get_embed
         """
+
 
 class IAPI2Embed(interface.Interface):
     """To extend oembed experience we add a new kind of service: get the 

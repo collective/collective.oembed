@@ -7,11 +7,12 @@ from collective.oembed import interfaces
 
 CALENDAR_URL = 'https://www.google.com/calendar/embed?src=%(id)s'
 
+
 class GoogleCalendarURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
 
-    embed_html_template="""<iframe src="%(url)s" style="border: 0"
+    embed_html_template = """<iframe src="%(url)s" style="border: 0"
        width="%(width)s" height="%(height)s" frameborder="0" scrolling="no">
       </iframe>"""
 
@@ -25,17 +26,15 @@ class GoogleCalendarURLEndPoint(base.UrlToOembed):
         """
         proto, host, path, query_params, fragment = self.break_url(url)
         splited = path.split('/')
-        if path.startswith('/calendar/feeds/') or path.startswith('/calendar/ical'):
-            #https://www.google.com/calendar/feeds/fr.christian%23holiday%40group.v.calendar.google.com/public/basic
-            #https://www.google.com/calendar/ical/fr.christian%23holiday%40group.v.calendar.google.com/public/basic.ics
-            if len(splited)>2:
-                id = urllib2.unquote(splited[3])
+        if path.startswith('/calendar/feeds/')\
+           or path.startswith('/calendar/ical'):
+            if len(splited) > 2:
+                cid = urllib2.unquote(splited[3])
         elif path.startswith('/calendar/embed'):
-            #https://www.google.com/calendar/embed?src=fr.christian%23holiday%40group.v.calendar.google.com&ctz=Europe/Paris
-            id = query_params.get('src',None)
+            cid = query_params.get('src', None)
             if id is not None:
-                id = urllib2.unquote(id)
+                cid = urllib2.unquote(cid)
 
-        gurl = CALENDAR_URL%{'id':id}
+        gurl = CALENDAR_URL % {'id': cid}
 
-        return {"url":gurl}
+        return {"url": gurl}

@@ -3,11 +3,13 @@ from zope import interface
 from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
+
 class GistGithubURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
 
-    embed_html_template="""<style type="text/css">#content .gist pre{color: #000;}</style><script src="%(url)s.js"></script>"""
+    embed_html_template = """<style type="text/css">#content .gist
+     pre{color: #000;}</style><script src="%(url)s.js"></script>"""
 
     url_schemes = ["https://gist.github.com/*"]
 
@@ -15,8 +17,7 @@ class GistGithubURLEndPoint(base.UrlToOembed):
         """Extract the needed parameters from the given url and options,
         and return the embed code.
         """
-        proto, host, path, query_params, fragment = self.break_url(url)
-        splited = path.split('/')
-        len_ = len(splited)
-        return {"url":url}
-
+#        proto, host, path, query_params, fragment = self.break_url(url)
+#        splited = path.split('/')
+#        len_ = len(splited)
+        return {"url": url}

@@ -51,6 +51,7 @@ TEMPLATES = {u"link":u"""
     </div> 
     """}
 
+
 class Consumer(object):
     """Consumer utility"""
     interface.implements(interfaces.IConsumer)
@@ -78,7 +79,7 @@ class Consumer(object):
             logger.info(e)
         except urllib2.HTTPError, e:
             logger.info(e)
-        except URLError,e:
+        except URLError, e:
             #support offline mode
             logger.info('offline mode')
 
@@ -97,7 +98,8 @@ class Consumer(object):
                              format=format)
         if data is None or u"type" not in data:
             return u""
-        return TEMPLATES[data[u"type"]]%data
+        return TEMPLATES[data[u"type"]] % data
+
 
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
@@ -118,15 +120,11 @@ class ConsumerView(BrowserView):
         self._maxheight = None
         self.embeded = u""
 
-
-
     def update(self):
         """initialize all data"""
         if self._utility is None:
             self._utility = component.getUtility(interfaces.IConsumer)
             self._utility.embedly_apikey = self.get_embedly_apikey()
-
-
 
     def update_data(self):
         """load data extracted from the context"""
@@ -163,7 +161,7 @@ class ConsumerView(BrowserView):
             return u""
 
         if u'type' not in data:
-            logger.info('no type in data for %s'%self._url)
+            logger.info('no type in data for %s' % self._url)
 
         template = self.embed_templates.get(data[u'type'])
 
@@ -191,30 +189,34 @@ class ConsumerView(BrowserView):
         except KeyError, e:
             pass
 
+
 def _render_details_cachekey(method, self, url, maxwidth=None, maxheight=None,
                              format='json'):
-    return '%s-%s-%s-%s'%(url, maxwidth, maxheight, format)
+    return '%s-%s-%s-%s' % (url, maxwidth, maxheight, format)
 
 
 class ConsumerAggregatedView(BrowserView):
     """This class is a super consumer. It use oembed and url2embed"""
-    
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
         self.oembed = None
         self.api2embed = None
         self.url2embed = None
+        self._maxwidth = None
+        self._maxheight = None
 
     def update(self):
         if self.oembed is None:
-            self.oembed = component.queryMultiAdapter((self.context,self.request),
-                                                name="collective.oembed.consumer")
+            self.oembed = component.queryMultiAdapter((self.context,
+                                                       self.request),
+                                            name="collective.oembed.consumer")
 
         if self.url2embed is None:
             self.url2embed = component.queryMultiAdapter((self.context,
-                                                        self.request),
-                                                   name="collective.oembed.url2embed")
+                                                          self.request),
+                                            name="collective.oembed.url2embed")
 
 #    @cache(_render_details_cachekey)
     def get_embed(self, url, maxwidth=None, maxheight=None):
@@ -223,7 +225,6 @@ class ConsumerAggregatedView(BrowserView):
                                 maxheight=maxheight)
 
     def get_embed_uncached(self, url, maxwidth=None, maxheight=None):
-
         self.update()
         url = unshort_url(url)
         embed = None
@@ -239,6 +240,15 @@ class ConsumerAggregatedView(BrowserView):
                                              maxheight=maxheight)
 
         return embed
+
+    def get_embed_auto(self):
+        """This method extract params from the context"""
+        if self._url is None:
+            self._url = self.context.getRemoteUrl()
+        return self.get_embed(self._url,
+                              self._maxwidth,
+                              self._maxheight)
+
 
 def unshort_url(url):
     host = urlsplit(url)[1]

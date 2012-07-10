@@ -4,6 +4,7 @@ from Products.Five.browser import BrowserView
 
 from collective.oembed import interfaces
 
+
 class URL2EmbedView(BrowserView):
     """This view use url2embed component to display content"""
 
@@ -15,13 +16,16 @@ class URL2EmbedView(BrowserView):
 
     def update(self):
         if not self._utilities:
-            self._utilities = component.getAllUtilitiesRegisteredFor(interfaces.IURL2Embed)
+            ut = component.getAllUtilitiesRegisteredFor(interfaces.IURL2Embed)
+            self._utilities = ut
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
         self.update()
         endpoint = self.get_endpoint(url)
         if endpoint is not None:
-            return endpoint.get_embed(url,maxwidth=maxwidth, maxheight=maxheight)
+            return endpoint.get_embed(url,
+                                      maxwidth=maxwidth,
+                                      maxheight=maxheight)
 
     def get_embed_auto(self):
         self.update()

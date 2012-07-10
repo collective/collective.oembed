@@ -1,11 +1,12 @@
 import oembed
 
 REGEX_PROVIDERS = [
- {u'regex': ['regex:.*youtube\.com/watch.*','regex:.*youtube\.com/playlist.*'],
+ {u'regex': ['regex:.*youtube\.com/watch.*',
+             'regex:.*youtube\.com/playlist.*'],
   u'endpoint':'http://www.youtube.com/oembed'},
  {u'regex':['http://*.flickr.com/*'],
   u'endpoint':'http://www.flickr.com/services/oembed'},
- {u'regex':['http://qik.com/video/*','http://qik.com/*'],
+ {u'regex':['http://qik.com/video/*', 'http://qik.com/*'],
   u'endpoint':'http://qik.com/api/oembed.{format}'},
  {u'regex':['http://*revision3.com/*'],
   u'endpoint':'http://revision3.com/api/oembed/'},
@@ -15,7 +16,7 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://vimeo.com/api/oembed.{format}'},
  {u'regex':['http://www.collegehumor.com/video/*'],
   u'endpoint':'http://www.collegehumor.com/oembed.{format}'},
- {u'regex':['http://www.polleverywhere.com/polls/*','http://www.polleverywhere.com/multiple_choice_polls/*','http://www.polleverywhere.com/free_text_polls/*'],
+ {u'regex':['http://www.polleverywhere.com/polls/*', 'http://www.polleverywhere.com/multiple_choice_polls/*','http://www.polleverywhere.com/free_text_polls/*'],
   u'endpoint':'http://www.polleverywhere.com/services/oembed/'},
  {u'regex':['http://www.ifixit.com/*'],
   u'endpoint':'http://www.ifixit.com/Embed'},
@@ -26,28 +27,38 @@ REGEX_PROVIDERS = [
  {u'regex':['http://www.23hq.com/*/photo/*'],
   u'endpoint':'http://www.23hq.com/23/oembed'},
  {u'regex':['http://www.5min.com/Video/*'],
-  u'endpoint':'http://api.5min.com/oembed.{format}'}, #http://www.5min.com/APIDocs/Embed.aspx
+   #http://www.5min.com/APIDocs/Embed.aspx
+  u'endpoint':'http://api.5min.com/oembed.{format}'},
  {u'regex':['https://twitter.com/*/status*/*'],
-  u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'}, #https://dev.twitter.com/docs/embedded-tweets
+   #https://dev.twitter.com/docs/embedded-tweets
+  u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}'},
  {u'regex':['regex:.*photobucket\\.com/(albums|groups)/.+$'],
-  u'endpoint':'http://photobucket.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+  #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+  u'endpoint':'http://photobucket.com/oembed'},
  {u'regex':['http://*.kinomap.com/*'],
-  u'endpoint':'http://www.kinomap.com/oembed'}, #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+   #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+  u'endpoint':'http://www.kinomap.com/oembed'},
  {u'regex':['http://www.dailymotion.com/video/*'],
-  u'endpoint':'http://www.dailymotion.com/services/oembed'}, #http://www.dailymotion.com/doc/api/oembed.html
+   #http://www.dailymotion.com/doc/api/oembed.html
+  u'endpoint':'http://www.dailymotion.com/services/oembed'},
  {u'regex':['http://*.clikthrough.com/theater/video/*'],
   u'endpoint':'http://clikthrough.com/services/oembed'},
  {u'regex':['http://dotsub.com/view/*'],
-  u'endpoint':'http://dotsub.com/services/oembed'}, #http://solutions.dotsub.com/oEmbed
- {u'regex':['http://*blip.tv/*'],              # blit.tv sends an invalid mime-type back
+   #http://solutions.dotsub.com/oEmbed
+  u'endpoint':'http://dotsub.com/services/oembed'},
+# blit.tv sends an invalid mime-type back
+ {u'regex':['http://*blip.tv/*'],
   u'endpoint':'http://blip.tv/oembed/'},
  {u'regex':['http://official.fm/tracks/*', 'http://official.fm/playlists/*'],
-  u'endpoint':'http://official.fm/services/oembed.{format}'}, #http://official.fm/developers/oembed
- {u'regex':['http://vhx.tv/*'], #http://dev.vhx.tv/oembed.html
+  #http://official.fm/developers/oembed
+  u'endpoint':'http://official.fm/services/oembed.{format}'},
+  #http://dev.vhx.tv/oembed.html
+ {u'regex':['http://vhx.tv/*'],
   u'endpoint':'http://vhx.tv/services/oembed.{format}'},
  {u'regex':['http://*.nfb.ca/film/*'],
   u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
- {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'], #http://instagr.am/developer/embedding/
+  #http://instagr.am/developer/embedding/
+ {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'],
   u'endpoint':'http://api.instagram.com/oembed'},
  {u'regex':['http://wordpress.tv/*'],
   u'endpoint':'http://wordpress.tv/oembed/'},
@@ -80,6 +91,7 @@ REGEX_PROVIDERS = [
 #  u'endpoint':'http://tv.majorleaguegaming.com/oembed'},
 ]
 
+
 class EmbedlyEndPoint(oembed.OEmbedEndpoint):
     """override this one to add api key"""
 
@@ -95,18 +107,20 @@ class EmbedlyEndPoint(oembed.OEmbedEndpoint):
         query['key'] = self.apikey
         return super(EmbedlyEndPoint, self).request(url, **query)
 
+
 class WordpressEndPoint(oembed.OEmbedEndpoint):
     """Wordpress wait a for in his query params"""
-    
+
     def __init__(self):
         url = 'http://public-api.wordpress.com/oembed/1.0/'
-        urlSchemes = ['regex:.*.wordpress\.com/.*',]
+        urlSchemes = ['regex:.*.wordpress\.com/.*']
         super(WordpressEndPoint, self).__init__(url, urlSchemes=urlSchemes)
 
     def request(self, url, **opt):
         query = opt
         query['for'] = 'plone'
         return super(WordpressEndPoint, self).request(url, **query)
+
 
 def load_all_endpoints(embedly_apikey=None):
     endpoints = []
@@ -123,5 +137,5 @@ def load_all_endpoints(embedly_apikey=None):
         endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
                                          provider[u'regex'])
         endpoints.append(endpoint)
-    
+
     return endpoints

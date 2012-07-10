@@ -1,6 +1,8 @@
+from zope import component
 from Products.Five.browser import BrowserView
 
 from collective.oembed import interfaces
+
 
 class API2EmbedView(BrowserView):
     """Aggregator of API2Embed view"""
@@ -13,7 +15,8 @@ class API2EmbedView(BrowserView):
 
     def update(self):
         if not self._utilities:
-            self._utilities = component.getAllUtilitiesRegisteredFor(interfaces.IAPI2Embed)
+            iface = interfaces.IAPI2Embed
+            self._utilities = component.getAllUtilitiesRegisteredFor(iface)
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
         self.update()
