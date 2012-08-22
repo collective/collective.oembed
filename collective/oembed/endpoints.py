@@ -62,6 +62,8 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://api.instagram.com/oembed'},
  {u'regex':['http://wordpress.tv/*'],
   u'endpoint':'http://wordpress.tv/oembed/'},
+ {u'regex':['http://soundcloud.com/*', 'http://soundcloud.com/*/*', 'http://soundcloud.com/*/sets/*', 'http://soundcloud.com/groups/*', 'http://snd.sc/*'],
+  u'endpoint':'http://soundcloud.com/oembed'},
 #
 # Those features don't work currently, but are being worked upon:
 #
