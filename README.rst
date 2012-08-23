@@ -58,11 +58,11 @@ attributes::
 OEmbed link view
 ================
 
-This addon register an oembed view to the Link content type. It displays 
+This addon register an oembed view to the Link content type. It displays
 content provided from the remote url and do not set maxwidth & maxheight. It
 should be achieved by integrators.
 
-The link view stores 3 different lists of components: 
+The link view stores 3 different lists of components:
 
 * oembed
 * api2embed
@@ -71,7 +71,7 @@ The link view stores 3 different lists of components:
 oembed
 ------
 
-Contains registered views of type oembed_view , able to get the html 
+Contains registered views of type oembed_view , able to get the html
 embed template from the targetted provider's oembed api (see below for a
 list of currently supported providers).
 
@@ -80,27 +80,27 @@ api2embed
 
 If you have an API key for the targeted website, you should be able to
 use it through those views.
-Once this feature is implemented, you should be able to choose whether 
+Once this feature is implemented, you should be able to choose whether
 you want to activate it or not.
 
 url2embed
 ---------
 
-Contains registered views of type url2embed_view, which get the embed 
+Contains registered views of type url2embed_view, which get the embed
 template directly from the target's url.
 Used as a fallback for websites who do not support the oEmbed format.
 
 NOTE::
 
-    While the returned data will be sufficient to embed the target 
+    While the returned data will be sufficient to embed the target
     widget in your view, you won't be able to access the metadata which
     could have been associated with it in a straight oEmbed format.
 
 All three lists are checked in the same order as they're presented here,
 and the first valid component found is used to get the embed code.
-If no match at all is found, then nothing will be displayed. 
+If no match at all is found, then nothing will be displayed.
 
-Check endpoint.csv to see which of those views are currently supported for 
+Check endpoint.csv to see which of those views are currently supported for
 each service.
 
 Embed.ly
@@ -113,7 +113,7 @@ use the configuration provided by this one.
 Providers
 =========
 
-embed.ly is activated only if you have added an api_key or configured 
+embed.ly is activated only if you have added an api_key or configured
 collective.embedly. The addon provide native support for the following services:
 
 External providers:
@@ -158,6 +158,7 @@ Rich providers:
 * Google Docs (https://docs.google.com/)
 * Google Maps (http://maps.google.com)
 * Scribd (http://www.scribd.com)
+* SoundCloud (http://soundcloud.com/)
 
 How to get use (get the working url I want)
 ===========================================
@@ -190,6 +191,7 @@ Authors
 Contributors
 
 - Raphael Gaziano aka raphigaziano <r.gaziano@gmail.com>
+- Alejandro Pereira aka aleGpereira <alepereira86@gmail.com>
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
