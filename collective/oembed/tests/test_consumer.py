@@ -234,7 +234,12 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type']=='video')
-    
+
+    def test_endpoint_soundcloud(self):
+        url = 'http://soundcloud.com/nickyromero/nicky-romero-calvin-harris'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type']=='rich')
 
 #   FAILING TESTS:
 #
