@@ -27,6 +27,7 @@ setup(name='collective.oembed',
       install_requires=[
           'setuptools',
           'python-oembed',
+          'BeautifulSoup',
           'plone.app.registry',
           # -*- Extra requirements: -*-
       ],

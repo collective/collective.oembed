@@ -1,9 +1,10 @@
 import oembed
+from BeautifulSoup import BeautifulSoup
 
 REGEX_PROVIDERS = [
- {u'regex': ['regex:.*youtube\.com/watch.*',
-             'regex:.*youtube\.com/playlist.*'],
-  u'endpoint':'http://www.youtube.com/oembed'},
+# {u'regex': ['regex:.*youtube\.com/watch.*',
+#             'regex:.*youtube\.com/playlist.*'],
+#  u'endpoint':'http://www.youtube.com/oembed'},
  {u'regex':['http://*.flickr.com/*'],
   u'endpoint':'http://www.flickr.com/services/oembed'},
  {u'regex':['http://qik.com/video/*', 'http://qik.com/*'],
@@ -124,6 +125,50 @@ class WordpressEndPoint(oembed.OEmbedEndpoint):
         return super(WordpressEndPoint, self).request(url, **query)
 
 
+class DiscoveryEndPoint(oembed.OEmbedEndpoint):
+    """oEmbed Discovery endpoint http://oembed.com/#section4"""
+
+    def __init__(self):
+        super(DiscoveryEndPoint, self).__init__('')
+
+    def match(self, url):
+        '''
+        Try to find if url returns an html with links to oEmbed.
+
+        Args:
+            url: The url to match against each scheme
+            
+        Returns:
+            True if a valid link was returned for the url, False otherwise
+        '''
+        opener = self._urllib.build_opener()
+        try:
+            response = opener.open(url)
+            soup = BeautifulSoup(response.read())
+            self.oembed_links = {'json': soup.find(type="application/json+oembed"),
+                                 'xml': soup.find(type="text/xml+oembed")}
+    
+            return self.oembed_links['json'] or self.oembed_links['xml']
+        except:
+            return False
+
+    def get(self, url, **opt):
+        '''
+        Convert the resource url to a complete url and then fetch the 
+        data from it.
+        
+        Args:
+            url: The url of an OEmbed resource.
+            **opt: Parameters passed to the url.
+            
+        Returns:
+            OEmbedResponse object according to data fetched
+        '''
+        link = self.oembed_links.get(opt['format'])
+        if link:
+            return self.fetch(link.get('href'))
+        raise oembed.OEmbedInvalidRequest('Format not available')
+    
 def load_all_endpoints(embedly_apikey=None):
     endpoints = []
     if embedly_apikey is not None:
@@ -139,5 +184,8 @@ def load_all_endpoints(embedly_apikey=None):
         endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
                                          provider[u'regex'])
         endpoints.append(endpoint)
+
+    endpoint = DiscoveryEndPoint()
+    endpoints.append(endpoint)
 
     return endpoints
