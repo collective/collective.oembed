@@ -141,12 +141,16 @@ class DiscoveryEndPoint(oembed.OEmbedEndpoint):
         Returns:
             True if a valid link was returned for the url, False otherwise
         '''
+        request = self._urllib.Request(url)
+        request.get_method = lambda: 'HEAD'
         opener = self._urllib.build_opener()
         try:
-            response = opener.open(url)
-            soup = BeautifulSoup(response.read())
-            self.oembed_links = {'json': soup.find(type="application/json+oembed"),
-                                 'xml': soup.find(type="text/xml+oembed")}
+            response = opener.open(request)
+            if 'text/html' in response.headers.get('content-type'):
+                response = opener.open(url)
+                soup = BeautifulSoup(response.read())
+                self.oembed_links = {'json': soup.find(type="application/json+oembed"),
+                                     'xml': soup.find(type="text/xml+oembed")}
     
             return self.oembed_links['json'] or self.oembed_links['xml']
         except:
