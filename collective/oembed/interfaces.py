@@ -36,7 +36,7 @@ class IOEmbedSettings(interface.Interface):
     embedMethod = schema.Choice(title=_(u'embedMethod'),
                                 description=_(u'embedMethod_description'),
                                 vocabulary=vocabulary.embedMethods,
-                                default=u'auto')
+                                default=u'replace')
 
     defaultOEmbedProvider = schema.ASCIILine(title=_(u'defaultOEmbedProvider'),
                                              default="plone")
