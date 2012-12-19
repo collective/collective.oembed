@@ -218,7 +218,12 @@ class ConsumerAggregatedView(BrowserView):
                                                           self.request),
                                             name="collective.oembed.url2embed")
 
-#    @cache(_render_details_cachekey)
+        if self.api2embed is None:
+            self.api2embed = component.queryMultiAdapter((self.context,
+                                                          self.request),
+                                            name="collective.oembed.api2embed")
+
+    @cache(_render_details_cachekey)
     def get_embed(self, url, maxwidth=None, maxheight=None):
         return self.get_embed_uncached(url,
                                 maxwidth=maxwidth,
@@ -229,15 +234,14 @@ class ConsumerAggregatedView(BrowserView):
         url = unshort_url(url)
         embed = None
 
-        if self.oembed is not None:
-            embed = self.oembed.get_embed(url,
-                                          maxwidth=maxwidth,
-                                          maxheight=maxheight)
+        providers = ('oembed', 'url2embed', 'api2embed')
 
-        if not embed and self.url2embed is not None:
-            embed = self.url2embed.get_embed(url,
-                                             maxwidth=maxwidth,
-                                             maxheight=maxheight)
+        for provider_name in providers:
+            provider = getattr(self, provider_name, None)
+            if provider and not embed:
+                embed = provider.get_embed(url,
+                                           maxwidth=maxwidth,
+                                           maxheight=maxheight)
 
         return embed
 
@@ -249,21 +253,20 @@ class ConsumerAggregatedView(BrowserView):
                               self._maxwidth,
                               self._maxheight)
 
+    @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
         self.update()
         url = unshort_url(url)
         data = None
-        if self.oembed is not None:
-            data = self.oembed.get_data(url,
-                                        maxwidth=maxwidth,
-                                        maxheight=maxheight,
-                                        format=format)
+        providers = ('oembed', 'url2embed', 'api2embed')
 
-        if not data and self.url2embed is not None:
-            data = self.url2embed.get_data(url,
-                                           maxwidth=maxwidth,
-                                           maxheight=maxheight,
-                                           format=format)
+        for provider_name in providers:
+            provider = getattr(self, provider_name, None)
+            if provider and not data:
+                data = provider.get_data(url,
+                                         maxwidth=maxwidth,
+                                         maxheight=maxheight,
+                                         format=format)
 
         return data
 

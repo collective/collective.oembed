@@ -3,8 +3,10 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.oembed">
 
+  <utility factory=".twitteruser.TwitterUserAPI2Embed" name="twitteruser"/>
+
   <browser:page
-    name="api2embed_view"
+    name="collective.oembed.api2embed"
     for="*"
     class=".api2embed_view.API2EmbedView"
     permission="zope2.View"

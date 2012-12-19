@@ -40,3 +40,11 @@ class API2EmbedView(BrowserView):
                     self._utility = utility
 
         return self._utility
+
+    def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
+        self.update()
+        endpoint = self.get_endpoint(url)
+        if endpoint is not None:
+            return endpoint.get_data(url,
+                                      maxwidth=maxwidth,
+                                      maxheight=maxheight)
