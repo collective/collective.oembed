@@ -16,6 +16,7 @@ class GoogleMapsURLEndPoint(base.UrlToOembed):
     interface.implements(interfaces.IURL2Embed)
 
     embed_html_template = TEMPLATE
+    oembed_type = "rich"
 
     url_schemes = ["http://maps.google.com*",
                    "https://maps.google.com*"]

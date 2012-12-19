@@ -26,6 +26,7 @@ IMG = """<img src="%(url)s&amp;w=%(width)s&amp;h=%(height)s">"""
 class GoogleDocsURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
+    oembed_type = "rich"
 
     url_schemes = ["https://docs.google.com/drawings/pub?*",
                    "https://docs.google.com/spreadsheet/viewform?*",

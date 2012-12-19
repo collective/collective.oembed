@@ -10,7 +10,7 @@ class GistGithubURLEndPoint(base.UrlToOembed):
 
     embed_html_template = """<style type="text/css">#content .gist
      pre{color: #000;}</style><script src="%(url)s.js"></script>"""
-
+    oembed_type = "rich"
     url_schemes = ["https://gist.github.com/*"]
 
     def request(self, url):

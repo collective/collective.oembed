@@ -22,6 +22,7 @@ s.parentNode.insertBefore(scribd, s); })();</script>"""
 class ScribdURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
+    oembed_type = "rich"
 
     embed_html_template = TEMPLATE
 

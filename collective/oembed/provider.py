@@ -148,9 +148,9 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
         if self.url is None:
             self.url = self.request.get('url', None)
 
+        OEmbedProvider.update(self)  # update in all case
         if self.url.startswith(self.context.absolute_url()):
             self.is_local = True
-            OEmbedProvider.update(self)
         else:
             ConsumerAggregatedView.update(self)
             self._url = self.url
@@ -163,40 +163,13 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
             result = OEmbedProvider.__call__(self)
         else:
 
-            html = ConsumerAggregatedView.get_embed(self,
+            result = ConsumerAggregatedView.get_data(self,
                                     self.url,
                                     maxwidth=self.maxwidth,
-                                    maxheight=self.maxheight)
+                                    maxheight=self.maxheight,
+                                    format="json")
 
-            if self.oembed.data:
-                result = json.dumps(self.oembed.data)
-
-            else:
-                result = self.get_url2embed_data(html)
+            if type(result) == dict:
+                result = json.dumps(result)
 
         return result
-
-    def get_url2embed_data(self, html):
-        if not html:
-            return
-        site = self.get_site()
-        e = self.embed
-        e[u'version'] = '1.0'
-        e[u'title'] = ""
-        e[u'author_name'] = ""
-        e[u'author_url'] = ""
-        e[u'provider_name'] = site.Title()
-        e[u'provider_url'] = site.absolute_url()
-
-        if html.startswith('<img'):
-            e[u'type'] = 'photo'
-            e[u'url'] = self.url
-            e[u'width'] = ""
-            e[u'height'] = ""
-        elif html:
-            e[u'type'] = 'video'
-            e[u'html'] = html
-        else:
-            e[u'type'] = 'link'
-
-        return self.render()

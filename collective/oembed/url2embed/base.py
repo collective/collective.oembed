@@ -14,6 +14,7 @@ class UrlToOembed(oembed.OEmbedEndpoint):
     """
     embed_html_template = """%(width)s%(height)s%(flashvar)s"""
     url_schemes = None
+    oembed_type = ""
 
     def __init__(self):
 
@@ -24,6 +25,7 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         #Stores urllib.urlencode() in a member var to avoid reimporting it
         #in child classes
         self._urlEncoder = urlencode
+        self.embed = {}
 
     def break_url(self, url):
         """Beaks down the given url and returns each of its
@@ -85,3 +87,31 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         info['width'] = w
         info['height'] = h
         return self.embed_html_template % info
+
+    def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
+        html = self.get_embed(url,
+                              maxwidth=maxwidth,
+                              maxheight=maxheight)
+        e = self.embed
+        e[u'version'] = '1.0'
+        e[u'title'] = ""
+        e[u'author_name'] = ""
+        e[u'author_url'] = ""
+        e[u'provider_name'] = ""
+        e[u'provider_url'] = ""
+
+        if self.oembed_type == "photo":
+            e[u'type'] = 'photo'
+            e[u'url'] = self.url
+            e[u'width'] = ""
+            e[u'height'] = ""
+        elif self.oembed_type == "video":
+            e[u'type'] = 'video'
+            e[u'html'] = html
+        elif self.oembed_type == "rich":
+            e[u'type'] = 'rich'
+            e[u'html'] = html
+        else:
+            e[u'type'] = 'link'
+
+        return self.embed

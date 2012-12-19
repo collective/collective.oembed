@@ -14,6 +14,7 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
     interface.implements(interfaces.IURL2Embed)
 
     embed_html_template = TEMPLATE
+    oembed_type = "rich"
 
     url_schemes = ["http*://picasaweb.google.com*/*/*#*",
                    "http*://picasaweb.google.com*/lh/photo/*",

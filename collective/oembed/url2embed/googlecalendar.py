@@ -15,6 +15,7 @@ class GoogleCalendarURLEndPoint(base.UrlToOembed):
     embed_html_template = """<iframe src="%(url)s" style="border: 0"
        width="%(width)s" height="%(height)s" frameborder="0" scrolling="no">
       </iframe>"""
+    oembed_type = "rich"
 
     url_schemes = ["https://www.google.com/calendar/feeds/*",
                    "https://www.google.com/calendar/ical/*",

@@ -249,6 +249,24 @@ class ConsumerAggregatedView(BrowserView):
                               self._maxwidth,
                               self._maxheight)
 
+    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
+        self.update()
+        url = unshort_url(url)
+        data = None
+        if self.oembed is not None:
+            data = self.oembed.get_data(url,
+                                        maxwidth=maxwidth,
+                                        maxheight=maxheight,
+                                        format=format)
+
+        if not data and self.url2embed is not None:
+            data = self.url2embed.get_data(url,
+                                           maxwidth=maxwidth,
+                                           maxheight=maxheight,
+                                           format=format)
+
+        return data
+
 
 def unshort_url(url):
     host = urlsplit(url)[1]
