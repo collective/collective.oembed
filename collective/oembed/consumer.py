@@ -1,6 +1,4 @@
-import urllib
 import urllib2
-import json
 import logging
 import oembed
 
@@ -22,34 +20,34 @@ import time
 try:
     from collective.embedly.interfaces import IEmbedlySettings
     HAS_COLLECTIVE_EMBEDLY = True
-except ImportError,e:
+except ImportError, e:
     HAS_COLLECTIVE_EMBEDLY = False
 
 logger = logging.getLogger('collective.oembed')
 
-TEMPLATES = {u"link":u"""
+TEMPLATES = {u"link": u"""
     <div class="oembed-wrapper oembed-link">
       <a href="%(url)s" target="_blank">%(title)s"></a>
       <div>%(html)s</div>
-    </div> 
+    </div>
     """,
-                 u"photo":u"""
+                 u"photo": u"""
     <div class="oembed-wrapper oembed-photo">
       <p><a href="%(url)s" target="_blank">%(title)s">
         <img src="%(url)s" alt="%(title)s"/>
       </a></p>
       <div>%(html)s</div>
-    </div> 
+    </div>
     """,
-                 u"rich":u"""
+                 u"rich": u"""
     <div class="oembed-wrapper oembed-rich">
       %(html)s
-    </div> 
+    </div>
     """,
-                 u"video":u"""
+                 u"video": u"""
     <div class="oembed-wrapper oembed-video">
       %(html)s
-    </div> 
+    </div>
     """}
 
 
@@ -71,7 +69,7 @@ class Consumer(object):
         request['format'] = format
 
         try:
-            response = self.consumer.embed(url,**request)
+            response = self.consumer.embed(url, **request)
             return response.getData()
         except oembed.OEmbedNoEndpoint, e:
             logger.info(e)
@@ -88,7 +86,8 @@ class Consumer(object):
         if self.consumer is None:
 
             consumer = oembed.OEmbedConsumer()
-            _enpoints = endpoints.load_all_endpoints(embedly_apikey=self.embedly_apikey)
+            key = self.embedly_apikey
+            _enpoints = endpoints.load_all_endpoints(embedly_apikey=key)
             for endpoint in _enpoints:
                 consumer.addEndpoint(endpoint)
 

@@ -5,9 +5,8 @@ from collective.oembed.tests import layer
 from collective.oembed.tests import utils
 
 
-
 class UnitTestCase(unittest.TestCase):
-    
+
     def setUp(self):
         from zope.annotation.interfaces import IAttributeAnnotatable
         from collective.oembed.interfaces import OEmbedLayer
@@ -15,7 +14,8 @@ class UnitTestCase(unittest.TestCase):
         self.context = utils.FakeContext()
         self.request = utils.Request()
         interface.alsoProvides(self.request,
-                               (IAttributeAnnotatable,OEmbedLayer))
+                               (IAttributeAnnotatable, OEmbedLayer))
+
 
 class TestCase(unittest.TestCase):
 
@@ -25,7 +25,7 @@ class TestCase(unittest.TestCase):
         from zope.annotation.interfaces import IAttributeAnnotatable
         from collective.oembed.interfaces import OEmbedLayer
         interface.alsoProvides(self.layer['request'],
-                               (IAttributeAnnotatable,OEmbedLayer))
+                               (IAttributeAnnotatable, OEmbedLayer))
         super(TestCase, self).setUp()
         self.portal = self.layer['portal']
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
@@ -43,13 +43,14 @@ class FunctionalTestCase(unittest.TestCase):
         from zope.annotation.interfaces import IAttributeAnnotatable
         from collective.oembed.interfaces import OEmbedLayer
         interface.alsoProvides(self.layer['request'],
-                               (IAttributeAnnotatable,OEmbedLayer))
+                               (IAttributeAnnotatable, OEmbedLayer))
         self.portal = self.layer['portal']
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
         self.folder = self.portal['test-folder']
         self.folder.setTitle('Test folder')
+
 
 def build_test_suite(test_classes):
     suite = unittest.TestSuite()

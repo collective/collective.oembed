@@ -1,6 +1,10 @@
+from ZPublisher.tests.testPublish import Request as BaseRequest
+
+
 class FakeAcquisition(object):
     def __init__(self):
         self.aq_explicit = None
+
 
 class FakeContext(object):
 
@@ -9,11 +13,11 @@ class FakeContext(object):
         self.title = "a title"
         self.description = "a description"
         self.creators = ["myself"]
-        self.date="a date"
+        self.date = "a date"
         self.aq_inner = FakeAcquisition()
         self.aq_inner.aq_explicit = self
-        self._modified = "modified date"
-        self.remoteUrl = '' #fake Link
+        self._modified = "a modification date"
+        self.remoteUrl = ''  # fake Link
         self.portal_type = 'Document'
 
     def getId(self):
@@ -38,24 +42,21 @@ class FakeContext(object):
         return self._modified
 
     def getPhysicalPath(self):
-        return ('/','a','not','existing','path')
+        return ('/', 'a', 'not', 'existing', 'path')
 
     def getFolderContents(self, filter=None):
         catalog = FakeCatalog()
         return catalog.searchResults()
 
     def absolute_url(self):
-        return "http://nohost.com/"+self.id
+        return "http://nohost.com/" + self.id
 
-    def queryCatalog(self, **kwargs): #fake Topic
+    def queryCatalog(self, **kwargs):  # fake Topic
         catalog = FakeCatalog()
         return catalog.searchResults()
 
-    def getRemoteUrl(self): #fake Link
+    def getRemoteUrl(self):  # fake Link
         return self.remoteUrl
-
-    def modified(self): #for ram cache key
-        return "a modification date"
 
 
 class FakeBrain(object):
@@ -74,6 +75,7 @@ class FakeBrain(object):
 
         return ob
 
+
 class FakeCatalog(object):
     def searchResults(self, **kwargs):
         brain1 = FakeBrain()
@@ -86,6 +88,7 @@ class FakeCatalog(object):
     def modified(self):
         return '654654654654'
 
+
 class FakeProperty(object):
     def __init__(self):
         self.photo_max_size = 400
@@ -94,26 +97,29 @@ class FakeProperty(object):
     def getProperty(self, name, default=None):
         return getattr(self, name, default)
 
+
 def fake_get_property(self):
     return FakeProperty()
 
-from ZPublisher.tests.testPublish import Request as BaseRequest
-def setHeader(header,value):
+
+def setHeader(header, value):
     pass
+
 
 class Request(BaseRequest):
     """Request with set item support"""
-    
+
     def __init__(self):
         BaseRequest.__init__(self)
         self.content = {}
-        setattr(self.response, 'setHeader', setHeader) #patch for tests
+        setattr(self.response, 'setHeader', setHeader)  # patch for tests
 
     def __setitem__(self, name, value):
         self.content[name] = value
-    
+
     def get(self, a, b=''):
         return self.content.get(a, b)
+
 
 class FakeProxy(object):
     def __init__(self):

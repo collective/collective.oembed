@@ -1,8 +1,9 @@
 from collective.oembed.tests import base
 from collective.oembed.tests import utils
 
+
 class Test(base.UnitTestCase):
-    
+
     def test_picasaweb(self):
         from collective.oembed.url2embed import picasaweb
         endpoint = picasaweb.PicasaWebURLEndPoint()
@@ -78,19 +79,19 @@ class Test(base.UnitTestCase):
         endpoint = ubase.UrlToOembed()
 
         w, h = endpoint.get_width_and_height()
-        self.failUnless(w==h)
-        self.failUnless(w==ubase.DEFAULT_SIZE)
+        self.failUnless(w == h)
+        self.failUnless(w == ubase.DEFAULT_SIZE)
 
         w, h = endpoint.get_width_and_height(maxwidth=800)
-        self.failUnless(w==h)
-        self.failUnless(w==800)
+        self.failUnless(w == h)
+        self.failUnless(w == 800)
 
         w, h = endpoint.get_width_and_height(maxheight=800)
-        self.failUnless(w==h)
-        self.failUnless(w==800)
+        self.failUnless(w == h)
+        self.failUnless(w == 800)
 
         w, h = endpoint.get_width_and_height(maxwidth=800, maxheight=400)
-        self.failUnless(w==800 and h==400)
+        self.failUnless(w == 800 and h == 400)
 
 
 class IntegrationTest(base.TestCase):
