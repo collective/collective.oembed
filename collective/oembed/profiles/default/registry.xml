@@ -1,5 +1,8 @@
 <registry>
 
-    <records interface="collective.oembed.interfaces.IOEmbedSettings" />
+    <records interface="collective.oembed.interfaces.IOEmbedSettings">
+      <value key="activate_jqueryoembed_integration">True</value>
+      <value key="defaultOEmbedProvider">plone</value>
+    </records>
 
 </registry>

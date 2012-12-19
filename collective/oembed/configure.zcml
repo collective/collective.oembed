@@ -20,9 +20,13 @@
       description="Installs the collective.oembed package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  <!-- -*- extra stuff goes here -*- -->
+  <include file="upgrades.zcml"/>
 
   <utility factory=".consumer.Consumer" />
+
+  <browser:resource
+    name="collective.oembed.js"
+    file="jquery.oembed.js"/>
 
   <browser:viewlet
     name="collective.oembed.viewlet.jqueryoembed"

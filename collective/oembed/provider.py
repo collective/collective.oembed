@@ -145,11 +145,14 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
         self.is_local = False
 
     def update(self):
-        OEmbedProvider.update(self)
-        ConsumerAggregatedView.update(self)
+        if self.url is None:
+            self.url = self.request.get('url', None)
+
         if self.url.startswith(self.context.absolute_url()):
             self.is_local = True
+            OEmbedProvider.update(self)
         else:
+            ConsumerAggregatedView.update(self)
             self._url = self.url
             self._maxheight = self.maxheight
             self._maxwidth = self.maxwidth
@@ -157,19 +160,25 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
     def __call__(self):
         self.update()
         if self.is_local:
-            return OEmbedProvider.__call__(self)
+            result = OEmbedProvider.__call__(self)
+        else:
 
-        html = ConsumerAggregatedView.get_embed(self,
-                                self.url,
-                                maxwidth=self.maxwidth,
-                                maxheight=self.maxheight)
+            html = ConsumerAggregatedView.get_embed(self,
+                                    self.url,
+                                    maxwidth=self.maxwidth,
+                                    maxheight=self.maxheight)
 
-        if self.oembed.data:
-            return self.oembed.data
+            if self.oembed.data:
+                result = json.dumps(self.oembed.data)
 
-        return self.get_url2embed_data(html)
+            else:
+                result = self.get_url2embed_data(html)
+
+        return result
 
     def get_url2embed_data(self, html):
+        if not html:
+            return
         site = self.get_site()
         e = self.embed
         e[u'version'] = '1.0'

@@ -27,9 +27,10 @@ class IOEmbedSettings(interface.Interface):
     embedly_apikey = schema.ASCIILine(title=_(u'embedlykey'),
                                   required=False)
 
-    activate_jqueryoembed_integration = schema.Bool(title=i18n.jqueryoembed_integration,
+    activate_jqueryoembed_integration = schema.Bool(
+                                title=i18n.jqueryoembed_integration,
                                 description=i18n.jqueryoembed_integration_desc,
-                                                    default=False)
+                                default=True)
 
     #configuration for jquery.oembed javascript
     embedMethod = schema.Choice(title=_(u'embedMethod'),
@@ -38,7 +39,7 @@ class IOEmbedSettings(interface.Interface):
                                 default=u'auto')
 
     defaultOEmbedProvider = schema.ASCIILine(title=_(u'defaultOEmbedProvider'),
-                                             default="embed.ly")
+                                             default="plone")
 
     allowedProviders = schema.List(title=_(u'allowedProviders'),
                            value_type=schema.ASCIILine(title=_(u'provider')),

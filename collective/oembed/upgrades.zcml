@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="collective.js.jqueryui">
+
+  <genericsetup:upgradeStep
+      source="*"
+      destination="1003"
+      title="Common upgrade"
+      description=""
+      profile="collective.oembed:default"
+      handler=".upgrades.common"
+      />
+
+</configure>
