@@ -93,10 +93,14 @@ class OEmbedProvider(BrowserView):
         e[u'author_url'] = site.absolute_url() + '/author/' + ob.Creator()
         e[u'provider_name'] = site_title
         e[u'provider_url'] = site.absolute_url()
-        if ob.portal_type == 'Image':
+        field = ob.getPrimaryField()
+        if field and field.type == 'text':
+            e[u'type'] = 'rich'
+            e[u'html'] = field.getAccessor(ob)()
+        elif field and field.type == 'image':
             e[u'type'] = 'photo'
             e[u'url'] = ob.absolute_url()
-            image = ob.getField('image').get(ob)
+            image = field.getAccessor(ob)()
             e[u'width'] = image.width
             e[u'height'] = image.height
         else:
