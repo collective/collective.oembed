@@ -17,6 +17,7 @@ from collective.oembed import interfaces
 from collective.oembed import endpoints
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+import time
 
 try:
     from collective.embedly.interfaces import IEmbedlySettings
@@ -192,7 +193,8 @@ class ConsumerView(BrowserView):
 
 def _render_details_cachekey(method, self, url, maxwidth=None, maxheight=None,
                              format='json'):
-    return '%s-%s-%s-%s' % (url, maxwidth, maxheight, format)
+    one_hour = time.time() // (60 * 60)
+    return '%s-%s-%s-%s-%s' % (url, maxwidth, maxheight, format, one_hour)
 
 
 class ConsumerAggregatedView(BrowserView):
@@ -230,6 +232,7 @@ class ConsumerAggregatedView(BrowserView):
                                 maxheight=maxheight)
 
     def get_embed_uncached(self, url, maxwidth=None, maxheight=None):
+        logger.info('request not in cache: get_embed(%s)' % url)
         self.update()
         url = unshort_url(url)
         embed = None
@@ -255,6 +258,7 @@ class ConsumerAggregatedView(BrowserView):
 
     @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
+        logger.info('request not in cache: get_data(%s)' % url)
         self.update()
         url = unshort_url(url)
         data = None

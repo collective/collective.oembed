@@ -62,6 +62,9 @@ class OEmbedProvider(BrowserView):
         if self.maxheight is None:
             self.maxheight = self.request.get('maxheight', None)
 
+        if not self.url.startswith(self.context.absolute_url()):
+            return
+
         path = self.get_path()
         site = self.get_site()
         if site is None or path is None:
@@ -131,7 +134,7 @@ class OEmbedProvider(BrowserView):
                 # remove heading /
                 self._target = site.restrictedTraverse(path[1:])
             except KeyError, e:
-                logger.error(e)
+                logger.error('get_target error -> %s' % e)
                 return
 
         return self._target
