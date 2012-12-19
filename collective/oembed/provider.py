@@ -1,5 +1,6 @@
 import json
 from urlparse import urlparse
+from collective.oembed.consumer import ConsumerAggregatedView
 try:
     from zope.component.hooks import getSite
 except ImportError:
@@ -134,3 +135,59 @@ class OEmbedProvider(BrowserView):
                 return
 
         return self._target
+
+
+class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
+    """This oembed provider can be used as proxy consumer"""
+    def __init__(self, context, request):
+        OEmbedProvider.__init__(self, context, request)
+        ConsumerAggregatedView.__init__(self, context, request)
+        self.is_local = False
+
+    def update(self):
+        OEmbedProvider.update(self)
+        ConsumerAggregatedView.update(self)
+        if self.url.startswith(self.context.absolute_url()):
+            self.is_local = True
+        else:
+            self._url = self.url
+            self._maxheight = self.maxheight
+            self._maxwidth = self.maxwidth
+
+    def __call__(self):
+        self.update()
+        if self.is_local:
+            return OEmbedProvider.__call__(self)
+
+        html = ConsumerAggregatedView.get_embed(self,
+                                self.url,
+                                maxwidth=self.maxwidth,
+                                maxheight=self.maxheight)
+
+        if self.oembed.data:
+            return self.oembed.data
+
+        return self.get_url2embed_data(html)
+
+    def get_url2embed_data(self, html):
+        site = self.get_site()
+        e = self.embed
+        e[u'version'] = '1.0'
+        e[u'title'] = ""
+        e[u'author_name'] = ""
+        e[u'author_url'] = ""
+        e[u'provider_name'] = site.Title()
+        e[u'provider_url'] = site.absolute_url()
+
+        if html.startswith('<img'):
+            e[u'type'] = 'photo'
+            e[u'url'] = self.url
+            e[u'width'] = ""
+            e[u'height'] = ""
+        elif html:
+            e[u'type'] = 'video'
+            e[u'html'] = html
+        else:
+            e[u'type'] = 'link'
+
+        return self.render()

@@ -160,6 +160,14 @@ Rich providers:
 * Scribd (http://www.scribd.com)
 * SoundCloud (http://soundcloud.com/)
 
+Proxy OEmbed Endpoint
+=====================
+
+This addon provide consumer and provider. Both can be used at the same time
+in the proxy oembed endpoint. It means you can ask your site how to display
+an URL what ever it comes from the site itself or from outside.
+
+
 How to get use (get the working url I want)
 ===========================================
 

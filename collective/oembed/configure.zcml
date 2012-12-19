@@ -81,4 +81,12 @@
     layer=".interfaces.OEmbedLayer"
     />
 
+  <browser:page
+    name="proxy-oembed-provider"
+    for="*"
+    class=".provider.ProxyOembedProvider"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
+
 </configure>
