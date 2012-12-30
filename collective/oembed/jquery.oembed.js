@@ -229,6 +229,16 @@
 	$.fn.oembed.insertCode = function (container, embedMethod, oembedData) {
 		if (oembedData == null)
 			return;
+		var html = $(oembedData.code);
+        if (html.is("iframe")){
+            /*make it responisve and adapt the size to the parent container*/
+            var width = parseInt(html.attr("width")), height = parseInt(html.attr("height"));
+            var ratio = height / width;
+            var parentWidth = container.parent().width();
+            html.attr("width", parentWidth);
+            html.attr("height", parentWidth * ratio);
+            oembedData.code = html[0].outerHTML;
+        }
 
 		switch (embedMethod) {
 		case "auto":
