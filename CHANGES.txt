@@ -7,7 +7,7 @@ Changelog
 - Add "proxy-oembed-provider" to make your Plone an oembed proxy consumer and provider
 - Add twitteruser (api2embed) and activate api2embed everywhere
 - Improve local oembed support for archetypes using primary field
-- Update returned html code to fit with of parent tag while keeping ratio (inspired by fitVids.js)
+- Update returned html code to make it responsive (taken from fitVids.js)
 
 1.2.3 (2012-08-24)
 ------------------

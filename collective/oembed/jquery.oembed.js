@@ -19,6 +19,30 @@
 
 		initializeProviders();
 
+		var div = document.createElement('div'),
+		ref = document.getElementsByTagName('base')[0] || document.getElementsByTagName('script')[0];
+
+		div.className = 'fit-vids-style';
+		div.innerHTML = '&shy;<style>     \
+      .fluid-width-video-wrapper {        \
+         width: 100%;                     \
+         position: relative;              \
+         padding: 0;                      \
+      }                                   \
+                                          \
+      .fluid-width-video-wrapper iframe,  \
+      .fluid-width-video-wrapper object,  \
+      .fluid-width-video-wrapper embed {  \
+         position: absolute;              \
+         top: 0;                          \
+         left: 0;                         \
+         width: 100%;                     \
+         height: 100%;                    \
+      }                                   \
+    </style>';
+
+		ref.parentNode.insertBefore(div,ref);
+
 		return this.each(function () {
 			var container = $(this),
 			resourceURL = (url != null) ? url : container.attr("href"), provider;
@@ -229,16 +253,6 @@
 	$.fn.oembed.insertCode = function (container, embedMethod, oembedData) {
 		if (oembedData == null)
 			return;
-		var html = $(oembedData.code);
-        if (html.is("iframe")){
-            /*make it responisve and adapt the size to the parent container*/
-            var width = parseInt(html.attr("width")), height = parseInt(html.attr("height"));
-            var ratio = height / width;
-            var parentWidth = container.parent().width();
-            html.attr("width", parentWidth);
-            html.attr("height", parentWidth * ratio);
-            oembedData.code = html[0].outerHTML;
-        }
 
 		switch (embedMethod) {
 		case "auto":
@@ -250,6 +264,17 @@
 			};
 			break;
 		case "replace":
+			if (container.hasClass("oembed-responsive")){
+				var html = $(oembedData.code);
+		        if (html.is("iframe")){
+		            /*make it responsive*/
+		            var width = parseInt(html.attr("width")), height = parseInt(html.attr("height"));
+		            var ratio = height / width;
+		            container.wrap('<div class="fluid-width-video-wrapper"></div>').parent('.fluid-width-video-wrapper').css('padding-top', (ratio * 100)+"%");
+		            html.removeAttr('height').removeAttr('width');
+		            oembedData.code = html[0].outerHTML;
+		        }
+			}
 			container.replaceWith(oembedData.code);
 			break;
 		case "fill":
