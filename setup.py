@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.2.4'
+version = '1.2.5.dev0'
 
 setup(name='collective.oembed',
       version=version,
@@ -17,6 +17,7 @@ setup(name='collective.oembed',
         "Framework :: Plone",
         "Framework :: Plone :: 4.0",
         "Framework :: Plone :: 4.1",
+        "Framework :: Plone :: 4.2",
         "Programming Language :: Python",
         ],
       keywords='plone collective oembed',
