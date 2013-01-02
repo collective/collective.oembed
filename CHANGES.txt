@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.4 (unreleased)
+1.2.4 (2013-01-02)
 ------------------
 
 - Add "proxy-oembed-provider" to make your Plone an oembed proxy consumer and provider
