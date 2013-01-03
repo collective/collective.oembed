@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.oembed">
+
+  <browser:page
+    for="*"
+    name="example.collective.oembed.tile"
+    template="example.pt"
+    permission="zope2.View"
+    />
+  <subscriber handler=".example.notifyModified" />
+
+</configure>

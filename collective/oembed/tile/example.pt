@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="collective.googledocsviewer">
+<body>
+<div metal:fill-slot="content-core">
+<style type="text/css">
+.tile-editable {
+    position: relative;
+    outline: 2px dashed #e8e8e8;
+    min-height: 1.5em;
+}
+
+.tile-editable:hover {
+    outline: 2px dashed #b8b8b8;
+}
+
+.tile-edit-link {
+    display: none !important;
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    z-index: 500;
+}
+
+.tile-editable:hover .tile-edit-link {
+    display: block !important;
+}
+</style>
+
+
+  <div class="newsImageContainer">
+      <div tal:attributes="data-tile string:${context/absolute_url}/@@collective.oembed.tile/hello-world" />
+  </div>
+
+  <div metal:define-macro="text-field-view"
+       id="parent-fieldname-text" class="stx"
+       tal:define="text text|context/getText|nothing"
+       tal:condition="text">
+      <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+  </div>
+
+</div>
+</body>
+</html>

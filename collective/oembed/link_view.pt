@@ -10,12 +10,10 @@
 
   <metal:block define-macro="content-core">
   <p i18n:domain="plone">
-      <span i18n:translate="link_address">The link address is:</span>
       <a href="#" tal:attributes="href context/remote_url"
                   tal:content="context/remote_url"
-                  class="oembed">remote url</a>
+                  class="oembed oembed-responsive">remote url</a>
   </p>
-  <tal:oembed tal:replace="structure view/get_embed_auto"></tal:oembed>
   </metal:block>
 
 </div>

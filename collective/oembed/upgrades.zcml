@@ -6,7 +6,7 @@
 
   <genericsetup:upgradeStep
       source="*"
-      destination="1003"
+      destination="1004"
       title="Common upgrade"
       description=""
       profile="collective.oembed:default"

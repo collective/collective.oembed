@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.oembed">
+
+  <include package="plone.app.tiles"/>
+  <plone:tile
+      name="collective.oembed.tile"
+      title="OEmbed tile"
+      description="A tile display content from a link"
+      add_permission="cmf.ModifyPortalContent"
+      schema=".oembedtile.IOEmbedTile"
+      class=".oembedtile.OEmbedTile"
+      permission="zope2.View"
+      for="*"
+      />
+
+</configure>
