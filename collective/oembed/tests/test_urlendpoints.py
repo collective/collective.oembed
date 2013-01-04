@@ -89,6 +89,14 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed(url)
         self.assertIsNotNone(data)
 
+    def test_endpoint_itunes(self):
+        from collective.oembed.url2embed import itunes
+        endpoint = itunes.ITunesURLEndPoint()
+
+        url = 'https://itunes.apple.com/fr/app/google-maps/id585027354'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
+
     def test_width_and_height(self):
         from collective.oembed.url2embed import base as ubase
         endpoint = ubase.UrlToOembed()
