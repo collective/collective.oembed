@@ -7,91 +7,109 @@ class Test(base.UnitTestCase):
     def test_picasaweb(self):
         from collective.oembed.url2embed import picasaweb
         endpoint = picasaweb.PicasaWebURLEndPoint()
-        data = endpoint.get_embed('https://picasaweb.google.com/114389802187476114971/SE7EN?authkey=YkEcVtNL9g8&feat=featured#')
-        self.failUnless(data is not None)
+        url = 'https://picasaweb.google.com/114389802187476114971/SE7EN?'
+        url += 'authkey=YkEcVtNL9g8&feat=featured#'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
 
     def test_gistgithub(self):
         from collective.oembed.url2embed import gistgithub
         endpoint = gistgithub.GistGithubURLEndPoint()
         data = endpoint.get_embed('https://gist.github.com/1410787')
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
     def test_googlecalendar(self):
         from collective.oembed.url2embed import googlecalendar
         endpoint = googlecalendar.GoogleCalendarURLEndPoint()
 
-        data = endpoint.get_embed('https://www.google.com/calendar/feeds/fr.christian%23holiday%40group.v.calendar.google.com/public/basic')
-        self.failUnless(data is not None)
+        url = 'https://www.google.com/calendar/feeds/fr.christian%23holiday'
+        url += '%40group.v.calendar.google.com/public/basic'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
 
-        data = endpoint.get_embed('https://www.google.com/calendar/ical/fr.christian%23holiday%40group.v.calendar.google.com/public/basic.ics')
-        self.failUnless(data is not None)
+        url = 'https://www.google.com/calendar/ical/fr.christian%23holiday'
+        url += '%40group.v.calendar.google.com/public/basic.ics'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
 
-        data = endpoint.get_embed('https://www.google.com/calendar/embed?src=fr.christian%23holiday%40group.v.calendar.google.com&ctz=Europe/Paris')
-        self.failUnless(data is not None)
+        url = 'https://www.google.com/calendar/embed?src=fr.christian%23holida'
+        url += 'y%40group.v.calendar.google.com&ctz=Europe/Paris'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
 
     def test_googledocs(self):
         from collective.oembed.url2embed import googledocs
         endpoint = googledocs.GoogleDocsURLEndPoint()
 
         #present
-        url = 'https://docs.google.com/present/edit?id=0AcpVnMLn9OnaZGZxbWtqaG5fNDFtdmZtNWNo&hl=fr'
+        url = 'https://docs.google.com/present/edit?id=0AcpVnMLn9OnaZGZxbWtqa'
+        url += 'G5fNDFtdmZtNWNo&hl=fr'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
         #document
-        url = 'https://docs.google.com/document/pub?id=1iuuTnIELWEVcJp1aUb_OXqXH2qHuT4AcGOiri7b10-g'
+        url = 'https://docs.google.com/document/pub?id=1iuuTnIELWEVcJp1aUb_OXq'
+        url += 'XH2qHuT4AcGOiri7b10-g'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
         #spreadheet
-        url = 'https://docs.google.com/spreadsheet/pub?key=0AspVnMLn9OnadEFCQ2tMTHhkcHNkVDUyOWpZeE9ZMVE&output=html'
+        url = 'https://docs.google.com/spreadsheet/pub?key=0AspVnMLn9OnadEFCQ2'
+        url += 'tMTHhkcHNkVDUyOWpZeE9ZMVE&output=html'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
         #form
-        url = 'https://docs.google.com/spreadsheet/viewform?formkey=dG9LWnM1ZWEtZEFORWNMaVBDVHQyeHc6MQ'
+        url = 'https://docs.google.com/spreadsheet/viewform?formkey=dG9LWnM1ZW'
+        url += 'EtZEFORWNMaVBDVHQyeHc6MQ'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
         #draw
-        url = 'https://docs.google.com/drawings/pub?id=1nSnVgWPZdQJKQxIHkEofXqomf0n0xJSU9VhmxdjQsd8&w=960&h=720'
+        url = 'https://docs.google.com/drawings/pub?id=1nSnVgWPZdQJKQxIHkEofXq'
+        url += 'omf0n0xJSU9VhmxdjQsd8&w=960&h=720'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
     def test_googlemaps(self):
         from collective.oembed.url2embed import googlemaps
         endpoint = googlemaps.GoogleMapsURLEndPoint()
 
-        url = "http://maps.google.com/maps/ms?msid=212360783411321154030.00049a10cea932e12f6a3&msa=0"
+        url = 'http://maps.google.com/maps/ms?msid=212360783411321154030.0004'
+        url += '9a10cea932e12f6a3&msa=0'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
     def test_scribd(self):
         from collective.oembed.url2embed import scribd
         endpoint = scribd.ScribdURLEndPoint()
 
-        url = "http://www.scribd.com/fullscreen/78425441?access_key=key-112z96nfr7ixzj76rb3x"
+        url = 'http://www.scribd.com/fullscreen/78425441?access_key=key-112z96'
+        url += 'nfr7ixzj76rb3x'
         data = endpoint.get_embed(url)
-        self.failUnless(data is not None)
+        self.assertIsNotNone(data)
 
     def test_width_and_height(self):
         from collective.oembed.url2embed import base as ubase
         endpoint = ubase.UrlToOembed()
 
         w, h = endpoint.get_width_and_height()
-        self.failUnless(w == h)
-        self.failUnless(w == ubase.DEFAULT_SIZE)
+        self.assertEqual(w, h)
+        self.assertEqual(w, ubase.DEFAULT_SIZE)
 
         w, h = endpoint.get_width_and_height(maxwidth=800)
-        self.failUnless(w == h)
-        self.failUnless(w == 800)
+        self.assertEqual(w, h)
+
+        self.assertEqual(w, 800)
 
         w, h = endpoint.get_width_and_height(maxheight=800)
-        self.failUnless(w == h)
-        self.failUnless(w == 800)
+        self.assertEqual(w, h)
+
+        self.assertEqual(w, 800)
 
         w, h = endpoint.get_width_and_height(maxwidth=800, maxheight=400)
-        self.failUnless(w == 800 and h == 400)
+        self.assertEqual(w, 800)
+        self.assertEqual(h, 400)
 
 
 class IntegrationTest(base.TestCase):

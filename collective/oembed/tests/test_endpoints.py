@@ -14,30 +14,31 @@ class Test(base.UnitTestCase):
         from collective.oembed import endpoints
         all_endpoints = endpoints.load_all_endpoints()
         len_endpoints = len(all_endpoints)
-        self.failUnless(len_endpoints > 0)
+        self.assertTrue(len_endpoints > 0)
 
         all_endpoints = endpoints.load_all_endpoints(
                                          embedly_apikey="fakeapikey")
-        self.failUnless(len(all_endpoints) == len_endpoints + 1)
+        self.assertEqual(len(all_endpoints), len_endpoints + 1)
 
     def test_WordpressEndPoint(self):
         from collective.oembed import endpoints
         wordpress = endpoints.WordpressEndPoint()
         url = 'http://public-api.wordpress.com/oembed/1.0/'
-        self.failUnless(wordpress._urlApi == url)
-        request_url = 'http://toutpt.wordpress.com/2011/02/10/collective-portlet-itemview/'
+        self.assertEqual(wordpress._urlApi, url)
+        request_url = 'http://toutpt.wordpress.com/2011/02/10/'
+        request_url += 'collective-portlet-itemview/'
         request = wordpress.request(request_url)
-        self.failUnless(request.startswith(url))
+        self.assertTrue(request.startswith(url))
 
     def test_EmbedlyEndPoint(self):
         from collective.oembed import endpoints
         embedly = endpoints.EmbedlyEndPoint('fakeapikey')
         url = 'http://api.embed.ly/1/oembed'
-        self.failUnless(embedly._urlApi == url)
+        self.assertEqual(embedly._urlApi, url)
         request_url = 'http://dontcare.com/toto'
         request = embedly.request(request_url)
-        self.failUnless(request.startswith(url))
-        self.failUnless('key=fakeapikey' in request)
+        self.assertTrue(request.startswith(url))
+        self.assertIn('key=fakeapikey', request)
 
 
 def test_suite():

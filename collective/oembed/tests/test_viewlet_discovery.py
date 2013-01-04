@@ -12,20 +12,24 @@ class Test(base.UnitTestCase):
 
     def test_oembed_url_json(self):
         url = self.viewlet.oembed_url_json()
-        self.failUnless(url == u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid&format=json',url)
+        shouldbe = u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid'
+        shouldbe += u'&format=json'
+        self.assertEqual(url, shouldbe)
 
     def test_oembed_url_xml(self):
         url = self.viewlet.oembed_url_xml()
-        self.failUnless(url == u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid&format=xml',url)
+        shouldbe = u'http://nohost/@@oembed?url=http%3A%2F%2Fnohost.com%2Fmyid'
+        shouldbe += u'&format=xml'
+        self.assertEqual(url, shouldbe)
 
     def test_title(self):
         title = self.viewlet.title()
-        self.failUnless(title.endswith('oEmbed Profile'))
+        self.assertTrue(title.endswith('oEmbed Profile'))
 
     def test_query(self):
         query = self.viewlet.query()
-        self.failUnless('url' in query)
-        self.failUnless(query['url'] == self.context.absolute_url())
+        self.assertIn('url', query)
+        self.assertEqual(query['url'], self.context.absolute_url())
 
 
 class TestIntegration(base.TestCase):
@@ -40,10 +44,12 @@ class TestIntegration(base.TestCase):
     def test_rendering(self):
         import re
         text = self.viewlet.render()
-        json_re = '<link rel="alternate" type="application/json\+oembed" href=".*" title=".*" />'
-        xml_re = '<link rel="alternate" type="text/xml\+oembed" href=".*" title=".*" />'
-        self.failUnless(re.search(json_re, text) is not None)
-        self.failUnless(re.search(xml_re, text) is not None)
+        json_re = '<link rel="alternate" type="application/json\+oembed" '
+        json_re += 'href=".*" title=".*" />'
+        xml_re = '<link rel="alternate" type="text/xml\+oembed" href=".*" '
+        xml_re += 'title=".*" />'
+        self.assertTrue(re.search(json_re, text) is not None)
+        self.assertTrue(re.search(xml_re, text) is not None)
 
 
 def test_suite():

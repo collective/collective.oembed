@@ -10,30 +10,30 @@ class Test(base.UnitTestCase):
         self.provider = provider.OEmbedProvider(self.context, self.request)
 
     def test_attributes(self):
-        self.failUnless(hasattr(self.provider, 'url'))
-        self.failUnless(hasattr(self.provider, 'maxwidth'))
-        self.failUnless(hasattr(self.provider, 'maxheight'))
-        self.failUnless(hasattr(self.provider, 'format'))
+        self.assertTrue(hasattr(self.provider, 'url'))
+        self.assertTrue(hasattr(self.provider, 'maxwidth'))
+        self.assertTrue(hasattr(self.provider, 'maxheight'))
+        self.assertTrue(hasattr(self.provider, 'format'))
 
-        self.failUnless(self.provider.url is None)
-        self.failUnless(self.provider.maxwidth is None)
-        self.failUnless(self.provider.maxheight is None)
-        self.failUnless(self.provider.format is None)
+        self.assertIsNone(self.provider.url)
+        self.assertIsNone(self.provider.maxwidth)
+        self.assertIsNone(self.provider.maxheight)
+        self.assertIsNone(self.provider.format)
 
     def test_update(self):
         self.request['url'] = 'http://nohost/test-folder'
         format_a = self.provider.format
-        self.failUnless(format_a is None)
+        self.assertIsNone(format_a)
 
         self.provider.update()
         format_b = self.provider.format
-        self.failUnless(format_b == 'json')
+        self.assertTrue(format_b == 'json')
 
         self.provider.format = None
         self.request['format'] = "xml"
         self.provider.update()
         format_c = self.provider.format
-        self.failUnless(format_c == 'xml')
+        self.assertEqual(format_c, 'xml')
 
         self.provider.format = None
         self.request['format'] = "wrong"
@@ -42,11 +42,12 @@ class Test(base.UnitTestCase):
     def test_get_path(self):
         self.provider.url = 'http://nohost/test-folder'
         path = self.provider.get_path()
-        self.failUnless(path == '/test-folder')
+        self.assertEqual(path, '/test-folder')
 
-        self.provider.url = 'http://www.youtube.com/playlist?list=PL84E044CCF097C8CB'
+        url = 'http://www.youtube.com/playlist?list=PL84E044CCF097C8CB'
+        self.provider.url = url
         path = self.provider.get_path()
-        self.failUnless(path == '/playlist')
+        self.assertEqual(path, '/playlist')
 
     def test_build_info(self):
         context = self.context
@@ -55,8 +56,8 @@ class Test(base.UnitTestCase):
         site.id = "Plone"
         self.provider.build_info(context, site)
         data = self.provider.embed
-        self.failUnless(data is not None)
-        self.failUnless(data[u"type"] == u"link")
+        self.assertIsNotNone(data)
+        self.assertEqual(data[u"type"], "rich")
 
 
 class TestIntegration(base.TestCase):
@@ -68,17 +69,17 @@ class TestIntegration(base.TestCase):
 
     def test_call(self):
         render = self.view()
-        self.failUnless(render is not None)
+        self.assertTrue(render is not None)
         import json
         data = json.loads(render)
-        self.failUnless(u'type' in data)
-        self.failUnless(data[u'type'] == u'link')
-        self.failUnless(data[u'title'] == u'Test folder')
+        self.assertIn(u'type', data)
+        self.assertEqual(data[u'type'], u'link')
+        self.assertEqual(data[u'title'], u'Test folder')
 
     def test_call_xml(self):
         self.portal.REQUEST['format'] = 'xml'
         render = self.view()
-        self.failUnless(render is not None)
+        self.assertIsNotNone(render is not None)
 
 
 def test_suite():

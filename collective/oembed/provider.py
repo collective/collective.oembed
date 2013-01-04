@@ -1,6 +1,6 @@
 import json
+import logging
 from urlparse import urlparse
-from collective.oembed.consumer import ConsumerAggregatedView
 try:
     from zope.component.hooks import getSite
 except ImportError:
@@ -8,8 +8,10 @@ except ImportError:
     from zope.site.hooks import getSite
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five import BrowserView
-import logging
+from Products.Five.browser import BrowserView
+
+from collective.oembed.consumer import ConsumerAggregatedView
+
 logger = logging.getLogger('collective.oembed')
 
 
