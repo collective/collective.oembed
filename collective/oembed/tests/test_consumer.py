@@ -144,7 +144,8 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u"type"] == "photo", data[u"type"])
-        #album doesn't work atm: http://www.23hq.com/photogroup/tech/conversation/7548539
+        #album doesn't work atm:
+        #http://www.23hq.com/photogroup/tech/conversation/7548539
 
     def test_endpoint_5min(self):
         url = 'http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872'
@@ -241,6 +242,12 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type'] == 'rich')
+
+    def test_endpoint_screenr(self):
+        url = 'http://www.screenr.com/oXs'
+        data = self.utility.get_data(url)
+        self.failUnless(data is not None)
+        self.failUnless(data[u'type'] == 'video')
 
 #   FAILING TESTS:
 #

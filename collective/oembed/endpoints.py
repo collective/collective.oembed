@@ -16,7 +16,9 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://vimeo.com/api/oembed.{format}'},
  {u'regex':['http://www.collegehumor.com/video/*'],
   u'endpoint':'http://www.collegehumor.com/oembed.{format}'},
- {u'regex':['http://www.polleverywhere.com/polls/*', 'http://www.polleverywhere.com/multiple_choice_polls/*','http://www.polleverywhere.com/free_text_polls/*'],
+ {u'regex':['http://www.polleverywhere.com/polls/*',
+            'http://www.polleverywhere.com/multiple_choice_polls/*',
+            'http://www.polleverywhere.com/free_text_polls/*'],
   u'endpoint':'http://www.polleverywhere.com/services/oembed/'},
  {u'regex':['http://www.ifixit.com/*'],
   u'endpoint':'http://www.ifixit.com/Embed'},
@@ -59,11 +61,15 @@ REGEX_PROVIDERS = [
   u'endpoint':'http://www.nfb.ca/remote/services/oembed/'},
   #http://instagr.am/developer/embedding/
  {u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'],
-  u'endpoint':'http://api.instagram.com/oembed'},
+  u'endpoint': 'http://api.instagram.com/oembed'},
  {u'regex':['http://wordpress.tv/*'],
-  u'endpoint':'http://wordpress.tv/oembed/'},
- {u'regex':['http://soundcloud.com/*', 'http://soundcloud.com/*/*', 'http://soundcloud.com/*/sets/*', 'http://soundcloud.com/groups/*', 'http://snd.sc/*', 'https://soundcloud.com/*'],
-  u'endpoint':'http://soundcloud.com/oembed'},
+  u'endpoint': 'http://wordpress.tv/oembed/'},
+ {u'regex':['http://soundcloud.com/*', 'http://soundcloud.com/*/*',
+            'http://soundcloud.com/*/sets/*', 'http://soundcloud.com/groups/*',
+            'http://snd.sc/*', 'https://soundcloud.com/*'],
+  u'endpoint': 'http://soundcloud.com/oembed'},
+ {u'regex': ['http://www.screenr.com/*', 'http://screenr.com/*'],
+  u'endpoint': 'http://www.screenr.com/api/oembed.{format}'},
 #
 # Those features don't work currently, but are being worked upon:
 #

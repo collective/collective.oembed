@@ -139,6 +139,7 @@ Video providers:
 * Vhx.tv (http://vhx.tv) NOTE: only works with the dedicated URL for sharing
 * Nfb.ca (http://http://www.nfb.ca/)
 * Wordpress TV (http://wordpress.tv/)
+* Screenr (http://screenr.com/)
 
 Photo providers:
 
