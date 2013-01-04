@@ -19,6 +19,7 @@ class FakeContext(object):
         self._modified = "a modification date"
         self.remoteUrl = ''  # fake Link
         self.portal_type = 'Document'
+        self.text = "Text"
 
     def getId(self):
         return self.id
@@ -57,6 +58,21 @@ class FakeContext(object):
 
     def getRemoteUrl(self):  # fake Link
         return self.remoteUrl
+
+    def getPrimaryField(self):
+        return FakeField("text")
+
+
+class FakeField(object):
+
+    def __init__(self, name):
+        self.type = "text"
+        self.name = name
+
+    def getAccessor(self, instance):
+        def __call__():
+            return getattr(instance, self.name)
+        return __call__
 
 
 class FakeBrain(object):
