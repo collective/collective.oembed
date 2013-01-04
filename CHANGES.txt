@@ -6,6 +6,7 @@ Changelog
 
 - Fix soundcloud provider which can use https
 - Add screenr provider
+- Add test view endpoints_test_view only available with provided buildout
 
 
 1.2.4 (2013-01-02)

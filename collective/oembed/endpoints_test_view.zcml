@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.oembed">
+
+  <browser:page
+      name="endpoints_test_view"
+      for="*"
+      template="endpoints_test_view.pt"
+      permission="zope2.View"
+      />
+
+</configure>
