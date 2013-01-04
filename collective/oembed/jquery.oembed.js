@@ -141,6 +141,7 @@
 				var oembedData = $.extend({}, data);
 				switch (oembedData.type) {
 				case "photo":
+					console.log("photo");
 					oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
 					break;
 				case "video":
@@ -266,12 +267,15 @@
 		case "replace":
 			if (container.hasClass("oembed-responsive")){
 				var html = $(oembedData.code);
-		        if (html.is("iframe")){
-		            /*make it responsive*/
+		        if (html.is("iframe") || html.is("object") || html.is("embed")){
 		            var width = parseInt(html.attr("width")), height = parseInt(html.attr("height"));
 		            var ratio = height / width;
 		            container.wrap('<div class="fluid-width-video-wrapper"></div>').parent('.fluid-width-video-wrapper').css('padding-top', (ratio * 100)+"%");
 		            html.removeAttr('height').removeAttr('width');
+		            oembedData.code = html[0].outerHTML;
+		        }
+		        if (oembedData.type == "photo"){
+		            html.find('img').css('max-width', "100%");
 		            oembedData.code = html[0].outerHTML;
 		        }
 			}
