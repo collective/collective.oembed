@@ -76,7 +76,7 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url)
         self.assertIsNotNone(data)
         url_set = 'http://www.flickr.com/photos/dcplcommons/show'
-        data = self.utility.get_data(url)
+        data = self.utility.get_data(url_set)
         self.assertIsNotNone(data)
 
     def test_endpoint_qik(self):

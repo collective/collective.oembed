@@ -8,38 +8,40 @@
 <body>
 <div metal:fill-slot="content-core">
  <div style="width: 500px">
-  <a class="oembed oembed-responsive" href="http://www.youtube.com/watch?v=kHikGIWrvCs"></a>
-  <a class="oembed oembed-responsive" href="http://www.youtube.com/playlist?list=PLF2CEDC7FD9EADDC5"></a>
-  <a class="oembed oembed-responsive" href="http://www.flickr.com/photos/14516334@N00/345009210/"></a>
-  <a class="oembed oembed-responsive" href="http://www.flickr.com/photos/dcplcommons/show"></a>
-  <a class="oembed oembed-responsive" href="http://qik.com/video/46087949"></a>
-  <a class="oembed oembed-responsive" href="http://revision3.com/askjay/profitsharing"></a>
-  <a class="oembed oembed-responsive" href="http://www.hulu.com/watch/309602/family-guy-grumpy-old-man"></a>
-  <a class="oembed oembed-responsive" href="http://www.slideshare.net/irsan.element/"></a>
-  <a class="oembed oembed-responsive" href="http://vimeo.com/20664159"></a>
-  <a class="oembed oembed-responsive" href="http://www.collegehumor.com/video/6664700/save-greendale-with-the-cast-of-community"></a>
-  <a class="oembed oembed-responsive" href="http://www.polleverywhere.com/multiple_choice_polls/LTIwNzM1NTczNTE"></a>
-  <a class="oembed oembed-responsive" href="http://www.ifixit.com/Teardown/iPhone-4-Teardown/3130/1"></a>
-  <a class="oembed oembed-responsive" href="http://www.smugmug.com/popular/all?125787395_hQSj9"></a>
-  <a class="oembed oembed-responsive" href="http://toutpt.wordpress.com/2011/02/10/collective-portlet-itemview/"></a>
-  <a class="oembed oembed-responsive" href="http://www.23hq.com/gergana/photo/1376029?album_id=1376028"></a>
-  <a class="oembed oembed-responsive" href="http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872"></a>
-  <a class="oembed oembed-responsive" href="https://twitter.com/#!/toutpt/statuses/153185403766185985"></a>
-  <a class="oembed oembed-responsive" href="https://twitter.com/toutpt/status/153185403766185985"></a>
-  <a class="oembed oembed-responsive" href="http://img.photobucket.com/albums/v211/JAV123/Michael%20Holland%20Candle%20Burning/_MG_5661.jpg"></a>
-  <a class="oembed oembed-responsive" href="http://www.kinomap.com/#!kms-smfb9r"></a>
-  <a class="oembed oembed-responsive" href="http://www.dailymotion.com/video/xf02xp_uffie-difficult_music"></a>
-  <a class="oembed oembed-responsive" href="http://www.clikthrough.com/theater/video/55"></a>
-  <a class="oembed oembed-responsive" href="http://dotsub.com/view/15f0467f-d351-4224-acf5-df3f2ba9d5a0"></a>
-  <a class="oembed oembed-responsive" href="http://official.fm/tracks/2k5W"></a>
-  <a class="oembed oembed-responsive" href="http://official.fm/playlists/K0B5"></a>
-  <a class="oembed oembed-responsive" href="http://vhx.tv/trailers/408688"></a>
-  <a class="oembed oembed-responsive" href="http://vhx.tv/jamiew/internet-memes-101/29637"></a>
-  <a class="oembed oembed-responsive" href="http://www.nfb.ca/film/blackfly/"></a>
-  <a class="oembed oembed-responsive" href="http://instagr.am/p/BUG/"></a>
-  <a class="oembed oembed-responsive" href="http://wordpress.tv/2011/10/16/drupal-wp/"></a>
-  <a class="oembed" href="http://soundcloud.com/nickyromero/nicky-romero-calvin-harris"></a>
-  <a class="oembed oembed-responsive" href="http://www.screenr.com/oXs"></a>
+  <a class="oembed" href="https://itunes.apple.com/us/app/twitpic/id523490954"></a>
+  <a class="oembed" href="https://itunes.apple.com/fr/app/google-maps/id585027354"></a>
+<!--   <a class="oembed oembed-responsive" href="http://www.youtube.com/watch?v=kHikGIWrvCs"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.youtube.com/playlist?list=PLF2CEDC7FD9EADDC5"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.flickr.com/photos/14516334@N00/345009210/"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.flickr.com/photos/dcplcommons/show"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://qik.com/video/46087949"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://revision3.com/askjay/profitsharing"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.hulu.com/watch/309602/family-guy-grumpy-old-man"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.slideshare.net/irsan.element/"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://vimeo.com/20664159"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.collegehumor.com/video/6664700/save-greendale-with-the-cast-of-community"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.polleverywhere.com/multiple_choice_polls/LTIwNzM1NTczNTE"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.ifixit.com/Teardown/iPhone-4-Teardown/3130/1"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.smugmug.com/popular/all?125787395_hQSj9"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://toutpt.wordpress.com/2011/02/10/collective-portlet-itemview/"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.23hq.com/gergana/photo/1376029?album_id=1376028"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872"></a> -->
+<!--   <a class="oembed oembed-responsive" href="https://twitter.com/#!/toutpt/statuses/153185403766185985"></a> -->
+<!--   <a class="oembed oembed-responsive" href="https://twitter.com/toutpt/status/153185403766185985"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://img.photobucket.com/albums/v211/JAV123/Michael%20Holland%20Candle%20Burning/_MG_5661.jpg"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.kinomap.com/#!kms-smfb9r"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.dailymotion.com/video/xf02xp_uffie-difficult_music"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.clikthrough.com/theater/video/55"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://dotsub.com/view/15f0467f-d351-4224-acf5-df3f2ba9d5a0"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://official.fm/tracks/2k5W"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://official.fm/playlists/K0B5"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://vhx.tv/trailers/408688"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://vhx.tv/jamiew/internet-memes-101/29637"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.nfb.ca/film/blackfly/"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://instagr.am/p/BUG/"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://wordpress.tv/2011/10/16/drupal-wp/"></a> -->
+<!--   <a class="oembed" href="http://soundcloud.com/nickyromero/nicky-romero-calvin-harris"></a> -->
+<!--   <a class="oembed oembed-responsive" href="http://www.screenr.com/oXs"></a> -->
  </div>
 
 </div>

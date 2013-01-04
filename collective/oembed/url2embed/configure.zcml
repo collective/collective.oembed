@@ -8,6 +8,7 @@
   <utility factory=".googlecalendar.GoogleCalendarURLEndPoint" name="googlecalendar"/>
   <utility factory=".googledocs.GoogleDocsURLEndPoint" name="googledocs"/>
   <utility factory=".googlemaps.GoogleMapsURLEndPoint" name="googlemaps"/>
+  <utility factory=".itunes.ITunesURLEndPoint" name="itunes"/>
   <utility factory=".scribd.ScribdURLEndPoint" name="scribd"/>
 
   <browser:page

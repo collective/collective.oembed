@@ -100,6 +100,9 @@ REGEX_PROVIDERS = [
  {u'regex': ['http://www.screenr.com/*', 'http://screenr.com/*'],
   u'endpoint': 'http://www.screenr.com/api/oembed.{format}'},
 
+ {u'regex': ['https://itunes.apple.com/*'],
+  u'endpoint': 'http://www.screenr.com/api/oembed.{format}'},
+
 #
 # Those features don't work currently, but are being worked upon:
 #
