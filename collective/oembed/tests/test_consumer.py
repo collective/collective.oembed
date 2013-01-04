@@ -195,13 +195,13 @@ class TestIntegration(base.TestCase):
         self.failUnless(data[u"type"] == "video")
 
     def test_endpoint_officialfm_track(self):
-        url = 'http://official.fm/tracks/315576'
+        url = 'http://official.fm/tracks/2k5W'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type'] == 'rich')
 
     def test_endpoint_officialfm_playlist(self):
-        url = 'http://official.fm/playlists/83435'
+        url = 'http://official.fm/playlists/K0B5'
         data = self.utility.get_data(url)
         self.failUnless(data is not None)
         self.failUnless(data[u'type'] == 'rich')
