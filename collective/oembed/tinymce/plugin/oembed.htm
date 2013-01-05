@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title i18n:translate="template_dlg_title"></title>
+	<script type="text/javascript" src="../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="js/oembed.js"></script>
+	<link href="css/oembed.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="dialog-wrapper">
+		<form onsubmit="return false;">
+			<div id="frmbody">
+				<div class="title" i18n:translate="template_dlg_desc"></div>
+                <div class="field">
+                   <label for="url" >URL</label>
+                   <div class="widget">
+                    <input type="text" name="url" id="url" value="" size="80" />
+                   </div>
+                </div>
+                <div class="field">
+                   <label for="maxwidth" >Max width</label>
+                   <div class="widget">
+                    <input type="text" name="maxwidth" id="maxwidth" value="" size="4" />
+                   </div>
+                </div>
+                <div class="field">
+                   <label for="maxheight" >Max height</label>
+                   <div class="widget">
+                    <input type="text" name="maxheight" id="maxheight" value="" size="4" />
+                   </div>
+                </div>
+                <div class="field">
+                   <label for="preview" >Preview</label>
+                   <div class="widget">
+                     <iframe id="preview" name="preview" src="blank.htm" frameborder="1"></iframe>
+                   </div>
+                 </div>
+			</div>
+
+			<div class="visualClear"><!-- --></div>
+
+			<div class="mceActionPanel formControls">
+				<span class="actionButtons">
+					<input type="submit" id="insert" class="context" name="insert"/>
+					<input type="button" id="cancel" class="standalone" name="cancel" onclick="tinyMCEPopup.close();" />
+				</span>
+			</div>
+		</form>
+	</div>
+</body> 
+</html> 

@@ -14,6 +14,7 @@
   <include package="plone.app.registry"/>
   <include package=".url2embed"/>
   <include package=".api2embed"/>
+  <include package=".tinymce"/>
   <include package=".tile" zcml:condition="have plone.app.tiles"/>
 
   <genericsetup:registerProfile
