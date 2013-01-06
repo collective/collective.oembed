@@ -152,7 +152,9 @@ Photo providers:
 
 Rich providers:
 
+* Occipital (http://360.io)
 * iFixit (http://www.iFixit.com)
+* Apple (http://itunes.apple.com)
 * Poll Everywhere (http://www.polleverywhere.com/)
 * SlideShare (http://www.slideshare.net/)
 * WordPress (http://wordpress.com/)
@@ -161,6 +163,7 @@ Rich providers:
 * Google Calendar (https://www.google.com/calendar)
 * Google Docs (https://docs.google.com/)
 * Google Maps (http://maps.google.com)
+* Issuu (http://issuu.com)
 * Scribd (http://www.scribd.com)
 * SoundCloud (http://soundcloud.com/)
 

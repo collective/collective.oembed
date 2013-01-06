@@ -1,6 +1,8 @@
 from urlparse import urlsplit
 from urllib import quote, urlencode
 import oembed
+import urllib2
+from HTMLParser import HTMLParseError, HTMLParser
 
 DEFAULT_SIZE = 400
 
@@ -114,4 +116,65 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         else:
             e[u'type'] = 'link'
 
+        return self.embed
+
+
+class OembedHTMLParser(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.images = []
+        self.thumb = ""
+        self.flashvar = ""
+        self.description = ""
+        self.title = ""
+        self.width = ""
+        self.height = ""
+        self.type = ""
+
+    def has_finished(self):
+        raise NotImplementedError()
+
+    def update_data(self, data):
+        for attr in ('title', 'width', 'height', 'type'):
+            pvalue = getattr(self, attr)
+            if pvalue:
+                data[attr] = pvalue
+
+
+class UrlCrawlerToEmbed(UrlToOembed):
+    """This one read the page and extract data to generate the embed view"""
+
+    parser_klass = None
+
+    def __init__(self):
+        super(UrlCrawlerToEmbed, self).__init__()
+        self.parser = self.parser_klass()
+
+    def parse(self, url):
+        u = urllib2.urlopen(url).read()
+        lines = u.split("\n")
+
+        for line in lines:
+            if self.parser.has_finished():
+                break
+            try:
+                if not line.strip().startswith('<'):
+                    continue
+                self.parser.feed(line)
+            except HTMLParseError, e:
+                continue
+
+    def get_embed(self, url, maxwidth=None, maxheight=None):
+        #lets override this one
+        info = self.request(url)
+        info['width'] = self.parser.width
+        info['height'] = self.parser.height
+        return self.embed_html_template % info
+
+    def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
+        super(UrlCrawlerToEmbed, self).get_data(url,
+                                              maxwidth=maxwidth,
+                                              maxheight=maxheight,
+                                              format=format)
+        self.parser.update_data(self.embed)
         return self.embed

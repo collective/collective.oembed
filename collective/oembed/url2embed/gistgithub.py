@@ -8,8 +8,7 @@ class GistGithubURLEndPoint(base.UrlToOembed):
     """transform url to embed code"""
     interface.implements(interfaces.IURL2Embed)
 
-    embed_html_template = """<style type="text/css">#content .gist
-     pre{color: #000;}</style><script src="%(url)s.js"></script>"""
+    embed_html_template = """<script src="%(url)s.js"></script>"""
     oembed_type = "rich"
     url_schemes = ["https://gist.github.com/*"]
 

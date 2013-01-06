@@ -8,6 +8,8 @@
 <body>
 <div metal:fill-slot="content-core">
  <div style="width: 500px">
+   <a class="oembed oembed-responsive" href="http://issuu.com/humanizemagazine/docs/humanize19/1"></a>
+   <a class="oembed" href="https://gist.github.com/4246806"></a>
   <a class="oembed oembed-responsive" href="http://360.io/jLnBUy"></a>
   <a class="oembed oembed-responsive" href="https://itunes.apple.com/fr/app/google-maps/id585027354"></a>
   <a class="oembed oembed-responsive" href="http://www.youtube.com/watch?v=kHikGIWrvCs"></a>
