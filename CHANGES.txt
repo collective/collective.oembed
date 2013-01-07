@@ -5,12 +5,14 @@ Changelog
 ------------------
 
 - Fix soundcloud provider which can use https
+- Add oembed tile if plone.app.tiles is installed
 - Add screenr provider
 - Add test view endpoints_test_view only available with provided buildout
-- Add responsive behavior to oembed photo type provider, and video embed
-  and object type
+- Refactor tests to use assertX instead of failUnless
+- Add responsive behavior to img, embed and object tag.
 - Add itunes.apple.com support (iphone app)
 - Add 360.io support (occipital)
+- Add issuu.com support
 
 1.2.4 (2013-01-02)
 ------------------
