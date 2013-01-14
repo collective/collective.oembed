@@ -6,6 +6,8 @@ Changelog
 
 - Nothing changed yet.
 
+- can use links inside div.oembed too since tinymce don't apply styles to "a" well [djay]
+
 
 1.2.5 (2013-01-07)
 ------------------
