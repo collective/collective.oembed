@@ -36,7 +36,7 @@ setup(name='collective.oembed',
           # -*- Extra requirements: -*-
       ],
       extras_require=dict(
-          tests=['plone.app.testing'],
+          test=['plone.app.testing'],
       ),
       entry_points="""
       # -*- Entry points: -*-
