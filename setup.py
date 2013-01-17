@@ -4,7 +4,8 @@ version = '1.2.6.dev0'
 
 setup(name='collective.oembed',
       version=version,
-      description="embed content from oEmbed-providers as well as make your plonesite being oembed provider",
+      description="embed content from oEmbed-providers and make your\
+          Plone site being an oembed provider",
       long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.txt").read(),
       # Get more strings from
