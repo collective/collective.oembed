@@ -79,22 +79,35 @@ class OEmbedProvider(BrowserView):
         self.build_info(ob, site)
 
     def build_info(self, context, site):
-        ob = context
         site_title = site.Title()
+        ob = context
 
-        title = ob.Title()
-        if type(title) != unicode:
-            title.decode('utf-8')
+        #site related info
         if type(site_title) != unicode:
             site_title = site_title.decode('utf-8')
 
         e = self.embed
         e[u'version'] = '1.0'
-        e[u'title'] = title
-        e[u'author_name'] = ob.Creator()
         e[u'author_url'] = site.absolute_url() + '/author/' + ob.Creator()
         e[u'provider_name'] = site_title
         e[u'provider_url'] = site.absolute_url()
+
+        self.add_context_info(ob, site)
+
+    def add_context_info(self, ob, site):
+        """This help to build the context related information.
+        As integrator you are supposed to overide this to support
+        your specific use case.
+
+        You must add information respecting the oembed specification
+        You must store these information into self.embed dictionnary"""
+        # context related info
+        e = self.embed
+        title = ob.Title()
+        if type(title) != unicode:
+            title.decode('utf-8')
+        e[u'title'] = title
+        e[u'author_name'] = ob.Creator()
         field = ob.getPrimaryField()
         if field and field.type == 'text':
             e[u'type'] = 'rich'
@@ -109,9 +122,8 @@ class OEmbedProvider(BrowserView):
             e[u'type'] = 'link'
 
     def render(self):
-        res = self.embed
         if self.format == 'json':
-            return json.dumps(res)
+            return json.dumps(self.embed)
 
         return self.index_xml()
 
