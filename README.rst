@@ -22,6 +22,27 @@ Your site will become an oembed provider using @@oembed view as an endpoint::
     API endpoint: http://mysite.com/@@oembed
     Supports discovery via <link> tags
 
+This addon use archetypes getPrimaryField to get the most representative field
+of your content type and then build information on how to embed this content
+
+To change this behavior you can override the view for specific context::
+
+    <browser:page
+        name="oembed"
+        for="my.specific.context.IMYContent"
+        class="my.specific.provider.OEmbedProvider"
+        permission="zope2.View"
+        layer="my.specific.layer.Layer"
+        />
+    
+    
+    from collective.oembed.provider.
+    class OEmbedProvider(OEmbedProvider):
+        def add_context_info(self, ob, site):
+            self.embed['type'] = 'rich'
+            ...
+
+
 oembed client
 =============
 
