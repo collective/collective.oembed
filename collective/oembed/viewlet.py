@@ -39,7 +39,7 @@ class JQueryOEmbedViewlet(common.ViewletBase):
             try:
                 iface = interfaces.IOEmbedSettings
                 self._settings = registry.forInterface(iface)
-            except KeyError, e:
+            except KeyError:
                 pass
 
         return self._settings
@@ -66,7 +66,7 @@ class JQueryOEmbedViewlet(common.ViewletBase):
             return False
         try:
             return bool(settings.activate_jqueryoembed_integration)
-        except AttributeError, e:
+        except AttributeError:
             return False
 
 
