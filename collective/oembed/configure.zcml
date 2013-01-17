@@ -7,8 +7,6 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.oembed">
 
-  <five:registerPackage package="." initialize=".initialize" />
-
   <includeDependencies package="." />
   <include package="plone.app.contentmenu"/>
   <include package="plone.app.registry"/>
