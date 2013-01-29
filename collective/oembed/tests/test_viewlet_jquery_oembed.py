@@ -37,7 +37,7 @@ class TestIntegration(base.TestCase):
     def test_render(self):
         self.assertTrue(self.viewlet.render())  # should not display
         text = self.viewlet.render()
-        call_script = u'$(".oembed").oembed(null, jqueryOmebedSettings);'
+        call_script = u'.oembed(null, jqueryOmebedSettings);'
         self.assertIn(call_script, text)
         self.viewlet.settings().activate_jqueryoembed_integration = False
         self.assertFalse(self.viewlet.render())  # should not display
