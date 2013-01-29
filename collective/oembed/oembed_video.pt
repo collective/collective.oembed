@@ -1,1 +1,0 @@
-<div tal:condition="view/data/html|nothing" class="oembed-wrapper oembed-video" tal:content="structure view/data/html"></div>

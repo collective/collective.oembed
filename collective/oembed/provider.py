@@ -10,7 +10,7 @@ except ImportError:
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 
-from collective.oembed.consumer import ConsumerAggregatedView
+from collective.oembed.consumer import ConsumerView
 
 logger = logging.getLogger('collective.oembed')
 
@@ -158,11 +158,11 @@ class OEmbedProvider(BrowserView):
         return self._target
 
 
-class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
+class ProxyOembedProvider(OEmbedProvider, ConsumerView):
     """This oembed provider can be used as proxy consumer"""
     def __init__(self, context, request):
         OEmbedProvider.__init__(self, context, request)
-        ConsumerAggregatedView.__init__(self, context, request)
+        ConsumerView.__init__(self, context, request)
         self.is_local = False
 
     def update(self):
@@ -173,7 +173,7 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
         if self.url.startswith(self.context.absolute_url()):
             self.is_local = True
         else:
-            ConsumerAggregatedView.update(self)
+            ConsumerView.update(self)
             self._url = self.url
             self._maxheight = self.maxheight
             self._maxwidth = self.maxwidth
@@ -184,7 +184,7 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerAggregatedView):
             result = OEmbedProvider.__call__(self)
         else:
 
-            result = ConsumerAggregatedView.get_data(self,
+            result = ConsumerView.get_data(self,
                                     self.url,
                                     maxwidth=self.maxwidth,
                                     maxheight=self.maxheight,

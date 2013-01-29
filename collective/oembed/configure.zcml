@@ -10,8 +10,6 @@
   <includeDependencies package="." />
   <include package="plone.app.contentmenu"/>
   <include package="plone.app.registry"/>
-  <include package=".url2embed"/>
-  <include package=".api2embed"/>
   <include package=".tinymce"/>
   <include package=".tile" zcml:condition="have plone.app.tiles"/>
 
@@ -55,35 +53,6 @@
       template="link_view.pt"
       permission="zope2.View"
       />
-
-  <browser:page
-      name="oembed_view"
-      for="Products.ATContentTypes.interfaces.IATLink"
-      class=".consumer.ConsumerView"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      name="collective.oembed.consumer"
-      for="*"
-      class=".consumer.ConsumerView"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      name="collective.oembed.superconsumer"
-      for="*"
-      class=".consumer.ConsumerAggregatedView"
-      permission="zope2.View"
-      />
-
-  <browser:page
-    name="oembed"
-    for="*"
-    class=".provider.OEmbedProvider"
-    permission="zope2.View"
-    layer=".interfaces.OEmbedLayer"
-    />
 
   <browser:page
     name="proxy-oembed-provider"

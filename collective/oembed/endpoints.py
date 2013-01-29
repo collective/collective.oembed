@@ -307,23 +307,27 @@ class WordpressEndPoint(oembed.OEmbedEndpoint):
         return super(WordpressEndPoint, self).request(url, **query)
 
 
-def load_all_endpoints(embedly_apikey=None):
-    endpoints = []
-    if embedly_apikey is not None:
-        endpoint = EmbedlyEndPoint(embedly_apikey)
-        endpoints.append(endpoint)
+def wordpress_factory(info):
+    return WordpressEndPoint()
 
-    endpoint = WordpressEndPoint()
-    endpoints.append(endpoint)
-
-    providers = REGEX_PROVIDERS
-
-    for provider in providers:
-        endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
-                                         provider[u'regex'])
-        endpoints.append(endpoint)
-
-    return endpoints
+#
+#def load_all_endpoints(embedly_apikey=None):
+#    endpoints = []
+#    if embedly_apikey is not None:
+#        endpoint = EmbedlyEndPoint(embedly_apikey)
+#        endpoints.append(endpoint)
+#
+#    endpoint = WordpressEndPoint()
+#    endpoints.append(endpoint)
+#
+#    providers = REGEX_PROVIDERS
+#
+#    for provider in providers:
+#        endpoint = oembed.OEmbedEndpoint(provider[u'endpoint'],
+#                                         provider[u'regex'])
+#        endpoints.append(endpoint)
+#
+#    return endpoints
 
 
 def endpoint_factory(info):
@@ -332,15 +336,22 @@ def endpoint_factory(info):
 
 def get_structure():
     endpoints = {}
-    endpoint = WordpressEndPoint()
-    endpoints['wordpress.com'] = [endpoint]
 
-    providers = REGEX_PROVIDERS
-
-    for provider in providers:
+    for provider in REGEX_PROVIDERS:
         provider['factory'] = endpoint_factory
         provider['consumer'] = Consumer
         for hostname in provider['hostname']:
             endpoints[hostname] = [provider]
 
     return endpoints
+
+
+def get_checkers():
+    checkers = []
+    wordpress = {
+        'regex': '.*.wordpress\.com/.*',
+        'factory': wordpress_factory,
+        'consumer': Consumer
+    }
+    checkers.append(wordpress)
+    return checkers

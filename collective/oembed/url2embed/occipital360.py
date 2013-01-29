@@ -81,4 +81,5 @@ class Occipital360EndPoint(base.UrlCrawlerToEmbed):
         and return the embed code.
         """
         self.parse(url)
-        return {'url': self.parser.video_url}
+        return {'url': self.parser.video_url,
+                'flashvar': self.parser.flashvar}
