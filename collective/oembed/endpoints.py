@@ -158,7 +158,7 @@ REGEX_PROVIDERS = [
         u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}',
     },
     {
-        u'hostname': ('photobucket.com',),
+        u'hostname': ('photobucket.com', 'img.photobucket.com'),
         #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
         u'regex':['regex:.*photobucket\\.com/(albums|groups)/.+$'],
         u'endpoint':'http://photobucket.com/oembed',
@@ -176,7 +176,7 @@ REGEX_PROVIDERS = [
         u'endpoint':'http://www.dailymotion.com/services/oembed',
     },
     {
-        u'hostname': ('clikthrough.com',),
+        u'hostname': ('clikthrough.com', 'www.clikthrough.com'),
         u'regex':['http://*.clikthrough.com/theater/video/*'],
         u'endpoint':'http://clikthrough.com/services/oembed',
     },

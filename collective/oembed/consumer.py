@@ -79,13 +79,12 @@ class ConsumerView(BrowserView):
         self.update()
         url = unshort_url(url)
         embed = None
-        providers = self.get_providers(url)
+        consumer = self.get_consumer(url)
 
-        for provider in providers:
-            if provider and not embed:
-                embed = provider.get_embed(url,
-                                           maxwidth=maxwidth,
-                                           maxheight=maxheight)
+        if consumer and not embed:
+            embed = consumer.get_embed(url,
+                                       maxwidth=maxwidth,
+                                       maxheight=maxheight)
 
         return embed
 
@@ -99,7 +98,6 @@ class ConsumerView(BrowserView):
 
     @cache(_render_details_cachekey)
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
-        #logger.info('request not in cache: get_data(%s)' % url)
         self.update()
         url = unshort_url(url)
         consumer = self.get_consumer(url)

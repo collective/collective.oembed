@@ -28,6 +28,7 @@ class TestCase(unittest.TestCase):
                                (IAttributeAnnotatable, OEmbedLayer))
         super(TestCase, self).setUp()
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
@@ -45,6 +46,7 @@ class FunctionalTestCase(unittest.TestCase):
         interface.alsoProvides(self.layer['request'],
                                (IAttributeAnnotatable, OEmbedLayer))
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
