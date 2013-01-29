@@ -10,8 +10,10 @@ Changelog
 2.0a1 (2013-01-29)
 ------------------
 
-- can use links inside div.oembed too since tinymce don't apply styles to "a" well [djay]
-
+- Can use links inside div.oembed too since tinymce don't apply styles to "a" well [djay]
+- Code refactored to use a structure with hostname/[lazy_endpoints]
+- Test coverage up to 94 %
+- Add spotify endpoint (open.spotify.com)
 
 1.2.5 (2013-01-07)
 ------------------
@@ -38,7 +40,6 @@ Changelog
 ------------------
 
 - Add support for Soundcloud. [aleGpereira]
-
 
 1.2.2 (2012-07-10)
 ------------------
