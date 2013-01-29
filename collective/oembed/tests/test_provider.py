@@ -1,5 +1,6 @@
 from collective.oembed.tests import base
 from collective.oembed.tests import utils
+from collective.oembed.provider import OEmbedProvider
 
 
 class Test(base.UnitTestCase):
@@ -64,8 +65,8 @@ class TestIntegration(base.TestCase):
 
     def setUp(self):
         super(TestIntegration, self).setUp()
-        self.view = self.portal.restrictedTraverse('@@oembed')
         self.portal.REQUEST['url'] = self.folder.absolute_url()
+        self.view = OEmbedProvider(self.folder, self.request)
 
     def test_call(self):
         render = self.view()
