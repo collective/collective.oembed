@@ -10,15 +10,22 @@ class Test(base.UnitTestCase):
         self.module = endpoints
         self.regex_providers = endpoints.REGEX_PROVIDERS
 
-    def test_load_all_endpoints(self):
+    def test_get_structure(self):
         from collective.oembed import endpoints
-        all_endpoints = endpoints.load_all_endpoints()
-        len_endpoints = len(all_endpoints)
+        structure = endpoints.get_structure()
+        len_endpoints = len(structure)
         self.assertTrue(len_endpoints > 0)
-
-        all_endpoints = endpoints.load_all_endpoints(
-                                         embedly_apikey="fakeapikey")
-        self.assertEqual(len(all_endpoints), len_endpoints + 1)
+        for hostname in structure:
+            endpoints = structure[hostname]
+            for endpoint in endpoints:
+                self.assertIn(u'regex', endpoint)
+                self.assertIn(u'factory', endpoint)
+                self.assertIn(u'consumer', endpoint)
+                self.assertIn(u'endpoint', endpoint)
+                endpoint_instance = endpoint['factory'](endpoint)
+                self.assertIsNotNone(endpoint_instance)
+                consumer_instance = endpoint['consumer'](endpoint_instance)
+                self.assertIsNotNone(consumer_instance)
 
     def test_WordpressEndPoint(self):
         from collective.oembed import endpoints

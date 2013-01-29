@@ -172,7 +172,7 @@ REGEX_PROVIDERS = [
     {
         u'hostname': ('www.dailymotion.com',),
         #http://www.dailymotion.com/doc/api/oembed.html
-        u'regex':['http://www.dailymotion.com/video/*'],
+        u'regex': ['http://www.dailymotion.com/video/*'],
         u'endpoint':'http://www.dailymotion.com/services/oembed',
     },
     {
