@@ -1,5 +1,85 @@
+import logging
 import oembed
+from zope import interface
+from collective.oembed import interfaces
 from collective.oembed.embedly import EMBEDLY_RE
+import urllib2
+
+logger = logging.getLogger('collective.oembed')
+
+
+TEMPLATES = {u"link": u"""
+    <div class="oembed-wrapper oembed-link">
+      <a href="%(url)s" target="_blank">%(title)s"></a>
+      <div>%(html)s</div>
+    </div>
+    """,
+             u"photo": u"""
+    <div class="oembed-wrapper oembed-photo">
+      <p><a href="%(url)s" target="_blank">%(title)s">
+        <img src="%(url)s" alt="%(title)s"/>
+      </a></p>
+      <div>%(html)s</div>
+    </div>
+    """,
+             u"rich": u"""
+    <div class="oembed-wrapper oembed-rich">
+      %(html)s
+    </div>
+    """,
+             u"video": u"""
+    <div class="oembed-wrapper oembed-video">
+      %(html)s
+    </div>
+    """}
+
+
+class Consumer(object):
+    """Consumer which wrap one end point"""
+    interface.implements(interfaces.IConsumer)
+
+    def __init__(self, endpoint):
+        self.consumer = None
+        self.endpoint = endpoint
+
+    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
+        self.initialize_consumer()
+        request = {}
+        if maxwidth is not None:
+            request['maxwidth'] = maxwidth
+        if maxheight is not None:
+            request['maxheight'] = maxheight
+        request['format'] = format
+
+        try:
+            response = self.consumer.embed(url, **request)
+            return response.getData()
+        except oembed.OEmbedNoEndpoint, e:
+            logger.info(e)
+        except oembed.OEmbedError, e:
+            #often a mimetype error
+            logger.info(e)
+        except urllib2.HTTPError, e:
+            logger.info(e)
+        except urllib2.URLError, e:
+            #support offline mode
+            logger.info('offline mode')
+
+    def initialize_consumer(self):
+        if self.consumer is None:
+
+            consumer = oembed.OEmbedConsumer()
+            consumer.addEndpoint(self.endpoint)
+
+            self.consumer = consumer
+
+    def get_embed(self, url, maxwidth=None, maxheight=None, format='json'):
+        data = self.get_data(url, maxwidth=maxwidth, maxheight=maxheight,
+                             format=format)
+        if data is None or u"type" not in data:
+            return u""
+        return TEMPLATES[data[u"type"]] % data
+
 
 REGEX_PROVIDERS = [
     {
@@ -259,6 +339,7 @@ def get_structure():
 
     for provider in providers:
         provider['factory'] = endpoint_factory
+        provider['consumer'] = Consumer
         for hostname in provider['hostname']:
             endpoints[hostname] = provider
 

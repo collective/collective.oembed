@@ -24,8 +24,6 @@
       />
   <include file="upgrades.zcml"/>
 
-  <utility factory=".consumer.Consumer" />
-
   <browser:resource
     name="collective.oembed.js"
     file="jquery.oembed.js"/>

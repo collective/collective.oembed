@@ -24,78 +24,6 @@ except ImportError, e:
 
 logger = logging.getLogger('collective.oembed')
 
-TEMPLATES = {u"link": u"""
-    <div class="oembed-wrapper oembed-link">
-      <a href="%(url)s" target="_blank">%(title)s"></a>
-      <div>%(html)s</div>
-    </div>
-    """,
-             u"photo": u"""
-    <div class="oembed-wrapper oembed-photo">
-      <p><a href="%(url)s" target="_blank">%(title)s">
-        <img src="%(url)s" alt="%(title)s"/>
-      </a></p>
-      <div>%(html)s</div>
-    </div>
-    """,
-             u"rich": u"""
-    <div class="oembed-wrapper oembed-rich">
-      %(html)s
-    </div>
-    """,
-             u"video": u"""
-    <div class="oembed-wrapper oembed-video">
-      %(html)s
-    </div>
-    """}
-
-
-class Consumer(object):
-    """Consumer which wrap one end point"""
-    interface.implements(interfaces.IConsumer)
-
-    def __init__(self):
-        self.consumer = None
-        self.endpoint = None
-
-    def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
-        self.initialize_consumer()
-        request = {}
-        if maxwidth is not None:
-            request['maxwidth'] = maxwidth
-        if maxheight is not None:
-            request['maxheight'] = maxheight
-        request['format'] = format
-
-        try:
-            response = self.consumer.embed(url, **request)
-            return response.getData()
-        except oembed.OEmbedNoEndpoint, e:
-            logger.info(e)
-        except oembed.OEmbedError, e:
-            #often a mimetype error
-            logger.info(e)
-        except urllib2.HTTPError, e:
-            logger.info(e)
-        except URLError, e:
-            #support offline mode
-            logger.info('offline mode')
-
-    def initialize_consumer(self):
-        if self.consumer is None:
-
-            consumer = oembed.OEmbedConsumer()
-            consumer.addEndpoint(self.endpoint)
-
-            self.consumer = consumer
-
-    def get_embed(self, url, maxwidth=None, maxheight=None, format='json'):
-        data = self.get_data(url, maxwidth=maxwidth, maxheight=maxheight,
-                             format=format)
-        if data is None or u"type" not in data:
-            return u""
-        return TEMPLATES[data[u"type"]] % data
-
 
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
@@ -209,7 +137,7 @@ class ConsumerAggregatedView(BrowserView):
 
     def update(self):
         self.structure.update(endpoints.get_structure())
-#        self.structure.update(url2embed.get_structure())
+        self.structure.update(url2embed.get_structure())
 #        self.structure.update(api2embed.get_structure())
 
 #        registry = component.getUtility(IRegistry)
@@ -260,29 +188,40 @@ class ConsumerAggregatedView(BrowserView):
         consumer = self.get_consumer(url)
 
         if consumer:
-            data = consumer.get_data(url,
-                                     maxwidth=maxwidth,
-                                     maxheight=maxheight,
-                                     format=format)
+            data = consumer.get_data(
+                url,
+                maxwidth=maxwidth,
+                maxheight=maxheight,
+                format=format
+            )
 
             return data
 
     def get_consumer(self, url):
-        endpoint = self.get_endpoint(url=url)
-        if not endpoint:
+        endpoints = self.get_endpoints(url=url)
+        if not endpoints:
             return
-        consumer = Consumer()
-        consumer.endpoint = endpoint
-        return consumer
+        for endpoint_info in endpoints:
+            endpoint = endpoint_info['factory'](endpoint_info)
+            if endpoint.match(url):
+                consumer = endpoint_info['consumer'](endpoint)
+                return consumer
 
-    def get_endpoint(self, hostname="", url=""):
+    def get_endpoints(self, hostname="", url=""):
         """Return components responsible to handle this hostname"""
 
+        endpoints = []
         if url:
             hostname = self.get_hostname(url)
         endpoint = self.structure.get(hostname)
 
-        return endpoint['factory'](endpoint)
+        if type(endpoint) in (list, tuple):
+            for info in endpoint:
+                endpoints.append(info)
+        else:
+            endpoints.append(endpoint)
+
+        return endpoints
 
     def get_hostname(self, url):
         return urlsplit(url)[1]
