@@ -1,12 +1,7 @@
 import json
 import logging
 from urlparse import urlparse
-try:
-    from zope.component.hooks import getSite
-except ImportError:
-    #BBB
-    from zope.site.hooks import getSite
-
+from zope.component.hooks import getSite
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 
@@ -184,11 +179,13 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerView):
             result = OEmbedProvider.__call__(self)
         else:
 
-            result = ConsumerView.get_data(self,
-                                    self.url,
-                                    maxwidth=self.maxwidth,
-                                    maxheight=self.maxheight,
-                                    format="json")
+            result = ConsumerView.get_data(
+                self,
+                self.url,
+                maxwidth=self.maxwidth,
+                maxheight=self.maxheight,
+                format="json"
+            )
 
             if type(result) == dict:
                 result = json.dumps(result)

@@ -92,81 +92,81 @@ REGEX_PROVIDERS = [
     },
     {
         u'hostname': ('www.flickr.com',),
-        u'regex':['http://*.flickr.com/*'],
+        u'regex': ['http://*.flickr.com/*'],
         u'endpoint':'http://www.flickr.com/services/oembed',
     },
     {
         u'hostname': ('qik.com',),
-        u'regex':['http://qik.com/video/*', 'http://qik.com/*'],
+        u'regex': ['http://qik.com/video/*', 'http://qik.com/*'],
         u'endpoint':'http://qik.com/api/oembed.{format}',
     },
     {
         u'hostname': ('revision3.com',),
-        u'regex':['http://*revision3.com/*'],
+        u'regex': ['http://*revision3.com/*'],
         u'endpoint':'http://revision3.com/api/oembed/',
     },
     {
         u'hostname': ('www.hulu.com',),
-        u'regex':['http://www.hulu.com/watch/*'],
+        u'regex': ['http://www.hulu.com/watch/*'],
         u'endpoint':'http://www.hulu.com/api/oembed.{format}',
     },
     {
         u'hostname': ('vimeo.com',),
-        u'regex':['http://vimeo.com/*'],
+        u'regex': ['http://vimeo.com/*'],
         u'endpoint':'http://vimeo.com/api/oembed.{format}',
     },
     {
         u'hostname': ('www.collegehumor.com',),
-        u'regex':['http://www.collegehumor.com/video/*'],
+        u'regex': ['http://www.collegehumor.com/video/*'],
         u'endpoint':'http://www.collegehumor.com/oembed.{format}',
     },
     {
         u'hostname': ('www.polleverywhere.com',),
-        u'regex':['http://www.polleverywhere.com/polls/*',
-            'http://www.polleverywhere.com/multiple_choice_polls/*',
-            'http://www.polleverywhere.com/free_text_polls/*'],
+        u'regex': ['http://www.polleverywhere.com/polls/*',
+                   'http://www.polleverywhere.com/multiple_choice_polls/*',
+                   'http://www.polleverywhere.com/free_text_polls/*'],
         u'endpoint':'http://www.polleverywhere.com/services/oembed/',
     },
     {
         u'hostname': ('www.ifixit.com',),
-        u'regex':['http://www.ifixit.com/*'],
+        u'regex': ['http://www.ifixit.com/*'],
         u'endpoint':'http://www.ifixit.com/Embed',
     },
     {
         u'hostname': ('smugmug.com', 'www.smugmug.com'),
-        u'regex':['http://*.smugmug.com/*'],
+        u'regex': ['http://*.smugmug.com/*'],
         u'endpoint':'http://api.smugmug.com/services/oembed/',
     },
     {
         u'hostname': ('www.slideshare.net', 'fr.slideshare.net'),
-        u'regex':['http://www.slideshare.net/*/*'],
+        u'regex': ['http://www.slideshare.net/*/*'],
         u'endpoint':'http://www.slideshare.net/api/oembed/2',
     },
     {
         u'hostname': ('www.23hq.com',),
-        u'regex':['http://www.23hq.com/*/photo/*'],
+        u'regex': ['http://www.23hq.com/*/photo/*'],
         u'endpoint':'http://www.23hq.com/23/oembed',
     },
     {
         u'hostname': ('www.5min.com',),
-        u'regex':['http://www.5min.com/Video/*'],
+        u'regex': ['http://www.5min.com/Video/*'],
         u'endpoint':'http://api.5min.com/oembed.{format}',
     },
     {
         u'hostname': ('twitter.com',),
-        u'regex':['https://twitter.com/*/status*/*'],
+        u'regex': ['https://twitter.com/*/status*/*'],
         u'endpoint':'https://api.twitter.com/1/statuses/oembed.{format}',
     },
     {
         u'hostname': ('photobucket.com', 'img.photobucket.com'),
         #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
-        u'regex':['regex:.*photobucket\\.com/(albums|groups)/.+$'],
+        u'regex': ['regex:.*photobucket\\.com/(albums|groups)/.+$'],
         u'endpoint':'http://photobucket.com/oembed',
     },
     {
         u'hostname': ('www.kinomap.com',),
         #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
-        u'regex':['http://*.kinomap.com/*'],
+        u'regex': ['http://*.kinomap.com/*'],
         u'endpoint':'http://www.kinomap.com/oembed',
     },
     {
@@ -177,25 +177,25 @@ REGEX_PROVIDERS = [
     },
     {
         u'hostname': ('clikthrough.com', 'www.clikthrough.com'),
-        u'regex':['http://*.clikthrough.com/theater/video/*'],
+        u'regex': ['http://*.clikthrough.com/theater/video/*'],
         u'endpoint':'http://clikthrough.com/services/oembed',
     },
     {
         u'hostname': ('dotsub.com',),
         #http://solutions.dotsub.com/oEmbed
-        u'regex':['http://dotsub.com/view/*'],
+        u'regex': ['http://dotsub.com/view/*'],
         u'endpoint':'http://dotsub.com/services/oembed',
     },
     {
         u'hostname': ('blip.tv',),
         # blit.tv sends an invalid mime-type back
-        u'regex':['http://*blip.tv/*'],
+        u'regex': ['http://*blip.tv/*'],
         u'endpoint':'http://blip.tv/oembed/',
     },
     {
         u'hostname': ('official.fm',),
         #http://official.fm/developers/oembed
-        u'regex':[
+        u'regex': [
             'http://official.fm/tracks/*',
             'http://official.fm/playlists/*'
         ],
@@ -204,28 +204,28 @@ REGEX_PROVIDERS = [
     {
         u'hostname': ('vhx.tv',),
         #http://dev.vhx.tv/oembed.html
-        u'regex':['http://vhx.tv/*'],
+        u'regex': ['http://vhx.tv/*'],
         u'endpoint':'http://vhx.tv/services/oembed.{format}',
     },
     {
         u'hostname': ('www.nfb.ca',),
-        u'regex':['http://*.nfb.ca/film/*'],
+        u'regex': ['http://*.nfb.ca/film/*'],
         u'endpoint':'http://www.nfb.ca/remote/services/oembed/',
     },
     {
         u'hostname': ('instagr.am', 'instagram.com'),
         #http://instagr.am/developer/embedding/
-        u'regex':['http://instagr.am/p/*', 'http://instagr.am/p/*'],
+        u'regex': ['http://instagr.am/p/*', 'http://instagr.am/p/*'],
         u'endpoint': 'http://api.instagram.com/oembed',
     },
     {
         u'hostname': ('wordpress.tv',),
-        u'regex':['http://wordpress.tv/*'],
+        u'regex': ['http://wordpress.tv/*'],
         u'endpoint': 'http://wordpress.tv/oembed/',
     },
     {
         u'hostname': ('soundcloud.com', 'snd.sc'),
-        u'regex':[
+        u'regex': [
             'http://soundcloud.com/*', 'http://soundcloud.com/*/*',
             'http://soundcloud.com/*/sets/*', 'http://soundcloud.com/groups/*',
             'http://snd.sc/*', 'https://soundcloud.com/*'
@@ -242,14 +242,13 @@ REGEX_PROVIDERS = [
 # Those features don't work currently, but are being worked upon:
 #
 #
-# {u'regex':['http://*.viddler.com/*'],
+# {u'regex': ['http://*.viddler.com/*'],
 #  u'endpoint':'http://lab.viddler.com/services/oembed/'},
 #
-# {u'regex':['http://*yfrog.com/*'],
+# {u'regex': ['http://*yfrog.com/*'],
 #  u'endpoint':'http://www.yfrog.com/api/oembed'},
-                #http://yfrog.com/page/api#a8
 #
-# {u'regex':['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/',
+# {u'regex': ['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/',
 #            '/vz.net\/l/.*/', '/vz.net\/Gadgets/Info/.*/',
 #            '/vz.net\/Gadgets/Install/.*/', '/meinvz.net\/[a-zA-Z0-9\-\_]*$/',
 #            '/studivz.net\/[a-zA-Z0-9\-\_]*$/',
@@ -257,22 +256,22 @@ REGEX_PROVIDERS = [
 #  u'endpoint':'http://www.studivz.net/Link/OEmbed/'},
 #    #http://developer.studivz.net/wiki/index.php/Embedding
 #
-# {u'regex':['http://*.deviantart.com/art/*', 'http://fav.me/*',
+# {u'regex': ['http://*.deviantart.com/art/*', 'http://fav.me/*',
 #            'http://*.deviantart.com/*#/d*'],
 #  u'endpoint':'http://backend.deviantart.com/oembed'},
 #    #http://www.deviantart.com/developers/oembed
 #
-# {u'regex':['http://*.scribd.com/*'],
+# {u'regex': ['http://*.scribd.com/*'],
 #  u'endpoint':'http://www.scribd.com/services/oembed'},
 #
-# {u'regex':['http://*funnyordie.com/videos/*'],
+# {u'regex': ['http://*funnyordie.com/videos/*'],
 #  u'endpoint':'http://www.funnyordie.com/oembed'},
 #
- #http://my.opera.com/devblog/blog/2008/12/02/embedding-my-opera-content-oembed
-# {u'regex':['http://my.opera.com/*'],
+# http://my.opera.com/devblog/blog/2008/12/02/embedding-my-opera-content-oembed
+# {u'regex': ['http://my.opera.com/*'],
 #  u'endpoint':'http://my.opera.com/service/oembed'},
-# {u'regex':['http://tv.majorleaguegaming.com/video/*',
-#    'http://mlg.tv/video/*'],
+# {u'regex': ['http://tv.majorleaguegaming.com/video/*',
+#             'http://mlg.tv/video/*'],
 #  u'endpoint':'http://tv.majorleaguegaming.com/oembed'},
 ]
 

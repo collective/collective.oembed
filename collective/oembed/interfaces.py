@@ -1,4 +1,3 @@
-import json
 from zope import interface
 from zope import schema
 
@@ -25,12 +24,13 @@ class IOEmbedSettings(interface.Interface):
     """Client server side is named consumer"""
 
     embedly_apikey = schema.ASCIILine(title=_(u'embedlykey'),
-                                  required=False)
+                                      required=False)
 
     activate_jqueryoembed_integration = schema.Bool(
-                                title=i18n.jqueryoembed_integration,
-                                description=i18n.jqueryoembed_integration_desc,
-                                default=True)
+        title=i18n.jqueryoembed_integration,
+        description=i18n.jqueryoembed_integration_desc,
+        default=True
+    )
 
     #configuration for jquery.oembed javascript
     embedMethod = schema.Choice(title=_(u'embedMethod'),
@@ -41,20 +41,26 @@ class IOEmbedSettings(interface.Interface):
     defaultOEmbedProvider = schema.ASCIILine(title=_(u'defaultOEmbedProvider'),
                                              default="plone")
 
-    allowedProviders = schema.List(title=_(u'allowedProviders'),
-                           value_type=schema.ASCIILine(title=_(u'provider')),
-                           default=[],
-                           required=False)
+    allowedProviders = schema.List(
+        title=_(u'allowedProviders'),
+        value_type=schema.ASCIILine(title=_(u'provider')),
+        default=[],
+        required=False
+    )
 
-    disallowedProviders = schema.List(title=_(u'disallowedProviders'),
-                           value_type=schema.ASCIILine(title=_(u'provider')),
-                           default=[],
-                           required=False)
+    disallowedProviders = schema.List(
+        title=_(u'disallowedProviders'),
+        value_type=schema.ASCIILine(title=_(u'provider')),
+        default=[],
+        required=False
+    )
 
-    customProviders = schema.List(title=_(u'customProviders'),
-                          value_type=schema.ASCIILine(title=_(u'provider')),
-                          default=[],
-                          required=False)
+    customProviders = schema.List(
+        title=_(u'customProviders'),
+        value_type=schema.ASCIILine(title=_(u'provider')),
+        default=[],
+        required=False
+    )
 
 
 class IURL2Embed(interface.Interface):
@@ -87,7 +93,7 @@ class IURL2Embed(interface.Interface):
 
 
 class IAPI2Embed(interface.Interface):
-    """To extend oembed experience we add a new kind of service: get the 
+    """To extend oembed experience we add a new kind of service: get the
     embed code using the API provided by the service. Implemented service
     are supposed to not providing oembed service.
     """

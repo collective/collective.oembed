@@ -1,5 +1,4 @@
 from collective.oembed.tests import base
-from collective.oembed.tests import utils
 
 
 class Test(base.UnitTestCase):

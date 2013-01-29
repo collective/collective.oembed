@@ -17,9 +17,9 @@ class LinkView(BrowserView):
 
     def update(self):
         if self.oembed is None:
-            self.oembed = component.queryMultiAdapter((self.context,
-                                                       self.request),
-                                        name="collective.oembed.superconsumer")
+            self.oembed = component.queryMultiAdapter(
+                (self.context, self.request), name="proxy-oembed-provider"
+            )
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
         self.update()

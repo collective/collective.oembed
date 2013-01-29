@@ -40,8 +40,10 @@ def get_structure():
         if hostname not in structure:
             structure[hostname] = []
         for endpoint in info[hostname]:
-            structure[hostname].append({'factory': endpoint_factory,
-                                   'consumer': Consumer,
-                                   'klass': endpoint})
+            structure[hostname].append({
+                'factory': endpoint_factory,
+                'consumer': Consumer,
+                'klass': endpoint
+            })
 
     return structure

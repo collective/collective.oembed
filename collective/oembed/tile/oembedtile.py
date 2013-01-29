@@ -1,21 +1,16 @@
-from zope import component
 from zope import interface
 from zope import schema
 from plone import tiles
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class IOEmbedTile(interface.Interface):
     """IOEmbed tile schema"""
 
-    oembed_url = schema.URI(title=u"URL",
-                     required=True)
+    oembed_url = schema.URI(title=u"URL", required=True)
 
-    maxwidth = schema.Int(title=u"max width",
-                          required=False)
+    maxwidth = schema.Int(title=u"max width", required=False)
 
-    maxheight = schema.Int(title=u"Max height",
-                           required=False)
+    maxheight = schema.Int(title=u"Max height", required=False)
 
 
 class OEmbedTile(tiles.PersistentTile):
@@ -30,8 +25,7 @@ class OEmbedTile(tiles.PersistentTile):
         return '<html><body>%s</body></html>' % embed
 
     def get_embed(self):
-        client = component.queryMultiAdapter((self.context, self.request),
-                                    name=u"collective.oembed.superconsumer")
+        client = self.context.restrictedTraverse('@@proxy-oembed-provider')
         client.update()
 
         maxwidth = self.data.get('maxwidth', None)

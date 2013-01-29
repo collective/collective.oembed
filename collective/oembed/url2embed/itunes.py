@@ -30,7 +30,7 @@ class ITunesURLEndPoint(base.UrlToOembed):
 
         splited = path.split('/')
         lang = splited[1]
-        appid = splited[3]
+#        appid = splited[3]
         id = splited[4][2:]
         return {"id": id,
                 "lang": lang}

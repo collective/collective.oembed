@@ -1,21 +1,22 @@
 import re
 import logging
-import oembed
 
 from urllib2 import urlopen, URLError
 from urlparse import urlsplit
 
 from plone.memoize.ram import cache
 
-from collective.oembed import url2embed, api2embed, endpoints
+from collective.oembed import endpoints
+from collective.oembed.api2embed import structure as api2embed_structure
+from collective.oembed.url2embed import structure as url2embed_structure
 from Products.Five.browser import BrowserView
 import time
 
-try:
-    from collective.embedly.interfaces import IEmbedlySettings
-    HAS_COLLECTIVE_EMBEDLY = True
-except ImportError, e:
-    HAS_COLLECTIVE_EMBEDLY = False
+#try:
+#    from collective.embedly.interfaces import IEmbedlySettings
+#    HAS_COLLECTIVE_EMBEDLY = True
+#except ImportError, e:
+#    HAS_COLLECTIVE_EMBEDLY = False
 
 logger = logging.getLogger('collective.oembed')
 
@@ -40,8 +41,8 @@ class ConsumerView(BrowserView):
     def update(self):
         if not self.structure:
             s_endpoints = endpoints.get_structure()
-            s_url2embed = url2embed.get_structure()
-            s_api2embed = api2embed.get_structure()
+            s_url2embed = url2embed_structure.get_structure()
+            s_api2embed = api2embed_structure.get_structure()
             for providers in (s_endpoints, s_url2embed, s_api2embed):
                 for hostname in providers:
                     if hostname not in self.structure:
@@ -70,9 +71,11 @@ class ConsumerView(BrowserView):
 
     @cache(_render_details_cachekey)
     def get_embed(self, url, maxwidth=None, maxheight=None):
-        return self.get_embed_uncached(url,
-                                maxwidth=maxwidth,
-                                maxheight=maxheight)
+        return self.get_embed_uncached(
+            url,
+            maxwidth=maxwidth,
+            maxheight=maxheight
+        )
 
     def get_embed_uncached(self, url, maxwidth=None, maxheight=None):
         #logger.info('request not in cache: get_embed(%s)' % url)
@@ -82,9 +85,11 @@ class ConsumerView(BrowserView):
         consumer = self.get_consumer(url)
 
         if consumer and not embed:
-            embed = consumer.get_embed(url,
-                                       maxwidth=maxwidth,
-                                       maxheight=maxheight)
+            embed = consumer.get_embed(
+                url,
+                maxwidth=maxwidth,
+                maxheight=maxheight
+            )
 
         return embed
 
@@ -162,10 +167,10 @@ def unshort_url(url):
     return url
 
 SHORT_URL_DOMAINS = [
-  'tinyurl.com',
-  'goo.gl',
-  'bit.ly',
-  't.co',
-  'youtu.be',
-  'vbly.us',
+    'tinyurl.com',
+    'goo.gl',
+    'bit.ly',
+    't.co',
+    'youtu.be',
+    'vbly.us',
 ]

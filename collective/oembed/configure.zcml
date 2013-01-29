@@ -62,4 +62,12 @@
     layer=".interfaces.OEmbedLayer"
     />
 
+  <browser:page
+    name="oembed"
+    for="*"
+    class=".provider.OEmbedProvider"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
+
 </configure>

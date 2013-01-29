@@ -162,7 +162,7 @@ class UrlCrawlerToEmbed(UrlToOembed):
                 if not line.strip().startswith('<'):
                     continue
                 self.parser.feed(line)
-            except HTMLParseError, e:
+            except HTMLParseError:
                 continue
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
@@ -173,9 +173,11 @@ class UrlCrawlerToEmbed(UrlToOembed):
         return self.embed_html_template % info
 
     def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
-        super(UrlCrawlerToEmbed, self).get_data(url,
-                                              maxwidth=maxwidth,
-                                              maxheight=maxheight,
-                                              format=format)
+        super(UrlCrawlerToEmbed, self).get_data(
+            url,
+            maxwidth=maxwidth,
+            maxheight=maxheight,
+            format=format
+        )
         self.parser.update_data(self.embed)
         return self.embed

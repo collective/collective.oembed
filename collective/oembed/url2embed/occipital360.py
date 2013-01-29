@@ -1,6 +1,3 @@
-import urllib2
-from HTMLParser import HTMLParser, HTMLParseError
-
 from zope import interface
 
 from collective.oembed.url2embed import base

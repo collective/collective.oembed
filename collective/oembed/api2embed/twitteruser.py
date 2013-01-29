@@ -4,7 +4,6 @@ import urllib
 
 from datetime import datetime
 from urlparse import urlsplit
-from urllib import quote
 
 from zope import interface
 

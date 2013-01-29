@@ -27,8 +27,10 @@ class GoogleCalendarURLEndPoint(base.UrlToOembed):
         """
         proto, host, path, query_params, fragment = self.break_url(url)
         splited = path.split('/')
-        if path.startswith('/calendar/feeds/')\
-           or path.startswith('/calendar/ical'):
+        if (
+            path.startswith('/calendar/feeds/') or
+            path.startswith('/calendar/ical')
+        ):
             if len(splited) > 2:
                 cid = urllib2.unquote(splited[3])
         elif path.startswith('/calendar/embed'):
