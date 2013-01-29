@@ -11,8 +11,7 @@ from zope import interface
 from plone.registry.interfaces import IRegistry
 from plone.memoize.ram import cache
 
-from collective.oembed import interfaces
-from collective.oembed import endpoints
+from collective.oembed import interfaces, url2embed, api2embed, endpoints
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import time
@@ -31,7 +30,7 @@ TEMPLATES = {u"link": u"""
       <div>%(html)s</div>
     </div>
     """,
-                 u"photo": u"""
+             u"photo": u"""
     <div class="oembed-wrapper oembed-photo">
       <p><a href="%(url)s" target="_blank">%(title)s">
         <img src="%(url)s" alt="%(title)s"/>
@@ -39,12 +38,12 @@ TEMPLATES = {u"link": u"""
       <div>%(html)s</div>
     </div>
     """,
-                 u"rich": u"""
+             u"rich": u"""
     <div class="oembed-wrapper oembed-rich">
       %(html)s
     </div>
     """,
-                 u"video": u"""
+             u"video": u"""
     <div class="oembed-wrapper oembed-video">
       %(html)s
     </div>
@@ -52,12 +51,12 @@ TEMPLATES = {u"link": u"""
 
 
 class Consumer(object):
-    """Consumer utility"""
+    """Consumer which wrap one end point"""
     interface.implements(interfaces.IConsumer)
 
     def __init__(self):
         self.consumer = None
-        self.embedly_apikey = None
+        self.endpoint = None
 
     def get_data(self, url, maxwidth=None, maxheight=None, format='json'):
         self.initialize_consumer()
@@ -86,10 +85,7 @@ class Consumer(object):
         if self.consumer is None:
 
             consumer = oembed.OEmbedConsumer()
-            key = self.embedly_apikey
-            _enpoints = endpoints.load_all_endpoints(embedly_apikey=key)
-            for endpoint in _enpoints:
-                consumer.addEndpoint(endpoint)
+            consumer.addEndpoint(self.endpoint)
 
             self.consumer = consumer
 
@@ -104,10 +100,12 @@ class Consumer(object):
 class ConsumerView(BrowserView):
     """base browserview to display embed stuff"""
 
-    embed_templates = {u'photo': ViewPageTemplateFile('oembed_photo.pt'),
-                 u'video': ViewPageTemplateFile('oembed_video.pt'),
-                 u'link':  ViewPageTemplateFile('oembed_link.pt'),
-                 u'rich':  ViewPageTemplateFile('oembed_rich.pt')}
+    embed_templates = {
+        u'photo': ViewPageTemplateFile('oembed_photo.pt'),
+        u'video': ViewPageTemplateFile('oembed_video.pt'),
+        u'link':  ViewPageTemplateFile('oembed_link.pt'),
+        u'rich':  ViewPageTemplateFile('oembed_rich.pt')
+    }
 
     def __init__(self, context, request):
         self.context = context
@@ -202,27 +200,28 @@ class ConsumerAggregatedView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.oembed = None
-        self.api2embed = None
-        self.url2embed = None
+        self.structure = {}
+#        self.oembed = None
+#        self.api2embed = None
+#        self.url2embed = None
         self._maxwidth = None
         self._maxheight = None
 
     def update(self):
-        if self.oembed is None:
-            self.oembed = component.queryMultiAdapter((self.context,
-                                                       self.request),
-                                            name="collective.oembed.consumer")
+        self.structure.update(endpoints.get_structure())
+#        self.structure.update(url2embed.get_structure())
+#        self.structure.update(api2embed.get_structure())
 
-        if self.url2embed is None:
-            self.url2embed = component.queryMultiAdapter((self.context,
-                                                          self.request),
-                                            name="collective.oembed.url2embed")
-
-        if self.api2embed is None:
-            self.api2embed = component.queryMultiAdapter((self.context,
-                                                          self.request),
-                                            name="collective.oembed.api2embed")
+#        registry = component.getUtility(IRegistry)
+#        black_list = registry.get('collective.oembed.blacklist')
+#        plugins = registry.get('collective.oembed.consumers')
+#        for plugin in plugins:
+#            try:
+#                hostname, consumername = plugin.split('/')
+#            except ValueError:
+#                logger.error('can t extract consumer form %s' % plugin)
+#                continue
+#            self.structure[hostname] = consumer
 
     @cache(_render_details_cachekey)
     def get_embed(self, url, maxwidth=None, maxheight=None):
@@ -235,11 +234,9 @@ class ConsumerAggregatedView(BrowserView):
         self.update()
         url = unshort_url(url)
         embed = None
+        providers = self.get_providers(url)
 
-        providers = ('oembed', 'url2embed', 'api2embed')
-
-        for provider_name in providers:
-            provider = getattr(self, provider_name, None)
+        for provider in providers:
             if provider and not embed:
                 embed = provider.get_embed(url,
                                            maxwidth=maxwidth,
@@ -260,18 +257,35 @@ class ConsumerAggregatedView(BrowserView):
         logger.info('request not in cache: get_data(%s)' % url)
         self.update()
         url = unshort_url(url)
-        data = None
-        providers = ('oembed', 'url2embed', 'api2embed')
+        consumer = self.get_consumer(url)
 
-        for provider_name in providers:
-            provider = getattr(self, provider_name, None)
-            if provider and not data:
-                data = provider.get_data(url,
-                                         maxwidth=maxwidth,
-                                         maxheight=maxheight,
-                                         format=format)
+        if consumer:
+            data = consumer.get_data(url,
+                                     maxwidth=maxwidth,
+                                     maxheight=maxheight,
+                                     format=format)
 
-        return data
+            return data
+
+    def get_consumer(self, url):
+        endpoint = self.get_endpoint(url=url)
+        if not endpoint:
+            return
+        consumer = Consumer()
+        consumer.endpoint = endpoint
+        return consumer
+
+    def get_endpoint(self, hostname="", url=""):
+        """Return components responsible to handle this hostname"""
+
+        if url:
+            hostname = self.get_hostname(url)
+        endpoint = self.structure.get(hostname)
+
+        return endpoint['factory'](endpoint)
+
+    def get_hostname(self, url):
+        return urlsplit(url)[1]
 
 
 def unshort_url(url):

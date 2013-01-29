@@ -130,6 +130,7 @@ class OembedHTMLParser(HTMLParser):
         self.width = ""
         self.height = ""
         self.type = ""
+        self.audio = ""
 
     def has_finished(self):
         raise NotImplementedError()

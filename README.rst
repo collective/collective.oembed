@@ -211,6 +211,45 @@ Other Plone addons
 * collective.js.oembed_
 * collective.embedly_
 
+Addon design (targeted to 2.0)
+==============================
+
+I want to work on a complete internal redisign to make it easier for
+developer to understand.
+
+input is a URL
+output can be:
+
+* json
+* xml
+
+The provided integration use only json throw ajax request.
+
+We should have one main view which achieve the job:
+@@collective.oembed.superconsumer
+
+This one use a ram cache with a cache-key based on:
+* url + max-width + max-height
+* 1 hour (in case distant html has changed)
+
+I will add a structure key/value with hostname as keys
+and low level consumer name as values.
+
+consumer so could be instanciated on the fly (less memory).
+
+This global structure should be configurable to:
+
+* blacklist some hostname throw portal_registry
+* add new key/value hostname/consumername throw portal_registry
+* override existing value throw portal_registry
+
+So those three browser view will be removed:
+
+* collective.oembed.consumer
+* collective.oembed.url2embed
+* collective.oembed.api2embed
+
+
 Credits
 =======
 
