@@ -190,6 +190,7 @@ Rich providers:
 * Issuu (http://issuu.com)
 * Scribd (http://www.scribd.com)
 * SoundCloud (http://soundcloud.com/)
+* Spotify (http://open.spotify.com/)
 
 Proxy OEmbed Endpoint
 =====================
@@ -198,11 +199,6 @@ This addon provide consumer and provider. Both can be used at the same time
 in the proxy oembed endpoint. It means you can ask your site how to display
 an URL what ever it comes from the site itself or from outside.
 
-
-How to get use (get the working url I want)
-===========================================
-
-All most every website has many kind of URL
 
 Other Plone addons
 ==================
@@ -214,40 +210,35 @@ Other Plone addons
 Addon design (targeted to 2.0)
 ==============================
 
-I want to work on a complete internal redisign to make it easier for
-developer to understand.
+The internal code has been completly redone on 2.0
 
-input is a URL
-output can be:
+Goals:
 
-* json
-* xml
+* code easier to understand
+* less components
+* performance optimization
 
 The provided integration use only json throw ajax request.
 
-We should have one main view which achieve the job:
-@@collective.oembed.superconsumer
+We have one main view which achieve the job:
+@@proxy-oembed-provider
 
 This one use a ram cache with a cache-key based on:
 * url + max-width + max-height
 * 1 hour (in case distant html has changed)
 
-I will add a structure key/value with hostname as keys
-and low level consumer name as values.
+There is a structure key/value with hostname as keys
+and low level consumer name as values which are instanciated when needed (lazy
+loading) so it use less memory.
 
-consumer so could be instanciated on the fly (less memory).
+TODO
+----
 
-This global structure should be configurable to:
+Make the global structure configurable to:
 
 * blacklist some hostname throw portal_registry
 * add new key/value hostname/consumername throw portal_registry
 * override existing value throw portal_registry
-
-So those three browser view will be removed:
-
-* collective.oembed.consumer
-* collective.oembed.url2embed
-* collective.oembed.api2embed
 
 
 Credits
