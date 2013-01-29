@@ -5,20 +5,21 @@ from collective.oembed import interfaces
 from collective.oembed.url2embed.base import OembedHTMLParser
 
 TEMPLATE = """<object type="application/x-shockwave-flash"
-  data="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"
+  data="http://360.io/static/flash/fbviewer.swf"
   width="%(width)s" height="%(height)s">
-  <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"></param>
+  <param name="movie" value="http://360.io/static/flash/fbviewer.swf"></param>
   <param name="quality" value="high"></param>
   <param name="allowFullScreen" value="true"></param>
   <param name="allowScriptAccess" value="always"></param>
-  <param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer"></param>
+  <param name="pluginspage"
+  value="http://www.macromedia.com/go/getflashplayer"></param>
   <param name="autoplay" value="false"></param>
   <param name="autostart" value="false"></param>
   <param name="flashvars" value="%(flashvar)s"></param>
-  <embed src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"
-  flashvars="%(flashvar)s" width="%(width)s" height="%(height)s"
-  type="application/x-shockwave-flash"></embed>
-</object>
+  <embed src="http://360.io/static/flash/fbviewer.swf"
+  flashvars="%(flashvar)s"
+  width="%(width)s" height="%(height)s"
+  type="application/x-shockwave-flash"></embed></object>
 """
 
 base_viewer = "http://360.io/static/flash/fbviewer.swf?"
