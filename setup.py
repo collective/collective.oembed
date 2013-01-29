@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0.dev0'
+version = '2.0a1'
 
 setup(name='collective.oembed',
       version=version,
