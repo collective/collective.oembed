@@ -1,8 +1,8 @@
 from urlparse import urlsplit
 from urllib import quote, urlencode
 import oembed
-import urllib2
 from HTMLParser import HTMLParseError, HTMLParser
+import urllib
 
 DEFAULT_SIZE = 400
 
@@ -88,20 +88,18 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         """Build the embeding code from the given url according to the child
         class' template and return it
         """
-        info = self.request(url)
+        self.embed.update(self.request(url))
         w, h = self.get_width_and_height(maxwidth=maxwidth,
                                          maxheight=maxheight)
 
-        info['width'] = w
-        info['height'] = h
-        return self.embed_html_template % info
+        self.embed['width'] = w
+        self.embed['height'] = h
+        return self.embed_html_template % self.embed
 
     def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
         html = self.get_embed(url,
                               maxwidth=maxwidth,
                               maxheight=maxheight)
-        w, h = self.get_width_and_height(maxwidth=maxwidth,
-                                         maxheight=maxheight)
         e = self.embed
         e[u'version'] = '1.0'
         e[u'title'] = ""
@@ -113,16 +111,12 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         if self.oembed_type == "photo":
             e[u'type'] = 'photo'
             e[u'url'] = self.url
-            e[u'width'] = w
-            e[u'height'] = h
         elif self.oembed_type == "video":
             e[u'type'] = 'video'
             e[u'html'] = html
         elif self.oembed_type == "rich":
             e[u'type'] = 'rich'
             e[u'html'] = html
-            e[u'width'] = w
-            e[u'height'] = h
         else:
             e[u'type'] = 'link'
 
@@ -162,7 +156,10 @@ class UrlCrawlerToEmbed(UrlToOembed):
         self.parser = self.parser_klass()
 
     def parse(self, url):
-        u = urllib2.urlopen(url).read()
+        connection = urllib.urlopen(url)
+        encoding = connection.headers.getparam('charset')
+        u = connection.read().decode(encoding)
+
         lines = u.split("\n")
 
         for line in lines:
@@ -176,11 +173,17 @@ class UrlCrawlerToEmbed(UrlToOembed):
                 continue
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
+        super(UrlCrawlerToEmbed, self).get_embed(
+            url,
+            maxwidth=maxwidth,
+            maxheight=maxheight,
+        )
         #lets override this one
-        info = self.request(url)
-        info['width'] = self.parser.width
-        info['height'] = self.parser.height
-        return self.embed_html_template % info
+        if self.parser.width:
+            self.embed['width'] = self.parser.width
+        if self.parser.height:
+            self.embed['height'] = self.parser.height
+        return self.embed_html_template % self.embed
 
     def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
         super(UrlCrawlerToEmbed, self).get_data(

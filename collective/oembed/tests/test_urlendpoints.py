@@ -95,6 +95,10 @@ class Test(base.UnitTestCase):
         url = 'http://open.spotify.com/album/1VXa39MgJU8qDE1ASn9Wgp'
         data = endpoint.get_embed(url)
         self.assertIsNotNone(data)
+        self.assertTrue(data.startswith('<iframe'))
+
+        data = endpoint.get_data(url)
+        self.assertEqual(data['title'], u'WAR ON ERRORISM')
 
     def test_endpoint_itunes(self):
         from collective.oembed.url2embed import itunes
