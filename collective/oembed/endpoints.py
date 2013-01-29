@@ -133,12 +133,12 @@ REGEX_PROVIDERS = [
         u'endpoint':'http://www.ifixit.com/Embed',
     },
     {
-        u'hostname': ('smugmug.com',),
+        u'hostname': ('smugmug.com', 'www.smugmug.com'),
         u'regex':['http://*.smugmug.com/*'],
         u'endpoint':'http://api.smugmug.com/services/oembed/',
     },
     {
-        u'hostname': ('www.slideshare.net',),
+        u'hostname': ('www.slideshare.net', 'fr.slideshare.net'),
         u'regex':['http://www.slideshare.net/*/*'],
         u'endpoint':'http://www.slideshare.net/api/oembed/2',
     },
@@ -333,7 +333,7 @@ def endpoint_factory(info):
 def get_structure():
     endpoints = {}
     endpoint = WordpressEndPoint()
-    endpoints['wordpress.com'] = endpoint
+    endpoints['wordpress.com'] = [endpoint]
 
     providers = REGEX_PROVIDERS
 
@@ -341,6 +341,6 @@ def get_structure():
         provider['factory'] = endpoint_factory
         provider['consumer'] = Consumer
         for hostname in provider['hostname']:
-            endpoints[hostname] = provider
+            endpoints[hostname] = [provider]
 
     return endpoints

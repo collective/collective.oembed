@@ -136,10 +136,16 @@ class ConsumerAggregatedView(BrowserView):
         self._maxheight = None
 
     def update(self):
-        self.structure.update(endpoints.get_structure())
-        self.structure.update(url2embed.get_structure())
-#        self.structure.update(api2embed.get_structure())
-
+        s_endpoints = endpoints.get_structure()
+        s_url2embed = url2embed.get_structure()
+        s_api2embed = api2embed.get_structure()
+        for providers in (s_endpoints, s_url2embed, s_api2embed):
+            for hostname in providers:
+                if hostname not in self.structure:
+                    self.structure[hostname] = []
+                infos = providers[hostname]
+                for info in infos:
+                    self.structure[hostname].append(info)
 #        registry = component.getUtility(IRegistry)
 #        black_list = registry.get('collective.oembed.blacklist')
 #        plugins = registry.get('collective.oembed.consumers')
@@ -202,10 +208,14 @@ class ConsumerAggregatedView(BrowserView):
         if not endpoints:
             return
         for endpoint_info in endpoints:
+            if not endpoint_info:
+                continue
             endpoint = endpoint_info['factory'](endpoint_info)
             if endpoint.match(url):
+                logger.info('find endpoint !')
                 consumer = endpoint_info['consumer'](endpoint)
                 return consumer
+        logger.info('no endpoint match for %s. tried %s' % (url, endpoints))
 
     def get_endpoints(self, hostname="", url=""):
         """Return components responsible to handle this hostname"""

@@ -1,13 +1,4 @@
-from collective.oembed.url2embed import gistgithub
-from collective.oembed.url2embed import googlecalendar
-from collective.oembed.url2embed import googledocs
-from collective.oembed.url2embed import googlemaps
-from collective.oembed.url2embed import issuucom
-from collective.oembed.url2embed import itunes
-from collective.oembed.url2embed import occipital360
-from collective.oembed.url2embed import picasaweb
-from collective.oembed.url2embed import scribd
-from collective.oembed.url2embed import spotify
+from collective.oembed.api2embed import twitteruser
 
 
 def endpoint_factory(info):
@@ -43,18 +34,7 @@ class Consumer(object):
 def get_structure():
     structure = {}
     info = {
-        'gist.github.com': (gistgithub.GistGithubURLEndPoint,),
-        'www.google.com': (
-            googlecalendar.GoogleCalendarURLEndPoint,
-            googledocs.GoogleDocsURLEndPoint,
-            googlemaps.GoogleMapsURLEndPoint
-        ),
-        'issuu.com': (issuucom.IssuuComEndPoint,),
-        'itunes.apple.com': (itunes.ITunesURLEndPoint,),
-        '360.io': (occipital360.Occipital360EndPoint,),
-        'picasaweb.google.com': (picasaweb.PicasaWebURLEndPoint,),
-        'www.scribd.com': (scribd.ScribdURLEndPoint,),
-        'open.spotify.com': (spotify.SpotifyEndPoint,),
+        'twitter.com': (twitteruser.TwitterUserAPI2Embed,),
     }
     for hostname in info:
         if hostname not in structure:
