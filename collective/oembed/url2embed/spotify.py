@@ -43,6 +43,8 @@ class SpotifyEndPoint(base.UrlCrawlerToEmbed):
     embed_html_template = TEMPLATE
     parser_klass = HTMLParser
     url_schemes = ["http://open.spotify.com/*"]
+    default_height = "80"
+    default_width = "300"
 
     def request(self, url):
         """Extract the needed parameters from the given url and options,

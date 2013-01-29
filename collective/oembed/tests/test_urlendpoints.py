@@ -88,6 +88,14 @@ class Test(base.UnitTestCase):
         data = endpoint.get_embed(url)
         self.assertIsNotNone(data)
 
+    def test_spotify(self):
+        from collective.oembed.url2embed import spotify
+        endpoint = spotify.SpotifyEndPoint()
+
+        url = 'http://open.spotify.com/album/1VXa39MgJU8qDE1ASn9Wgp'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
+
     def test_endpoint_itunes(self):
         from collective.oembed.url2embed import itunes
         endpoint = itunes.ITunesURLEndPoint()
@@ -95,6 +103,29 @@ class Test(base.UnitTestCase):
         url = 'https://itunes.apple.com/fr/app/google-maps/id585027354'
         data = endpoint.get_embed(url)
         self.assertIsNotNone(data)
+
+    def test_occipital(self):
+        from collective.oembed.url2embed import occipital360
+        endpoint = occipital360.Occipital360EndPoint()
+
+        url = 'http://360.io/jLnBUy'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
+        self.assertTrue(data.startswith('<object'))
+        player = "http://360.io/static/flash/fbviewer.swf"
+        self.assertIn(player, data)
+
+    def test_issuu(self):
+        from collective.oembed.url2embed import issuucom
+        endpoint = issuucom.IssuuComEndPoint()
+
+        url = 'http://issuu.com/humanizemagazine/docs/humanize19/1'
+        data = endpoint.get_embed(url)
+        self.assertIsNotNone(data)
+        self.assertTrue(data.startswith('<object'))
+        player = ("http://static.issuu.com/webembed/viewers/style1/v2/"
+                  "IssuuReader.swf")
+        self.assertIn(player, data)
 
     def test_width_and_height(self):
         from collective.oembed.url2embed import base as ubase

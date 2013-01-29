@@ -64,8 +64,14 @@ class UrlToOembed(oembed.OEmbedEndpoint):
             if maxheight is not None:
                 maxwidth = maxheight
             else:
-                maxwidth = DEFAULT_SIZE
-                maxheight = DEFAULT_SIZE
+                if hasattr(self, 'default_width'):
+                    maxwidth = self.default_width
+                else:
+                    maxwidth = DEFAULT_SIZE
+                if hasattr(self, 'default_height'):
+                    maxheight = self.default_height
+                else:
+                    maxheight = DEFAULT_SIZE
         elif maxheight is None:
                 maxheight = maxwidth
 
@@ -94,6 +100,8 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         html = self.get_embed(url,
                               maxwidth=maxwidth,
                               maxheight=maxheight)
+        w, h = self.get_width_and_height(maxwidth=maxwidth,
+                                         maxheight=maxheight)
         e = self.embed
         e[u'version'] = '1.0'
         e[u'title'] = ""
@@ -105,14 +113,16 @@ class UrlToOembed(oembed.OEmbedEndpoint):
         if self.oembed_type == "photo":
             e[u'type'] = 'photo'
             e[u'url'] = self.url
-            e[u'width'] = ""
-            e[u'height'] = ""
+            e[u'width'] = w
+            e[u'height'] = h
         elif self.oembed_type == "video":
             e[u'type'] = 'video'
             e[u'html'] = html
         elif self.oembed_type == "rich":
             e[u'type'] = 'rich'
             e[u'html'] = html
+            e[u'width'] = w
+            e[u'height'] = h
         else:
             e[u'type'] = 'link'
 
