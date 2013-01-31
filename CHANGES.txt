@@ -4,7 +4,7 @@ Changelog
 2.0a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix Plone4.0 compatibility
 
 
 2.0a1 (2013-01-29)
