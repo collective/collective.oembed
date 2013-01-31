@@ -1,11 +1,11 @@
 import json
 import logging
 from urlparse import urlparse
-from zope.component.hooks import getSite
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 
 from collective.oembed.consumer import ConsumerView
+from Products.CMFCore.utils import getToolByName
 
 logger = logging.getLogger('collective.oembed')
 
@@ -129,7 +129,8 @@ class OEmbedProvider(BrowserView):
 
     def get_site(self):
         if self._site is None:
-            self._site = getSite()
+            urltool = getToolByName(self.context, 'portal_url')
+            self._site = urltool.getPortalObject()
         return self._site
 
     def get_target(self):
