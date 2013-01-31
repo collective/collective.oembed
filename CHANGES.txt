@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a2 (unreleased)
+2.0a2 (2013-01-31)
 ------------------
 
 - Fix Plone4.0 compatibility
