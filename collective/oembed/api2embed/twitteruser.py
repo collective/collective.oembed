@@ -1,6 +1,7 @@
 import re
 import json
 import urllib
+import logging
 
 from datetime import datetime
 from urlparse import urlsplit
@@ -8,6 +9,8 @@ from urlparse import urlsplit
 from zope import interface
 
 from collective.oembed.interfaces import IAPI2Embed
+
+logger = logging.getLogger('collective.oembed')
 
 TWITTER_EMBED = """<blockquote class="twitter-tweet">
 <p>%(tweet)s</p>&mdash; %(name)s (@%(screen_name)s)
@@ -26,7 +29,8 @@ class TwitterUserAPI2Embed(object):
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
         info = self.get_info(url)
-        return info['html']
+        if info is not None:
+            return info['html']
 
     def get_data(self, url, maxwidth=None, maxheight=None, format="json"):
         return self.get_info(url)
@@ -42,10 +46,12 @@ class TwitterUserAPI2Embed(object):
         try:
             account_info = json.loads(urllib.urlopen(account_url).read())
             if "errors" in account_info:
+                logger.error(account_info['errors'])
                 return
             if 'status' in account_info:
                 self.update_time(account_info)
-        except IOError:
+        except IOError, e:
+            logger.error(e)
             return
         oembed = {}
         e = oembed
