@@ -5,21 +5,21 @@ env:
   - TARGET=coverage.sh
   - TARGET=python-validation.sh
 
+  - TARGET=js-validation.sh
 #  - TARGET=css-validation.sh
-#  - TARGET=js-validation.sh
 
 # csslint and jshint dependencies, uncomment if needed
-# before_install:
-#  - sudo apt-get install ack-grep
-#  - sudo apt-add-repository ppa:chris-lea/node.js -y
-#  - sudo apt-get update 1>/dev/null
-#  - sudo apt-get install nodejs npm -y
+before_install:
+  - sudo apt-get install ack-grep
+ - sudo apt-add-repository ppa:chris-lea/node.js -y
+  - sudo apt-get update 1>/dev/null
+  - sudo apt-get install nodejs npm -y
 #
 # csslint
 #  - npm install csslint -g
 #
 # jshint
-#  - npm install jshint -g
+  - npm install jshint -g
 #
 # robotframework or selenium
 #  - export DISPLAY=:99.0
@@ -29,7 +29,7 @@ install:
   - mkdir -p buildout-cache/eggs
   - mkdir -p buildout-cache/downloads
   - python bootstrap.py -c travis.cfg
-  - bin/buildout -N -t 3 -c travis.cfg install download install
+  - bin/buildout -N -t 3 -c travis.cfg install download download-dependencies install
   - bin/buildout -N -t 3 -c travis.cfg
 
 script: bin/$TARGET
