@@ -12,6 +12,8 @@
  * as only provider
  */
 
+/*jshint multistr: true */
+
 (function ($) {
 	$.fn.oembed = function (url, options, embedAction) {
 
@@ -23,29 +25,28 @@
 		ref = document.getElementsByTagName('base')[0] || document.getElementsByTagName('script')[0];
 
 		div.className = 'fit-vids-style';
-		div.innerHTML = '&shy;<style>     \
-      .fluid-width-video-wrapper {        \
-         width: 100%;                     \
-         position: relative;              \
-         padding: 0;                      \
-      }                                   \
-                                          \
-      .fluid-width-video-wrapper iframe,  \
-      .fluid-width-video-wrapper object,  \
-      .fluid-width-video-wrapper embed {  \
-         position: absolute;              \
-         top: 0;                          \
-         left: 0;                         \
-         width: 100%;                     \
-         height: 100%;                    \
-      }                                   \
-    </style>';
+		div.innerHTML = '&shy;<style>		\
+		.fluid-width-video-wrapper {		\
+			width: 100%;					\
+			position: relative;				\
+			padding: 0;						\
+		}									\
+		.fluid-width-video-wrapper iframe,	\
+		.fluid-width-video-wrapper object,	\
+		.fluid-width-video-wrapper embed {	\
+			position: absolute;			\
+			top: 0;						\
+			left: 0;						\
+			width: 100%;					\
+			height: 100%;					\
+		}									\
+		</style>';
 
 		ref.parentNode.insertBefore(div,ref);
 
 		return this.each(function () {
 			var container = $(this),
-			resourceURL = (url != null) ? url : container.attr("href"), provider;
+			resourceURL = (url !== null) ? url : container.attr("href"), provider;
 
 			if (embedAction) {
 				settings.onEmbed = embedAction;
@@ -55,10 +56,10 @@
 				};
 			}
 
-			if (resourceURL != null) {
+			if (resourceURL !== null) {
 				provider = $.fn.oembed.getOEmbedProvider(resourceURL);
 
-				if (provider != null) {
+				if (provider !== null) {
 					provider.params = getNormalizedParams(settings[provider.name]) || {};
 					provider.maxWidth = settings.maxWidth;
 					provider.maxHeight = settings.maxHeight;
@@ -80,8 +81,8 @@
 	$.fn.oembed.defaults = {
 			maxWidth: null,
 			maxHeight: null,
-			embedMethod: "replace",  	// "auto", "append", "fill"		
-			defaultOEmbedProvider: "plone", 	// "oohembed", "embed.ly", "none"
+			embedMethod: "replace", // "auto", "append", "fill"		
+			defaultOEmbedProvider: "plone", // "oohembed", "embed.ly", "none"
 			allowedProviders: null,
 			disallowedProviders: null,
 			customProviders: null, // [ new $.fn.oembed.OEmbedProvider("customprovider", null, ["customprovider\\.com/watch.+v=[\\w-]+&?"]) ]	
@@ -98,36 +99,36 @@
 	/* Private functions */
 	function getRequestUrl(container, externalUrl, provider) {
 
-		var url = provider.apiendpoint, qs = ""
-//			var callbackparameter = provider.callbackparameter || "callback", 
-			var i;
+		var url = provider.apiendpoint, qs = "";
+//		var callbackparameter = provider.callbackparameter || "callback", 
+		var i;
 
 		if (url.indexOf("?") <= 0)
 			url = url + "?";
 		else
 			url = url + "&";
 
-		if (provider.maxWidth != null && provider.params["maxwidth"] == null)
-			provider.params["maxwidth"] = provider.maxWidth;
-		if (provider.maxHeight != null && provider.params["maxheight"] == null)
-			provider.params["maxheight"] = provider.maxHeight;
+		if (provider.maxWidth !== null && provider.params.maxwidth === null)
+			provider.params.maxwidth = provider.maxWidth;
+		if (provider.maxHeight !== null && provider.params.maxheight === null)
+			provider.params.maxheight = provider.maxHeight;
 
 		for (i in provider.params) {
 			// allows the options to be set to null, don't send null values to the server as parameters
-			if (provider.params[i] != null)
+			if (provider.params[i] !== null)
 				qs += "&" + escape(i) + "=" + provider.params[i];
 		}
 
 		url += "format=json&url=" + escape(externalUrl) +
 			qs ;
 
-		if (container[0].dataset.maxwidth != undefined)
+		if (container[0].dataset.maxwidth !== undefined)
 			url += "&maxwidth=" + container[0].dataset.maxwidth;
-		if (container[0].dataset.maxheight != undefined)
+		if (container[0].dataset.maxheight !== undefined)
 			url += "&maxheight=" + maxcontainer[0].dataset.maxheight;
 
 		return url;
-	};
+	}
 
 	function embedCode(container, externalUrl, embedProvider) {
 
@@ -166,7 +167,7 @@
 		}, settings.ajaxOptions || { } );
 
 		$.ajax( ajaxopts );
-	};
+	}
 
 	function initializeProviders() {
 
@@ -210,12 +211,12 @@
 
 		// If in greedy mode, we add the default provider
 		defaultProvider = getDefaultOEmbedProvider(settings.defaultOEmbedProvider);
-		if (settings.greedy == true) {
+		if (settings.greedy === true) {
 			activeProviders.push(defaultProvider);
 		}
 		// If any provider has no apiendpoint, we use the default provider endpoint
 		for (i = 0; i < activeProviders.length; i++) {
-			if (activeProviders[i].apiendpoint == null)
+			if (activeProviders[i].apiendpoint === null)
 				activeProviders[i].apiendpoint = defaultProvider.apiendpoint;
 		}
 	}
@@ -225,16 +226,16 @@
 		if (defaultOEmbedProvider == "embed.ly")
 			url = "http://api.embed.ly/v1/api/oembed?";
 		if (defaultOEmbedProvider == "plone")
-			url = portal_url + '/@@proxy-oembed-provider'
+			url = portal_url + '/@@proxy-oembed-provider';
 			return new $.fn.oembed.OEmbedProvider(defaultOEmbedProvider, null, null, url, "callback");
 	}
 
 	function getNormalizedParams(params) {
-		if (params == null)
+		if (params === null)
 			return null;
 		var key, normalizedParams = {};
 		for (key in params) {
-			if (key != null)
+			if (key !== null)
 				normalizedParams[key.toLowerCase()] = params[key];
 		}
 		return normalizedParams;
@@ -243,41 +244,41 @@
 	function isNullOrEmpty(object) {
 		if (typeof object == "undefined")
 			return true;
-		if (object == null)
+		if (object === null)
 			return true;
-		if ($.isArray(object) && object.length == 0)
+		if ($.isArray(object) && object.length === 0)
 			return true;
 		return false;
 	}
 
 	/* Public functions */
 	$.fn.oembed.insertCode = function (container, embedMethod, oembedData) {
-		if (oembedData == null)
+		if (oembedData === null)
 			return;
 
 		switch (embedMethod) {
 		case "auto":
-			if (container.attr("href") != null) {
+			if (container.attr("href") !== null) {
 				$.fn.oembed.insertCode(container, "append", oembedData);
 			}
 			else {
 				$.fn.oembed.insertCode(container, "replace", oembedData);
-			};
+			}
 			break;
 		case "replace":
 			if (container.hasClass("oembed-responsive")){
 				var html = $(oembedData.code);
-		        if (html.is("iframe") || html.is("object") || html.is("embed")){
-		            var width = parseInt(html.attr("width")), height = parseInt(html.attr("height"));
-		            var ratio = height / width;
-		            container.wrap('<div class="fluid-width-video-wrapper"></div>').parent('.fluid-width-video-wrapper').css('padding-top', (ratio * 100)+"%");
-		            html.removeAttr('height').removeAttr('width');
-		            oembedData.code = html[0].outerHTML;
-		        }
-		        if (oembedData.type == "photo"){
-		            html.find('img').css('max-width', "100%");
-		            oembedData.code = html[0].outerHTML;
-		        }
+				if (html.is("iframe") || html.is("object") || html.is("embed")){
+					var width = parseInt(html.attr("width"), null), height = parseInt(html.attr("height"), null);
+					var ratio = height / width;
+					container.wrap('<div class="fluid-width-video-wrapper"></div>').parent('.fluid-width-video-wrapper').css('padding-top', (ratio * 100)+"%");
+					html.removeAttr('height').removeAttr('width');
+					oembedData.code = html[0].outerHTML;
+				}
+				if (oembedData.type == "photo"){
+					html.find('img').css('max-width', "100%");
+					oembedData.code = html[0].outerHTML;
+				}
 			}
 			container.replaceWith(oembedData.code);
 			break;
@@ -286,11 +287,11 @@
 			break;
 		case "append":
 			var oembedContainer = container.next();
-			if (oembedContainer == null || !oembedContainer.hasClass("oembed-container")) {
+			if (oembedContainer === null || !oembedContainer.hasClass("oembed-container")) {
 				oembedContainer = container
 				.after('<div class="oembed-container"></div>')
 				.next(".oembed-container");
-				if (oembedData != null && oembedData.provider_name != null)
+				if (oembedData !== null && oembedData.provider_name !== null)
 					oembedContainer.toggleClass("oembed-container-" + oembedData.provider_name);
 			}
 			oembedContainer.html(oembedData.code);
@@ -320,7 +321,7 @@
 	};
 
 	$.fn.oembed.getGenericCode = function (url, oembedData) {
-		var title = (oembedData.title != null) ? oembedData.title : url,
+		var title = (oembedData.title !== null) ? oembedData.title : url,
 				code = '<a href="' + url + '">' + title + '</a>';
 		if (oembedData.html)
 			code += "<div>" + oembedData.html + "</div>";
@@ -329,7 +330,7 @@
 
 	$.fn.oembed.isProviderAvailable = function (url) {
 		var provider = getOEmbedProvider(url);
-		return (provider != null);
+		return (provider !== null);
 	};
 
 	$.fn.oembed.getOEmbedProvider = function (url) {
@@ -353,14 +354,14 @@
 		this.matches = function (externalUrl) {
 			for (i = 0; i < this.urlschemes.length; i++) {
 				regExp = new RegExp(this.urlschemes[i], "i");
-				if (externalUrl.match(regExp) != null)
+				if (externalUrl.match(regExp) !== null)
 					return true;
 			}
 			return false;
 		};
 
 		this.fromJSON = function (json) {
-			for (property in json) {
+			for (var property in json) {
 				if (property != "urlschemes")
 					this[property] = json[property];
 				else
