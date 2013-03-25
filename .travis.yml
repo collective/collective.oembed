@@ -8,7 +8,7 @@ env:
 
 before_install:
   - sudo apt-get install ack-grep
-  - sudo apt-add-repository ppa:chris-lea/node.js -y
+#  - sudo apt-add-repository ppa:chris-lea/node.js -y
   - sudo apt-get update 1>/dev/null
   - sudo apt-get install nodejs npm -y
   - npm install jshint -g
