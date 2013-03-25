@@ -18,15 +18,9 @@ class OEmbedTile(tiles.PersistentTile):
 
     interface.implements(IOEmbedTile)
 
-    def __call__(self):
-        embed = self.get_embed()
-        if not embed:
-            embed = '&nbsp;'
-        return '<html><body>%s</body></html>' % embed
-
     def get_embed(self):
         client = self.context.restrictedTraverse('@@proxy-oembed-provider')
-        client.update()
+#        client.update()
 
         maxwidth = self.data.get('maxwidth', None)
         maxheight = self.data.get('maxheight', None)

@@ -79,8 +79,10 @@ class ConsumerView(BrowserView):
 
     def get_embed_uncached(self, url, maxwidth=None, maxheight=None):
         #logger.info('request not in cache: get_embed(%s)' % url)
-        self.update()
+        import pdb;pdb.set_trace()
         url = unshort_url(url)
+        self.url = url
+        self.update()
         embed = None
         consumer = self.get_consumer(url)
 

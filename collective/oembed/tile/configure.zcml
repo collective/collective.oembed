@@ -11,6 +11,7 @@
       add_permission="cmf.ModifyPortalContent"
       schema=".oembedtile.IOEmbedTile"
       class=".oembedtile.OEmbedTile"
+      template="oembedtile.pt"
       permission="zope2.View"
       for="*"
       />

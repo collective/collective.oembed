@@ -11,7 +11,7 @@
   <include package="plone.app.contentmenu"/>
   <include package="plone.app.registry"/>
   <include package=".tinymce"/>
-  <include package=".tile" zcml:condition="have plone.app.tiles"/>
+  <include package=".tile" zcml:condition="installed plone.app.tiles"/>
 
   <genericsetup:registerProfile
       name="default"
