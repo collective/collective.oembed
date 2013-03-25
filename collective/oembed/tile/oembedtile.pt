@@ -6,7 +6,9 @@
   i18n:domain="plone">
 
   <metal:tile fill-slot="content">
-    <a class="oembed oembed-responsive" tal:attributes="href view/data/oembed_url">test</a>
+    <tal:def tal:define="cssclass python:view.data.get('responsive', False) and 'oembed oembed-responsive' or 'oembed'">
+      <a tal:attributes="class cssclass; href view/data/oembed_url">test</a>
+    </tal:def>
   </metal:tile>
 
 </html>

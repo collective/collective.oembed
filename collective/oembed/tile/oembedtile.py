@@ -12,6 +12,8 @@ class IOEmbedTile(interface.Interface):
 
     maxheight = schema.Int(title=u"Max height", required=False)
 
+    responsive = schema.Bool(title=u"Responsive", required=True, default=True)
+
 
 class OEmbedTile(tiles.PersistentTile):
     """OEmebed tile implementation"""
