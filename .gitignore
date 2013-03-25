@@ -24,3 +24,4 @@ dist
 .settings
 var
 src
+coverage
