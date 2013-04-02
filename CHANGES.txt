@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a3 (unreleased)
+2.0a3 (2013-04-02)
 ------------------
 
 - Fix tiles zcml conditional check.
