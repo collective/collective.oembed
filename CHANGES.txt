@@ -6,6 +6,7 @@ Changelog
 
 - Fix tiles zcml conditional check.
 - Use a template for the tile rendering
+- Add responsive option to oembed tile
 
 
 2.0a2 (2013-01-31)
