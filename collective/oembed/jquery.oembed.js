@@ -125,7 +125,7 @@
 		if (container[0].dataset.maxwidth !== undefined)
 			url += "&maxwidth=" + container[0].dataset.maxwidth;
 		if (container[0].dataset.maxheight !== undefined)
-			url += "&maxheight=" + maxcontainer[0].dataset.maxheight;
+			url += "&maxheight=" + container[0].dataset.maxheight;
 
 		return url;
 	}
