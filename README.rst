@@ -261,6 +261,7 @@ Contributors
 
 - Raphael Gaziano aka raphigaziano <r.gaziano@gmail.com>
 - Alejandro Pereira aka aleGpereira <alepereira86@gmail.com>
+- Sylvain Bouchard aka bouchardsyl <sylvain.bouchard@savoirfairelinux.com>
 
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com

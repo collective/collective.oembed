@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 - Tested compatibility with Plone 4.3. [hvelarde]
+- Fixed Javascript typo regarding max height [bouchardsyl]
 
 
 2.0a3 (2013-04-02)
