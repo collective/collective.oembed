@@ -163,12 +163,6 @@ REGEX_PROVIDERS = [
         u'regex': ['regex:.*photobucket\\.com/(albums|groups)/.+$'],
         u'endpoint':'http://photobucket.com/oembed',
     },
-#    {
-#        u'hostname': ('www.kinomap.com',),
-#        #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
-#        u'regex': ['http://*.kinomap.com/*'],
-#        u'endpoint':'http://www.kinomap.com/oembed',
-#    },
     {
         u'hostname': ('www.dailymotion.com',),
         #http://www.dailymotion.com/doc/api/oembed.html
@@ -238,41 +232,6 @@ REGEX_PROVIDERS = [
         u'regex': ['http://www.screenr.com/*', 'http://screenr.com/*'],
         u'endpoint': 'http://www.screenr.com/api/oembed.{format}',
     },
-#
-# Those features don't work currently, but are being worked upon:
-#
-#
-# {u'regex': ['http://*.viddler.com/*'],
-#  u'endpoint':'http://lab.viddler.com/services/oembed/'},
-#
-# {u'regex': ['http://*yfrog.com/*'],
-#  u'endpoint':'http://www.yfrog.com/api/oembed'},
-#
-# {u'regex': ['/vz.net\/Profile/.*/', '/vz.net\/Groups/Overview/.*/',
-#            '/vz.net\/l/.*/', '/vz.net\/Gadgets/Info/.*/',
-#            '/vz.net\/Gadgets/Install/.*/', '/meinvz.net\/[a-zA-Z0-9\-\_]*$/',
-#            '/studivz.net\/[a-zA-Z0-9\-\_]*$/',
-#            '/schuelervz.net\/[a-zA-Z0-9\-\_]*$/'],
-#  u'endpoint':'http://www.studivz.net/Link/OEmbed/'},
-#    #http://developer.studivz.net/wiki/index.php/Embedding
-#
-# {u'regex': ['http://*.deviantart.com/art/*', 'http://fav.me/*',
-#            'http://*.deviantart.com/*#/d*'],
-#  u'endpoint':'http://backend.deviantart.com/oembed'},
-#    #http://www.deviantart.com/developers/oembed
-#
-# {u'regex': ['http://*.scribd.com/*'],
-#  u'endpoint':'http://www.scribd.com/services/oembed'},
-#
-# {u'regex': ['http://*funnyordie.com/videos/*'],
-#  u'endpoint':'http://www.funnyordie.com/oembed'},
-#
-# http://my.opera.com/devblog/blog/2008/12/02/embedding-my-opera-content-oembed
-# {u'regex': ['http://my.opera.com/*'],
-#  u'endpoint':'http://my.opera.com/service/oembed'},
-# {u'regex': ['http://tv.majorleaguegaming.com/video/*',
-#             'http://mlg.tv/video/*'],
-#  u'endpoint':'http://tv.majorleaguegaming.com/oembed'},
 ]
 
 
