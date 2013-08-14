@@ -253,9 +253,9 @@
 
 	/* Public functions */
 	$.fn.oembed.insertCode = function (container, embedMethod, oembedData) {
+		var html = $(oembedData.code);
 		if (oembedData === null)
 			return;
-
 		switch (embedMethod) {
 		case "auto":
 			if (container.attr("href") !== null) {
@@ -266,8 +266,10 @@
 			}
 			break;
 		case "replace":
+			if (html.is("a")){
+				break;
+			}
 			if (container.hasClass("oembed-responsive")){
-				var html = $(oembedData.code);
 				if (html.is("iframe") || html.is("object") || html.is("embed")){
 					var width = parseInt(html.attr("width"), null), height = parseInt(html.attr("height"), null);
 					var ratio = height / width;
