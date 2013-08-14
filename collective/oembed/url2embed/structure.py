@@ -4,6 +4,7 @@ from collective.oembed.url2embed import googledocs
 from collective.oembed.url2embed import googlemaps
 from collective.oembed.url2embed import issuucom
 from collective.oembed.url2embed import itunes
+from collective.oembed.url2embed import kinomap
 from collective.oembed.url2embed import occipital360
 from collective.oembed.url2embed import picasaweb
 from collective.oembed.url2embed import scribd
@@ -55,6 +56,7 @@ def get_structure():
         'picasaweb.google.com': (picasaweb.PicasaWebURLEndPoint,),
         'www.scribd.com': (scribd.ScribdURLEndPoint,),
         'open.spotify.com': (spotify.SpotifyEndPoint,),
+        'www.kinomap.com': (kinomap.KinomapEndPoint,),
     }
     for hostname in info:
         if hostname not in structure:

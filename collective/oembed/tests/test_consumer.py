@@ -163,7 +163,7 @@ class TestIntegration(base.TestCase):
         self.assertEqual(data[u'type'], u'photo')
 
     def test_endpoint_kinomap(self):
-        url = 'http://www.kinomap.com/#!kms-smfb9r'
+        url = 'http://www.kinomap.com/watch/smfb9r'
         data = self.consumer.get_data(url)
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'video')

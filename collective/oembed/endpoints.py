@@ -163,12 +163,12 @@ REGEX_PROVIDERS = [
         u'regex': ['regex:.*photobucket\\.com/(albums|groups)/.+$'],
         u'endpoint':'http://photobucket.com/oembed',
     },
-    {
-        u'hostname': ('www.kinomap.com',),
-        #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
-        u'regex': ['http://*.kinomap.com/*'],
-        u'endpoint':'http://www.kinomap.com/oembed',
-    },
+#    {
+#        u'hostname': ('www.kinomap.com',),
+#        #http://pic.pbsrc.com/dev_help/Metadata/Metadata_Discovery.htm
+#        u'regex': ['http://*.kinomap.com/*'],
+#        u'endpoint':'http://www.kinomap.com/oembed',
+#    },
     {
         u'hostname': ('www.dailymotion.com',),
         #http://www.dailymotion.com/doc/api/oembed.html
