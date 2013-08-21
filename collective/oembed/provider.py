@@ -193,21 +193,24 @@ class DexterityOembedInfo(BrowserView):
             title.decode('utf-8')
         e[u'title'] = title
         e[u'author_name'] = ob.Creator()
-        info = IPrimaryFieldInfo(ob)
-        if not info:
+        try:
+            info = IPrimaryFieldInfo(ob)
+        except TypeError:
+            info = None
+        if info is None:
             e[u'type'] = 'link'
-            return
-        field = info.field
-        if IRichText.providedBy(field):
-            e[u'type'] = 'rich'
-            e[u'html'] = info.value
-        elif INamedImageField.providedBy(field):
-            e[u'type'] = 'photo'
-            e[u'url'] = ob.absolute_url()
-            image = field.get(ob)
-            e[u'width'], e['height'] = image.getImageSize()
         else:
-            e[u'type'] = 'link'
+            field = info.field
+            if IRichText.providedBy(field):
+                e[u'type'] = 'rich'
+                e[u'html'] = info.value
+            elif INamedImageField.providedBy(field):
+                e[u'type'] = 'photo'
+                e[u'url'] = ob.absolute_url()
+                image = field.get(ob)
+                e[u'width'], e['height'] = image.getImageSize()
+            else:
+                e[u'type'] = 'link'
         return e
 
 
