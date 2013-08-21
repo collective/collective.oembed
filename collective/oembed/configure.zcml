@@ -61,6 +61,20 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
+  <browser:page
+    name="oembed-info"
+    for="Products.Archetypes.interfaces.base.IBaseObject"
+    class=".provider.ArchetypesOembedInfo"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
+  <browser:page
+    name="oembed-info"
+    for="plone.dexterity.interfaces.IDexterityContent"
+    class=".provider.DexterityOembedInfo"
+    permission="zope2.View"
+    layer=".interfaces.OEmbedLayer"
+    />
 
   <browser:page
     name="oembed"

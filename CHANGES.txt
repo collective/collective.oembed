@@ -6,7 +6,7 @@ Changelog
 
 - Don't replace a link if the result is a link [toutpt]
 - Fix kinomap endpoint (no more oembed support -> url2embed) [toutpt]
-
+- Fix internal provider to work with dexterity content types [toutpt]
 
 2.0a4 (2013-05-17)
 ------------------

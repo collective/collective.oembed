@@ -1,11 +1,16 @@
 import json
 import logging
+from zope import schema
 from urlparse import urlparse
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
 
 from collective.oembed.consumer import ConsumerView
 from Products.CMFCore.utils import getToolByName
+from plone.rfc822.interfaces import IPrimaryFieldInfo
+from plone.app.textfield import RichText
+from plone.app.textfield.interfaces import IRichText
+from plone.namedfile.interfaces import IImage, INamedImageField
 
 logger = logging.getLogger('collective.oembed')
 
@@ -97,24 +102,8 @@ class OEmbedProvider(BrowserView):
         You must add information respecting the oembed specification
         You must store these information into self.embed dictionnary"""
         # context related info
-        e = self.embed
-        title = ob.Title()
-        if type(title) != unicode:
-            title.decode('utf-8')
-        e[u'title'] = title
-        e[u'author_name'] = ob.Creator()
-        field = ob.getPrimaryField()
-        if field and field.type == 'text':
-            e[u'type'] = 'rich'
-            e[u'html'] = field.getAccessor(ob)()
-        elif field and field.type == 'image':
-            e[u'type'] = 'photo'
-            e[u'url'] = ob.absolute_url()
-            image = field.getAccessor(ob)()
-            e[u'width'] = image.width
-            e[u'height'] = image.height
-        else:
-            e[u'type'] = 'link'
+        info = ob.restrictedTraverse("@@oembed-info")()
+        self.embed.update(info)
 
     def render(self):
         if self.format == 'json':
@@ -192,3 +181,55 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerView):
                 result = json.dumps(result)
 
         return result
+
+
+class DexterityOembedInfo(BrowserView):
+    """optimized to work with plone.app.contenttypes"""
+    def __call__(self):
+        e = {}
+        ob = self.context
+        title = ob.Title()
+        if type(title) != unicode:
+            title.decode('utf-8')
+        e[u'title'] = title
+        e[u'author_name'] = ob.Creator()
+        info = IPrimaryFieldInfo(ob)
+        if not info:
+            e[u'type'] = 'link'
+            return
+        field = info.field
+        if IRichText.providedBy(field):
+            e[u'type'] = 'rich'
+            e[u'html'] = info.value
+        elif INamedImageField.providedBy(field):
+            e[u'type'] = 'photo'
+            e[u'url'] = ob.absolute_url()
+            image = field.get(ob)
+            e[u'width'], e['height'] = image.getImageSize()
+        else:
+            e[u'type'] = 'link'
+        return e
+
+
+class ArchetypesOembedInfo(BrowserView):
+    def __call__(self):
+        e = {}
+        ob = self.context
+        title = ob.Title()
+        if type(title) != unicode:
+            title.decode('utf-8')
+        e[u'title'] = title
+        e[u'author_name'] = ob.Creator()
+        field = ob.getPrimaryField()
+        if field and field.type == 'text':
+            e[u'type'] = 'rich'
+            e[u'html'] = field.getAccessor(ob)()
+        elif field and field.type == 'image':
+            e[u'type'] = 'photo'
+            e[u'url'] = ob.absolute_url()
+            image = field.getAccessor(ob)()
+            e[u'width'] = image.width
+            e[u'height'] = image.height
+        else:
+            e[u'type'] = 'link'
+        return e
