@@ -8,7 +8,7 @@ This addon integrate oembed_ into Plone. You can find a demo at
 http://youtu.be/kHikGIWrvCs
 
 oEmbed official documentation:
-http://http://oembed.com/
+http://oembed.com/
 
 You have to know this addon try to go beyond already supported website
 and with as many providers as possible without third party services.
