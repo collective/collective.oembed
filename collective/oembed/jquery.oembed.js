@@ -121,11 +121,10 @@
 
 		url += "format=json&url=" + escape(externalUrl) +
 			qs ;
-
-		if (container[0].dataset.maxwidth !== undefined)
-			url += "&maxwidth=" + container[0].dataset.maxwidth;
-		if (container[0].dataset.maxheight !== undefined)
-			url += "&maxheight=" + container[0].dataset.maxheight;
+		if (container[0].getAttribute("data-maxwidth") !== null)
+			url += "&maxwidth=" + container[0].getAttribute("data-maxwidth");
+		if (container[0].getAttribute("data-maxheight") !== null)
+			url += "&maxheight=" + container[0].getAttribute("data-height");
 
 		return url;
 	}
