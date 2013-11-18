@@ -46,7 +46,7 @@
 
 		return this.each(function () {
 			var container = $(this),
-			resourceURL = (url !== null) ? url : container.attr("href"), provider;
+		            resourceURL = (url !== null) ? url : container.attr("href"), provider;
 
 			if (embedAction) {
 				settings.onEmbed = embedAction;
@@ -116,10 +116,10 @@
 		for (i in provider.params) {
 			// allows the options to be set to null, don't send null values to the server as parameters
 			if (provider.params[i] !== null)
-				qs += "&" + escape(i) + "=" + provider.params[i];
+				qs += "&" + encodeURIComponent(i) + "=" + provider.params[i];
 		}
 
-		url += "format=json&url=" + escape(externalUrl) +
+		url += "format=json&url=" + encodeURIComponent(externalUrl) +
 			qs ;
 		if (container[0].getAttribute("data-maxwidth") !== null)
 			url += "&maxwidth=" + container[0].getAttribute("data-maxwidth");

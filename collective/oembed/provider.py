@@ -11,6 +11,7 @@ from plone.rfc822.interfaces import IPrimaryFieldInfo
 from plone.app.textfield import RichText
 from plone.app.textfield.interfaces import IRichText
 from plone.namedfile.interfaces import IImage, INamedImageField
+from zope.browser.interfaces import IBrowserView
 
 logger = logging.getLogger('collective.oembed')
 
@@ -56,6 +57,7 @@ class OEmbedProvider(BrowserView):
 
         if self.url is None:
             self.url = self.request.get('url', None)
+
         if self.url is None:
             raise KeyError('you must provide url parameter')
 
@@ -140,6 +142,9 @@ class OEmbedProvider(BrowserView):
                 logger.error('get_target error -> %s' % e)
                 return
 
+        if IBrowserView.providedBy(self._target):
+            self._target = self._target.context
+
         return self._target
 
 
@@ -185,6 +190,14 @@ class ProxyOembedProvider(OEmbedProvider, ConsumerView):
 
 class DexterityOembedInfo(BrowserView):
     """optimized to work with plone.app.contenttypes"""
+    def _getAuthorName(self):
+        creator = self.context.Creator()
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getMemberById(creator)
+        if member is None:
+            return creator
+        return member.fullname
+
     def __call__(self):
         e = {}
         ob = self.context
@@ -192,7 +205,7 @@ class DexterityOembedInfo(BrowserView):
         if type(title) != unicode:
             title.decode('utf-8')
         e[u'title'] = title
-        e[u'author_name'] = ob.Creator()
+        e[u'author_name'] = self._getAuthorName()
         try:
             info = IPrimaryFieldInfo(ob)
         except TypeError:
@@ -215,6 +228,14 @@ class DexterityOembedInfo(BrowserView):
 
 
 class ArchetypesOembedInfo(BrowserView):
+    def _getAuthorName(self):
+        creator = self.context.Creator()
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getMemberById(creator)
+        if member is None:
+            return creator
+        return member.fullname
+
     def __call__(self):
         e = {}
         ob = self.context
@@ -222,7 +243,7 @@ class ArchetypesOembedInfo(BrowserView):
         if type(title) != unicode:
             title.decode('utf-8')
         e[u'title'] = title
-        e[u'author_name'] = ob.Creator()
+        e[u'author_name'] = _getAuthorName()
         field = ob.getPrimaryField()
         if field and field.type == 'text':
             e[u'type'] = 'rich'
