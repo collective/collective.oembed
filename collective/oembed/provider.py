@@ -243,7 +243,7 @@ class ArchetypesOembedInfo(BrowserView):
         if type(title) != unicode:
             title.decode('utf-8')
         e[u'title'] = title
-        e[u'author_name'] = _getAuthorName()
+        e[u'author_name'] = self._getAuthorName()
         field = ob.getPrimaryField()
         if field and field.type == 'text':
             e[u'type'] = 'rich'
