@@ -15,21 +15,33 @@ class HTMLParser(OembedHTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "meta":
             if ("property", "og:image") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.images.append(value)
+                self._handleImage(attrs)
             elif ("property", "og:description") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.description = value
+                self._handleDescription(attrs)
             elif ("property", "og:title") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.title = value
+                self._handleTitle(attrs)
             elif ("property", "og:audio") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.audio = value
+                self._handleAudio(attrs)
+
+    def _handleImage(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.images.append(value)
+
+    def _handleDescription(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.description = value
+
+    def _handleTitle(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.title = value
+
+    def _handleAudio(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.audio = value
 
     def has_finished(self):
         return bool(self.flashvar)

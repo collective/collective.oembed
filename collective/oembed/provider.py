@@ -1,6 +1,5 @@
 import json
 import logging
-from zope import schema
 from urlparse import urlparse
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
@@ -8,9 +7,8 @@ from Products.Five.browser import BrowserView
 from collective.oembed.consumer import ConsumerView
 from Products.CMFCore.utils import getToolByName
 from plone.rfc822.interfaces import IPrimaryFieldInfo
-from plone.app.textfield import RichText
 from plone.app.textfield.interfaces import IRichText
-from plone.namedfile.interfaces import IImage, INamedImageField
+from plone.namedfile.interfaces import INamedImageField
 from zope.browser.interfaces import IBrowserView
 
 logger = logging.getLogger('collective.oembed')
@@ -44,40 +42,40 @@ class OEmbedProvider(BrowserView):
 
     def update(self):
 #        import pdb;pdb.set_trace()
+        self.updateFormat()
+        self.updateInit()
+        self.updateBuild()
+
+    def updateFormat(self):
         if self.format is None:
             self.format = self.request.get('format', None)
-
         if self.format is None or not self.format:
             self.format = 'json'
         if self.format == 'json':
             self.request.response.setHeader('Content-Type', 'application/json')
-
         if self.format not in ('json', 'xml'):
             raise ValueError('format parameter must be in json, xml')
 
+    def updateInit(self):
         if self.url is None:
             self.url = self.request.get('url', None)
-
         if self.url is None:
             raise KeyError('you must provide url parameter')
-
         if self.maxwidth is None:
             self.maxwidth = self.request.get('maxwidth', None)
         if self.maxheight is None:
             self.maxheight = self.request.get('maxheight', None)
 
+    def updateBuild(self):
         if not self.url.startswith(self.context.absolute_url()):
             return
-
         path = self.get_path()
         site = self.get_site()
         if site is None or path is None:
             return
-
         ob = self.get_target()
         if ob is None:
             return
-
         self.build_info(ob, site)
 
     def build_info(self, context, site):

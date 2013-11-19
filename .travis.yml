@@ -1,7 +1,7 @@
 language: python
 python: 2.7
 env:
-  - TARGET=test
+#  - TARGET=test
 #  - TARGET=coverage.sh
 #  - TARGET=python-validation.sh
 #  - TARGET=js-validation.sh
@@ -20,4 +20,9 @@ install:
   - bin/buildout -N -t 3 -c travis.cfg install download install
   - bin/buildout -N -t 3 -c travis.cfg
 
-script: bin/$TARGET
+script: bin/test && bin/code-analysis
+
+after_success:
+  - bin/coverage.sh
+  - pip install coveralls
+  - coveralls

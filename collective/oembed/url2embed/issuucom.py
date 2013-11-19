@@ -7,7 +7,10 @@ from collective.oembed.url2embed.base import OembedHTMLParser
 TEMPLATE = """<object type="application/x-shockwave-flash"
  data="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"
  width="%(width)s" height="%(height)s">
- <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"></param>
+ <param
+   name="movie"
+   value="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf">
+ </param>
  <param name="quality" value="high"></param>
  <param name="allowFullScreen" value="true"></param>
  <param name="allowScriptAccess" value="always"></param>
@@ -16,13 +19,15 @@ TEMPLATE = """<object type="application/x-shockwave-flash"
  <param name="autoplay" value="false"></param>
  <param name="autostart" value="false"></param>
  <param name="flashvars" value="%(flashvar)s"></param>
- <embed src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"
+ <embed
+   src="http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf"
    flashvars="%(flashvar)s" width="%(width)s" height="%(height)s"
    type="application/x-shockwave-flash"></embed>
 </object>
 """
 
-base_viewer = "http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf?"
+base_viewer = \
+    "http://static.issuu.com/webembed/viewers/style1/v2/IssuuReader.swf?"
 
 
 class HTMLParser(OembedHTMLParser):
@@ -30,30 +35,48 @@ class HTMLParser(OembedHTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "meta":
             if ("property", "og:image") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.images.append(value)
+                self._handleImage(attrs)
             elif ("property", "og:description") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.description = value
+                self._handleDescription(attrs)
             elif ("property", "og:title") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.title = value
+                self._handleTitle(attrs)
             elif ("property", "og:video:width") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.width = value
+                self._handleVideoWidth(attrs)
             elif ("property", "og:video:height") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.height = value
+                self._handleVideoHeight(attrs)
             elif ("property", "og:video") in attrs:
-                for attr, value in attrs:
-                    if attr == "content":
-                        self.video_url = value
-                        self.flashvar = self.video_url[len(base_viewer):]
+                self._handleVideo(attrs)
+
+    def _handleImage(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.images.append(value)
+
+    def _handleDescription(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.description = value
+
+    def _handleTitle(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.title = value
+
+    def _handleVideoWidth(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.width = value
+
+    def _handleVideoHeight(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.height = value
+
+    def _handleVideo(self, attrs):
+        for attr, value in attrs:
+            if attr == "content":
+                self.video_url = value
+                self.flashvar = self.video_url[len(base_viewer):]
 
     def has_finished(self):
         return bool(self.width)

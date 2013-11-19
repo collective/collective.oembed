@@ -3,7 +3,8 @@ from zope import interface
 from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
-SCRIBD_URL = "http://www.scribd.com/embeds/%s/content?start_page=1&view_mode=list&access_key=%s"
+SCRIBD_URL = ("http://www.scribd.com/embeds/%s/content?start_page=1&"
+              "view_mode=list&access_key=%s")
 
 TEMPLATE = """<iframe class="scribd_iframe_embed" src="%(url)s"
 data-auto-height="true" data-aspect-ratio="0.608349900596421"

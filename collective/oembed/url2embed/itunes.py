@@ -4,13 +4,14 @@ from collective.oembed.url2embed import base
 from collective.oembed import interfaces
 
 #https://itunes.apple.com/us/app/twitpic/id523490954
-TEMPLATE = """<iframe id="easyXDM_default1_provider" scrolling="no"
-width="%(width)s" height="%(height)s"
-frameborder="0" allowtransparency="false" tabindex="-1"
-role="presentation" name="easyXDM_default1_provider"
-src="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareSocialPreview?cc=%(lang)s&amp;id=%(id)s&amp;mt=8&amp;wdId=32800">
-</iframe>
-"""
+TEMPLATE = ('<iframe id="easyXDM_default1_provider" scrolling="no" '
+            'width="%(width)s" height="%(height)s" '
+            'frameborder="0" allowtransparency="false" tabindex="-1" '
+            'role="presentation" name="easyXDM_default1_provider" '
+            'src="https://itunes.apple.com/WebObjects/MZStore.woa/wa/'
+            'viewSoftwareSocialPreview?cc=%(lang)s&amp;id=%(id)s&amp;'
+            'mt=8&amp;wdId=32800">'
+            '</iframe>')
 
 
 class ITunesURLEndPoint(base.UrlToOembed):

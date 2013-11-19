@@ -28,16 +28,12 @@ class PicasaWebURLEndPoint(base.UrlToOembed):
         # User ID and album name are in the path segment of the url
         userId = path.split("/")[-2]
         albumName = path.split("/")[-1]
-
         authKey = query_params.get("authkey", "")
 #        feat = query_params.get("feat", "")
-
-        feedUrl = "http://picasaweb.google.com/data/feed/api/user/%s/album/%s?kind=photo&alt=rss" % \
-            (userId, albumName)
+        feedUrl = ("http://picasaweb.google.com/data/feed/api/user/%s/album/"
+                   "%s?kind=photo&alt=rss") % (userId, albumName)
         if authKey:
             feedUrl += '&authkey=%s' % authKey
-
-        flashVars = 'host=picasaweb.google.com&amp;feat=flashalbum&amp;RGB=0x000000&amp;' + \
-            self._urlEncoder({'feed': feedUrl})
-
+        flashVars = ('host=picasaweb.google.com&amp;feat=flashalbum&amp;'
+                     'RGB=0x000000&amp;') + self._urlEncoder({'feed': feedUrl})
         return {"flashvars": flashVars}
