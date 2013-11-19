@@ -62,6 +62,15 @@ class FakeContext(object):
     def getPrimaryField(self):
         return FakeField("text")
 
+    def restrictedTraverse(self, attr):
+        if attr == '@@oembed-info':
+            return lambda: {
+                'type': 'rich',
+                'html': self.text,
+                'title': self.title,
+                'author_name': self.creators
+                }
+
 
 class FakeField(object):
 
