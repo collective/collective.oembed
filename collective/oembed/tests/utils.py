@@ -69,7 +69,7 @@ class FakeContext(object):
                 'html': self.text,
                 'title': self.title,
                 'author_name': self.creators
-                }
+            }
 
 
 class FakeField(object):
