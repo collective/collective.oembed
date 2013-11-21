@@ -4,8 +4,7 @@ version = '2.0a5.dev0'
 
 setup(name='collective.oembed',
       version=version,
-      description="embed content from oEmbed-providers and make your\
-          Plone site being an oembed provider",
+      description="oembed integration of consumers and provider for Plone",
       long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.txt").read(),
       # Get more strings from
@@ -49,4 +48,4 @@ setup(name='collective.oembed',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      )
+)
