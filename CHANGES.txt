@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0a5 (unreleased)
-------------------
+2.0 (2013-11-21)
+----------------
 
 - fix(js): Replace ie unsupported use of dataset by getAttribute [toutpt]
 - Don't replace a link if the result is a link [toutpt]
