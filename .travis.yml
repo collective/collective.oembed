@@ -1,17 +1,5 @@
 language: python
 python: 2.7
-env:
-#  - TARGET=test
-#  - TARGET=coverage.sh
-#  - TARGET=python-validation.sh
-#  - TARGET=js-validation.sh
-
-before_install:
-  - sudo apt-get install ack-grep
-#  - sudo apt-add-repository ppa:chris-lea/node.js -y
-  - sudo apt-get update 1>/dev/null
-  - sudo apt-get install nodejs npm -y
-  - npm install jshint -g
 
 install:
   - mkdir -p buildout-cache/eggs
