@@ -13,6 +13,27 @@ http://oembed.com/
 You have to know this addon try to go beyond already supported website
 and with as many providers as possible without third party services.
 
+How to install
+==============
+
+.. image:: https://pypip.in/v/collective.oembed/badge.png
+    :target: https://crate.io/packages/collective.oembed/
+
+.. image:: https://pypip.in/d/collective.oembed/badge.png
+    :target: https://crate.io/packages/collective.oembed/
+
+.. image:: https://secure.travis-ci.org/collective/collective.oembed.png
+    :target: http://travis-ci.org/#!/collective/collective.oembed
+
+.. image:: https://coveralls.io/repos/collective/collective.oembed/badge.png?branch=master
+    :target: https://coveralls.io/r/collective/collective.oembed
+
+This addon can be installed has any other addons.
+Please follow official documentation_.
+
+.. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
+
+
 oembed provider
 ===============
 
