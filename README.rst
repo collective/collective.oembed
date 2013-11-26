@@ -1,9 +1,6 @@
 Introduction
 ============
 
-.. image:: https://secure.travis-ci.org/collective/collective.oembed.png
-    :target: http://travis-ci.org/collective/collective.oembed
-
 This addon integrate oembed_ into Plone. You can find a demo at
 http://youtu.be/kHikGIWrvCs
 
