@@ -112,7 +112,7 @@ REGEX_PROVIDERS = [
     },
     {
         u'hostname': ('vimeo.com',),
-        u'regex': ['http://vimeo.com/*'],
+        u'regex': ['http://vimeo.com/*', 'https://vimeo.com/*'],
         u'endpoint':'http://vimeo.com/api/oembed.{format}',
     },
     {
