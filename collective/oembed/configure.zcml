@@ -68,10 +68,10 @@
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
-  <browser:page
+  <browser:page zcml:condition="installed plone.app.dexterity"
     name="oembed-info"
     for="plone.dexterity.interfaces.IDexterityContent"
-    class=".provider.DexterityOembedInfo"
+    class=".provider_dexterity.DexterityOembedInfo"
     permission="zope2.View"
     layer=".interfaces.OEmbedLayer"
     />
