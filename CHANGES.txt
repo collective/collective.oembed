@@ -4,9 +4,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
-- Fix Uncaught TypeError: Cannot call method 'match' of undefined
+- Fix JS: Uncaught TypeError: Cannot call method 'match' of undefined
 - Fix vimeo https endpoint
+- Fix twitter user endpoint
 
 
 2.0 (2013-11-21)
