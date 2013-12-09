@@ -5,6 +5,8 @@ Changelog
 ----------------
 
 - Nothing changed yet.
+- Fix Uncaught TypeError: Cannot call method 'match' of undefined
+- Fix vimeo https endpoint
 
 
 2.0 (2013-11-21)

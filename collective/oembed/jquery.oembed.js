@@ -353,6 +353,9 @@
 		var i, property, regExp;
 
 		this.matches = function (externalUrl) {
+		    if(typeof externalUrl === 'undefined'){
+		        return false;
+		    }
 			for (i = 0; i < this.urlschemes.length; i++) {
 				regExp = new RegExp(this.urlschemes[i], "i");
 				if (externalUrl.match(regExp) !== null)
