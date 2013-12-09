@@ -8,6 +8,8 @@
 <body>
 <div metal:fill-slot="content-core">
  <div style="width: 500px">
+  <a class="oembed oembed-responsive" href="https://twitter.com/bruncedric">twitter.com user</a>
+<!-- 
   <a class="oembed oembed-responsive" href="http://open.spotify.com/album/1VXa39MgJU8qDE1ASn9Wgp">spotify</a>
   <a class="oembed oembed-responsive" href="http://issuu.com/humanizemagazine/docs/humanize19/1">issuu.com</a>
   <a class="oembed" href="https://gist.github.com/4246806">gist.github.com</a>
@@ -31,7 +33,6 @@
   <a class="oembed oembed-responsive" href="http://www.5min.com/Video/How-to-Make-a-Chocolate-Cake-6872">5min.com</a>
   <a class="oembed oembed-responsive" href="https://twitter.com/#!/toutpt/statuses/153185403766185985">twitter.com statuses</a>
   <a class="oembed oembed-responsive" href="https://twitter.com/toutpt/status/153185403766185985">twitter.com status</a>
-  <a class="oembed oembed-responsive" href="https://twitter.com/toutpt">twitter.com user</a>
   <a class="oembed oembed-responsive" href="http://img.photobucket.com/albums/v211/JAV123/Michael%20Holland%20Candle%20Burning/_MG_5661.jpg">photobucket.com</a>
   <a class="oembed oembed-responsive" href="http://www.kinomap.com/#!kms-smfb9r">kinomap.com</a>
   <a class="oembed oembed-responsive" href="http://www.dailymotion.com/video/xf02xp_uffie-difficult_music">dailymotion.com</a>
@@ -46,6 +47,7 @@
   <a class="oembed oembed-responsive" href="http://wordpress.tv/2011/10/16/drupal-wp/">wordpress.tv</a>
   <a class="oembed" href="http://soundcloud.com/nickyromero/nicky-romero-calvin-harris">soundcloud.com</a>
   <a class="oembed oembed-responsive" href="http://www.screenr.com/oXs">screenr.com</a>
+   -->
  </div>
 
 </div>

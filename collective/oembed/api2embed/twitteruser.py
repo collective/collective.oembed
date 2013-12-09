@@ -10,15 +10,17 @@ from collective.oembed.interfaces import IAPI2Embed
 
 logger = logging.getLogger('collective.oembed')
 
-TWITTER_EMBED = """<a class="twitter-timeline"
+TWITTER_EMBED = """<a class="embedly-card"
    width="300" height="500"
    href="%(url)s"
-   >Tweets by @%(username)s</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
-if(!d.getElementById(id)){js=d.createElement(s);
-js.id=id;js.src="//platform.twitter.com/widgets.js";
-fjs.parentNode.insertBefore(js,fjs);}}
-(document,"script","twitter-wjs");</script>
+>Tweets by @%(username)s</a>
+<script>!function(a){var b="embedly-platform",c="script";
+if(!a.getElementById(b)){var d=a.createElement(c);
+d.id=b,d.src=("https:"===document.location.protocol?"https":"http")+
+"://cdn.embedly.com/widgets/platform.js";
+var e=document.getElementsByTagName(c)[0];e.parentNode.insertBefore(d,e)}}
+(document);
+</script>
 """
 
 
@@ -27,7 +29,8 @@ class TwitterUserAPI2Embed(object):
     interface.implements(IAPI2Embed)
 
     def match(self, url):
-        return bool(re.match(self.regex, url))
+        match = bool(re.match(self.regex, url))
+        return match
 
     def get_embed(self, url, maxwidth=None, maxheight=None):
         info = self.get_info(url)
