@@ -2,6 +2,7 @@ from plone.app.textfield.interfaces import IRichText
 from plone.namedfile.interfaces import INamedImageField
 from plone.rfc822.interfaces import IPrimaryFieldInfo
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
 
 
 class DexterityOembedInfo(BrowserView):
