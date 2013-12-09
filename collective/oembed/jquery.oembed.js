@@ -265,7 +265,7 @@
 			}
 			break;
 		case "replace":
-			if (html.is("a")){
+			if (html.is("a") && html.length == 1){
 				break;
 			}
 			if (container.hasClass("oembed-responsive")){
