@@ -1,6 +1,4 @@
 import re
-import json
-import urllib
 import logging
 
 from datetime import datetime
@@ -12,11 +10,15 @@ from collective.oembed.interfaces import IAPI2Embed
 
 logger = logging.getLogger('collective.oembed')
 
-TWITTER_EMBED = """<blockquote class="twitter-tweet">
-<p>%(tweet)s</p>&mdash; %(name)s (@%(screen_name)s)
-<a href="%(tweet_url)s" data-datetime="%(datetime)s">%(human_datetime)s</a>
-</blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+TWITTER_EMBED = """<a class="twitter-timeline"
+   width="300" height="500"
+   href="%(url)s"
+   >Tweets by @%(username)s</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
+if(!d.getElementById(id)){js=d.createElement(s);
+js.id=id;js.src="//platform.twitter.com/widgets.js";
+fjs.parentNode.insertBefore(js,fjs);}}
+(document,"script","twitter-wjs");</script>
 """
 
 
@@ -37,32 +39,18 @@ class TwitterUserAPI2Embed(object):
 
 #    @ram.cache(_get_tweets_cachekey)
     def get_info(self, url):
-        get_url = "https://twitter.com/users/%s.json"
-        proto, host, path, query, fragment = urlsplit(url)
+        username = urlsplit(url)[2][1:]
 
-        account_url = get_url % path[1:]
-        account_info = None
-
-        try:
-            account_info = json.loads(urllib.urlopen(account_url).read())
-            if "errors" in account_info:
-                logger.error(account_info['errors'])
-                return
-            if 'status' in account_info:
-                self.update_time(account_info)
-        except IOError, e:
-            logger.error(e)
-            return
         oembed = {}
         e = oembed
         e[u'version'] = '1.0'
-        e[u'title'] = account_info['name']
-        e[u'author_name'] = account_info['name']
+        e[u'title'] = username
+        e[u'author_name'] = username
         e[u'author_url'] = url
         e[u'provider_name'] = "Plone"
         e[u'provider_url'] = "plone.org"
         e[u'type'] = 'rich'
-        e[u'html'] = self.get_html(account_info)
+        e[u'html'] = self.get_html(url)
         return oembed
 
     def update_time(self, tweet):
@@ -73,15 +61,5 @@ class TwitterUserAPI2Embed(object):
         tweet['status']['created_at_datetime'] = created_at_str
         return tweet
 
-    def get_html(self, info):
-        if 'status' not in info:
-            return u''
-        url = "https://twitter.com/%s/status/%s" % (info['screen_name'],
-                                                    info['status']['id_str'])
-        template_info = {'tweet': info['status']['text'],
-                         'tweet_url': url,
-                         'name': info['name'],
-                         'screen_name': info['screen_name'],
-                         'datetime': info['status']['created_at_datetime'],
-                         'human_datetime': info['status']['created_at']}
-        return TWITTER_EMBED % template_info
+    def get_html(self, url):
+        return TWITTER_EMBED % {"url": url, "username": urlsplit(url)[2][1:]}
