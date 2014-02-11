@@ -267,10 +267,6 @@ Companies
 
 |makinacom|_
 
-* `Planet Makina Corpus <http://www.makina-corpus.org>`_
-* `Contact us <mailto:python@makina-corpus.org>`_
-
-
 Authors
 
 - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
