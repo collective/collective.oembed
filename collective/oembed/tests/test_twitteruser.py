@@ -18,7 +18,7 @@ class Test(base.UnitTestCase):
         embed = self.endpoint.get_embed(URL)
         if embed is None:
             return  # you have exceed your quota to twitter
-        self.assertTrue(embed.startswith('<a class="twitter-timeline"'),
+        self.assertTrue(embed.startswith('<a class="embedly-card"'),
                         msg="got %s" % embed)
 
     def test_get_data(self):
@@ -45,7 +45,7 @@ class IntegrationTestCase(base.TestCase):
         embed = self.view.get_embed(url=URL)
         if embed is None:
             return  # you have exceed your quota to twitter
-        self.assertTrue(embed.startswith('<blockquote'), msg="got %s" % embed)
+        self.assertTrue(embed.startswith('<a class="embedly-card"'), msg="got %s" % embed)
 
     def test_get_data(self):
         data = self.view.get_data(url=URL)
