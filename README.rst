@@ -66,11 +66,11 @@ oembed client
 
 This addon provide an integration of jquery.oembed_ plugin. Because there are
 many fork you have to choose the one you will use. The official plugin has been
-integrated to plone throw the addon collective.js.oembed_
+integrated to plone through the addon collective.js.oembed_
 
 The oembed client is integrated using a viewlet that is not activated by
-default. You have to activate it throw the controlpanel. It is configured that
-way::
+default. You have to activate it through the controlpanel. It is configured 
+like this::
 
     <script type="text/javascript">
       jqueryOmebedSettings = {...} //extracted from the controlpanel
@@ -84,14 +84,14 @@ way::
 consumer
 ========
 
-A consumer is availabe throw a utility::
+A consumer is available through a utility::
 
     >>> url = "http://www.youtube.com/watch?v=it1hMtZKle8"
     >>> consumer = component.getUtility(collective.oembed.interfaces.IConsumer)
     >>> consumer.get_data(url, maxwidth=300, maxheight=None, format='json')
     {...}
 
-There is also a @@collective.oembed.consumer view, which can take params throw
+There is also a @@collective.oembed.consumer view, which can take params through
 attributes::
 
     >>> consumer_view = component.queryMultiAdapter((self.context,self.request),
@@ -103,8 +103,8 @@ attributes::
 OEmbed link view
 ================
 
-This addon register an oembed view to the Link content type. It displays
-content provided from the remote url and do not set maxwidth & maxheight. It
+This addon registers an oembed view to the Link content type. It displays
+content provided from the remote url and does not set maxwidth & maxheight. It
 should be achieved by integrators.
 
 The link view stores 3 different lists of components:
@@ -116,7 +116,7 @@ The link view stores 3 different lists of components:
 oembed
 ------
 
-Contains registered views of type oembed_view , able to get the html
+Contains registered views of type oembed_view, able to get the html
 embed template from the targetted provider's oembed api (see below for a
 list of currently supported providers).
 
@@ -143,7 +143,7 @@ NOTE::
 
 All three lists are checked in the same order as they're presented here,
 and the first valid component found is used to get the embed code.
-If no match at all is found, then nothing will be displayed.
+If no match is found in any of these lists, then nothing will be displayed.
 
 Check endpoint.csv to see which of those views are currently supported for
 each service.
@@ -213,9 +213,9 @@ Rich providers:
 Proxy OEmbed Endpoint
 =====================
 
-This addon provide consumer and provider. Both can be used at the same time
+This addon provides consumer and provider. Both can be used at the same time
 in the proxy oembed endpoint. It means you can ask your site how to display
-an URL what ever it comes from the site itself or from outside.
+a URL whether it is internal or external to the site.
 
 
 Other Plone addons
@@ -228,7 +228,7 @@ Other Plone addons
 Addon design (targeted to 2.0)
 ==============================
 
-The internal code has been completly redone on 2.0
+The internal code has been completely reworked for version 2.0
 
 Goals:
 
@@ -236,7 +236,7 @@ Goals:
 * less components
 * performance optimization
 
-The provided integration use only json throw ajax request.
+The provided integration use only json through ajax request.
 
 We have one main view which achieve the job:
 @@proxy-oembed-provider
@@ -254,9 +254,9 @@ TODO
 
 Make the global structure configurable to:
 
-* blacklist some hostname throw portal_registry
-* add new key/value hostname/consumername throw portal_registry
-* override existing value throw portal_registry
+* blacklist some hostname through the portal_registry
+* add new key/value hostname/consumername through the portal_registry
+* override existing value through the portal_registry
 
 
 Credits
