@@ -110,6 +110,11 @@ class TestIntegration(base.TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'video')
 
+        url = 'https://vimeo.com/20664159'
+        data = self.utility.get_data(url)
+        self.assertIsNotNone(data)
+        self.assertEqual(data[u'type'], u'video')
+
     def test_endpoint_collegehumour(self):
         url = 'http://www.collegehumor.com/video/6664700/'
         url += 'save-greendale-with-the-cast-of-community'

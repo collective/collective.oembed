@@ -19,7 +19,7 @@ REGEX_PROVIDERS = [
  {u'regex':['http://www.hulu.com/watch/*'],
   u'endpoint':'http://www.hulu.com/api/oembed.{format}'},
 
- {u'regex':['http://vimeo.com/*'],
+ {u'regex':['http://vimeo.com/*', 'https://vimeo.com/*'],
   u'endpoint':'http://vimeo.com/api/oembed.{format}'},
 
  {u'regex':['http://www.collegehumor.com/video/*'],
