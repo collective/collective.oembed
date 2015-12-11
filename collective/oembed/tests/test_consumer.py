@@ -196,7 +196,7 @@ class TestIntegration(base.TestCase):
         url = 'http://instagr.am/p/BUG/'
         data = self.utility.get_data(url)
         self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'photo')
+        self.assertEqual(data[u'type'], u'rich')
         #add test for second regex
 
     def test_endpoint_wordpresstv(self):
