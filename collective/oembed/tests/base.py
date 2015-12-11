@@ -1,4 +1,4 @@
-import unittest2 as unittest
+import unittest
 from zope import interface
 from plone.app import testing
 from collective.oembed.tests import layer
