@@ -79,12 +79,6 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url_set)
         self.assertIsNotNone(data)
 
-    def test_endpoint_revision3(self):
-        url = 'http://revision3.com/askjay/profitsharing'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-
     def test_endpoint_hulu(self):
         url = 'http://www.hulu.com/watch/309602/family-guy-grumpy-old-man'
         data = self.utility.get_data(url)
@@ -129,13 +123,6 @@ class TestIntegration(base.TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'rich')
 
-    def test_endpoint_smugmug(self):
-        url = 'http://www.smugmug.com/popular/all?125787395_hQSj9'
-        url += '#125787395_hQSj9'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'photo')
-
     def test_endpoint_wordpress(self):
         url = 'http://toutpt.wordpress.com/2011/02/10/'
         url += 'collective-portlet-itemview/'
@@ -175,20 +162,8 @@ class TestIntegration(base.TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'photo')
 
-    def test_endpoint_kinomap(self):
-        url = 'http://www.kinomap.com/#!kms-smfb9r'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-
     def test_endpoint_dailymotion(self):
         url = 'http://www.dailymotion.com/video/xf02xp_uffie-difficult_music'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-
-    def test_endpoint_clikthrough(self):
-        url = 'http://www.clikthrough.com/theater/video/55'
         data = self.utility.get_data(url)
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'video')
@@ -211,18 +186,6 @@ class TestIntegration(base.TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'rich')
 
-    def test_endpoint_vhxtv(self):
-        # single video
-        url = 'http://vhx.tv/trailers/408688'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-        # playlist
-        url = 'http://vhx.tv/jamiew/internet-memes-101/29637'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-
     def test_endpoint_nfb(self):
         url = 'http://www.nfb.ca/film/blackfly/'
         data = self.utility.get_data(url)
@@ -242,27 +205,8 @@ class TestIntegration(base.TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'video')
 
-    def test_endpoint_soundcloud(self):
-        url = 'http://soundcloud.com/nickyromero/nicky-romero-calvin-harris'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'rich')
-
-    def test_endpoint_screenr(self):
-        url = 'http://www.screenr.com/oXs'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], 'video')
 
 #   FAILING TESTS:
-#
-#    def test_endpoint_bliptv(self):
-#        # Test fails:
-#        # Incorrect mime type returned by blip.tv
-#        url = 'http://blip.tv/midnightphil/van-halen-part-1-5121643'
-#        data = self.utility.get_data(url)
-#        self.assertIsNotNone(data)
-#        self.assertEqual(data[u'type'], u'video')
 #
 #    def test_endpoint_studivz(self):
 #        # FAILING: can't find a normal url (must be logged in to see profiles)
