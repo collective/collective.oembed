@@ -79,12 +79,6 @@ class TestIntegration(base.TestCase):
         data = self.utility.get_data(url_set)
         self.assertIsNotNone(data)
 
-    def test_endpoint_qik(self):
-        url = 'http://qik.com/video/46087949'
-        data = self.utility.get_data(url)
-        self.assertIsNotNone(data)
-        self.assertEqual(data[u'type'], u'video')
-
     def test_endpoint_revision3(self):
         url = 'http://revision3.com/askjay/profitsharing'
         data = self.utility.get_data(url)
