@@ -20,7 +20,7 @@ class Test(base.UnitTestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data[u'type'], u'video')
         self.assertTrue(u'collective.oembed' in data[u'title'])
-        url = u'http://www.youtube.com/user/toutpt'
+        url = u'https://www.youtube.com/user/toutpt'
         self.assertEqual(data[u'author_url'], url)
         self.assertEqual(data[u'width'], 300)
         self.assertTrue(data[u'html'].startswith(u'<iframe'))
