@@ -8,7 +8,7 @@ install:
   - bin/buildout -N -t 3 -c travis.cfg install download install
   - bin/buildout -N -t 3 -c travis.cfg
 
-script: bin/test && bin/code-analysis
+script: bin/test
 
 after_success:
   - bin/coverage.sh
